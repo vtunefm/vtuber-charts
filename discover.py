@@ -30,7 +30,9 @@ youtube = build("youtube", "v3", developerKey=API_KEY) if API_KEY else None
 
 TAG_RE = re.compile(r"#\S+")
 BRACKET_RE = re.compile(r"[【】『』「」]")
-NOISE_RE = re.compile(r"(歌ってみた|covered by.*$|cover|カバー)", re.I)
+SLASH_RE = re.compile(r"\s*[/／]\s*")
+NOISE_RE = re.compile(r"(歌ってみた|covered by.*$|カバー|\bcover\b)", re.I)
+BY_RE = re.compile(r"\bby\b", re.I)
 
 
 def fetch_json(url, tries=3):
@@ -48,12 +50,24 @@ def fetch_json(url, tries=3):
 
 
 def clean_song(name, fallback):
-    s = TAG_RE.sub("", name or "")
+    s = TAG_RE.sub(" ", name or "")
     s = BRACKET_RE.sub(" ", s)
-    s = NOISE_RE.sub("", s)
-    s = s.replace('"', " ").replace("/", " ").replace("by", " ", 1)
-    s = re.sub(r"\s+", " ", s).strip(" -_·|")
-    return s or (fallback or "").strip()
+    s = SLASH_RE.split(s)[0]
+    s = NOISE_RE.sub(" ", s)
+    s = BY_RE.sub(" ", s)
+    s = s.replace('"', " ")
+    s = re.sub(r"\s+", " ", s).strip(" -_·|,")
+    if len(s) < 2:
+        s = TAG_RE.sub(" ", fallback or "")
+        s = re.sub(r"\s+", " ", BRACKET_RE.sub(" ", s)).strip(" -_·|,")
+    return s
+
+
+def channel_key(channel):
+    if not channel:
+        return ""
+    first = SLASH_RE.split(channel)[0].strip()
+    return first or channel.strip()
 
 
 def classify(name, channel):
@@ -62,7 +76,7 @@ def classify(name, channel):
         return "cover"
     if any(p in low for p in ORIG_PAT):
         return "original"
-    if channel and channel.rstrip().endswith("- Topic"):
+    if channel and "- topic" in channel.lower():
         return "original"
     return "unknown"
 
@@ -74,14 +88,11 @@ def is_short(name, duration):
     return bool(duration) and duration <= 62
 
 
-def load_known():
-    ids, channels = set(), set()
-    if os.path.exists(TRACKS):
-        with open(TRACKS, newline="", encoding="utf-8") as f:
-            for row in csv.DictReader(f):
-                ids.add(row["video_id"])
-                channels.add(row.get("channel_key") or "")
-    return ids, channels
+def read_tracks():
+    if not os.path.exists(TRACKS):
+        return []
+    with open(TRACKS, newline="", encoding="utf-8") as f:
+        return [{k: r.get(k, "") for k in COLS} for r in csv.DictReader(f)]
 
 
 def write_tracks(rows):
@@ -91,13 +102,6 @@ def write_tracks(rows):
         w.writeheader()
         for row in rows:
             w.writerow({k: row.get(k, "") for k in COLS})
-
-
-def read_tracks():
-    if not os.path.exists(TRACKS):
-        return []
-    with open(TRACKS, newline="", encoding="utf-8") as f:
-        return [{k: r.get(k, "") for k in COLS} for r in csv.DictReader(f)]
 
 
 def fetch_published(ids):
@@ -113,6 +117,7 @@ def fetch_published(ids):
                 out[item["id"]] = item["snippet"].get("publishedAt", "")[:10]
         except Exception as e:
             print(f"publishedAt lookup failed: {e}")
+    print(f"publishedAt resolved for {len(out)}/{len(ids)}")
     return out
 
 
@@ -123,15 +128,14 @@ def video_row(video_id, discovered_via, published):
 
     name = data.get("videoname") or ""
     channel = data.get("channelname") or ""
-    ch_key = channel.split(" / ")[0].strip()
     members = [m for m in (data.get("memberdata") or []) if m.get("nickname")]
     duration = data.get("movietime") or 0
 
     artists = " / ".join(m["nickname"] for m in members)
-    if not artists and " / " in name:
-        artists = name.split(" / ", 1)[1].strip()
-    if not artists and "covered by" in name.lower():
-        artists = name.lower().split("covered by", 1)[1].strip()
+    if not artists:
+        seg = SLASH_RE.split(name)
+        if len(seg) > 1:
+            artists = seg[1].strip()
 
     stats = data.get("statisticsdata") or []
     first_stat = views = likes = ""
@@ -145,7 +149,7 @@ def video_row(video_id, discovered_via, published):
         "video_name": name,
         "music_name": clean_song(data.get("musicname") or "", name),
         "channel_name": channel,
-        "channel_key": ch_key,
+        "channel_key": channel_key(channel),
         "artists": artists,
         "offices": " / ".join(m.get("office") or "" for m in members),
         "published_at": published.get(video_id, ""),
@@ -162,6 +166,10 @@ def video_row(video_id, discovered_via, published):
 
 
 def main():
+    print(f"youtube client: {'ready' if youtube else 'MISSING KEY'}")
+    print("selftest:", classify("【歌ってみた】X", "ch"), classify("X", "Foo - Topic"),
+          repr(clean_song('"CRAZY" #cover by Seible Part1', "")))
+
     rows = read_tracks()
     known_ids = {r["video_id"] for r in rows}
     known_channels = {r["channel_key"] for r in rows if r["channel_key"]}
