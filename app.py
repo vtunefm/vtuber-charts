@@ -86,6 +86,23 @@ def movement(entry):
         return f"<span class='mv down'>▼{entry['rank'] - last}</span>"
     return "<span class='mv same'>=</span>"
 
+def artist_row(entry):
+    top = entry["top_video"]
+    url = WATCH.format(top["video_id"])
+    last = entry.get("last_week")
+    return (
+        f"<div class='chartrow' style='animation-delay:{(20 - entry['rank']) * 0.14:.2f}s'>"
+        f"<div class='rank'>{entry['rank']}</div>"
+        f"<div class='thumb'><a href='{url}' target='_blank' rel='noopener'>"
+        f"<img src='{top['thumbnail']}' alt=''></a></div>"
+        f"<div><div class='song'>{html.escape(entry['name'])}</div>"
+        f"<div class='who'>{html.escape(top['title'] or '')}</div></div>"
+        f"<div>{movement(entry)}<div class='stats'>LW {last if last else '—'}"
+        f" · PK {entry['peak']} · {entry['weeks_on_chart']}w</div></div>"
+        f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
+        f"<div class='who' style='text-align:right'>{entry['video_count']} vids</div></div>"
+        f"</div>"
+    )
 
 def chart_row(entry):
     tag = f"<span class='tag'>{html.escape(entry['type'])}</span>" if entry.get("type") else ""
@@ -128,6 +145,10 @@ def title_html(entry):
 chart = load("data/chart.json")
 entries = (chart or {}).get("entries") or []
 
+chart = load("data/chart.json")
+entries = (chart or {}).get("entries") or []
+artists = (chart or {}).get("artists") or []
+
 if entries:
     top = entries[0]
     st.markdown(
@@ -143,12 +164,19 @@ if entries:
         unsafe_allow_html=True,
     )
 
-st.header("Top 10")
+st.header("Music Top 20")
 if chart and entries:
     st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
-    st.markdown("".join(chart_row(e) for e in entries[:10]), unsafe_allow_html=True)
+    st.markdown("".join(chart_row(e) for e in entries), unsafe_allow_html=True)
 else:
     st.info("No chart published yet.")
+
+st.header("Artist Top 20")
+if artists:
+    st.caption("One entry per artist · their highest-gaining video shown · weekly gain summed")
+    st.markdown("".join(artist_row(a) for a in artists), unsafe_allow_html=True)
+else:
+    st.info("No artist chart published yet.")
 
 if len(entries) > 10:
     st.subheader("Bubbling Under")
