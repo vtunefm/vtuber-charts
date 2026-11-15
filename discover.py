@@ -52,11 +52,16 @@ def fetch_json(url, tries=3):
         try:
             r = requests.get(url, headers=UA, timeout=30)
             if r.status_code == 200:
-                return r.json()
+                try:
+                    return r.json()
+                except ValueError:
+                    print(f"  bad json ({r.status_code}, {len(r.text)}b): ...{url[-50:]}")
+            else:
+                print(f"  HTTP {r.status_code}: ...{url[-50:]}")
             if r.status_code == 404:
                 return None
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  err {type(e).__name__}: {e}")
         time.sleep(1.5 * (attempt + 1))
     return None
 
