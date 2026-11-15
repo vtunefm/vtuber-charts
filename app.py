@@ -125,12 +125,16 @@ for col, key in zip(show_cols, ("latest_episode", "heart2heart")):
     pl = playlists.get(key)
     with col:
         if pl:
+            url = f"https://www.youtube.com/playlist?list={pl['id']}"
+            if pl.get("thumb"):
+                st.markdown(
+                    f"<a href='{url}' target='_blank' rel='noopener'>"
+                    f"<img src='{pl['thumb']}' style='width:100%;border-radius:6px;display:block'>"
+                    f"</a>",
+                    unsafe_allow_html=True,
+                )
             st.markdown(f"**{html.escape(pl['title'])}**")
-            st.link_button(
-                "Open playlist ↗",
-                f"https://www.youtube.com/playlist?list={pl['id']}",
-                use_container_width=True,
-            )
+            st.link_button("Open playlist ↗", url, use_container_width=True)
         else:
             st.caption("Playlist not loaded yet.")
 
