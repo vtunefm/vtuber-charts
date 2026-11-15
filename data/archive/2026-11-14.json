@@ -339,6 +339,40 @@
       "peak": 20,
       "weeks_on_chart": 1,
       "movement": "new"
+    },
+    {
+      "video_id": "dqx--1Sjovw",
+      "title": "モエチャッカファイア",
+      "artists": "緑仙",
+      "channel": "緑仙 / Ryushen",
+      "office": "にじさんじ",
+      "type": "cover",
+      "published_at": "2026-07-26",
+      "views_gained": 2045,
+      "days_covered": 6,
+      "thumbnail": "https://i.ytimg.com/vi/dqx--1Sjovw/hqdefault.jpg",
+      "rank": 21,
+      "last_week": null,
+      "peak": 21,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "video_id": "THJkOJKg47o",
+      "title": "Golden​ Road",
+      "artists": "樋口楓",
+      "channel": "樋口楓【にじさんじ所属】",
+      "office": "にじさんじ",
+      "type": "original",
+      "published_at": "2026-03-25",
+      "views_gained": 1566,
+      "days_covered": 6,
+      "thumbnail": "https://i.ytimg.com/vi/THJkOJKg47o/hqdefault.jpg",
+      "rank": 22,
+      "last_week": null,
+      "peak": 22,
+      "weeks_on_chart": 1,
+      "movement": "new"
     }
   ],
   "artists": [
@@ -346,8 +380,8 @@
       "name": "える",
       "picture": "https://yt3.ggpht.com/_Y4hljDfpzuiQW0gipoAr2DLpQ_ciTWK3skuUKEq2lt5EPYjSiAkgIAvtwYVDRISWn3Czu1Q",
       "office": "にじさんじ",
-      "views_gained": 407438,
-      "video_count": 20,
+      "views_gained": 391817,
+      "video_count": 3,
       "top_video": {
         "video_id": "rQ6oG2ZEaVE",
         "title": "劇薬中毒",
@@ -364,8 +398,8 @@
       "name": "緑仙",
       "picture": "https://yt3.ggpht.com/gqKMT95qDCACrpgG3iGrTOfELcpwIkIao4PFK-3vnmQusaS_1RW7yxjBXOVpXs3B_iNOegIT",
       "office": "にじさんじ",
-      "views_gained": 123581,
-      "video_count": 17,
+      "views_gained": 117535,
+      "video_count": 11,
       "top_video": {
         "video_id": "Z07wK_HfAyA",
         "title": "D/N/A / 緑仙×空澄セナ",
@@ -400,8 +434,8 @@
       "name": "樋口楓",
       "picture": "https://yt3.ggpht.com/8IvNB1yT48uO5JrmJ5aKP5DO3oAydtZ2PSyFq7Z-HLpgkAUvsf9O552DbSfkgD_q0CbHvMjeSA",
       "office": "にじさんじ",
-      "views_gained": 36450,
-      "video_count": 10,
+      "views_gained": 32407,
+      "video_count": 5,
       "top_video": {
         "video_id": "Y5Nyy2ZvL1c",
         "title": "ずうっといっしょ！",
@@ -447,78 +481,6 @@
       "rank": 6,
       "last_week": null,
       "peak": 6,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "ジョー・力一",
-      "picture": "https://yt3.ggpht.com/ROBxY7XsHsyciykqX-RloV3adi7WlMviJJNf_aHFr20x_IG6mEigiZmwVHCmz5UYPPyqIKOokg",
-      "office": "にじさんじ",
-      "views_gained": 690,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "2JAxMU04AAE",
-        "title": "トンデモワンダーズ",
-        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
-        "views_gained": 690
-      },
-      "rank": 7,
-      "last_week": null,
-      "peak": 7,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "鈴木勝",
-      "picture": "https://yt3.ggpht.com/Yquis7Z1JfRH4wTnl-q-3c-8XJHnthcKzZRswlczZhD0S7pE6rNcAZ6ISiu4_hI-69Kss4cU6t8",
-      "office": "にじさんじ",
-      "views_gained": 690,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "2JAxMU04AAE",
-        "title": "トンデモワンダーズ",
-        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
-        "views_gained": 690
-      },
-      "rank": 8,
-      "last_week": null,
-      "peak": 8,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "童田明治",
-      "picture": "https://yt3.ggpht.com/ytc/AIdro_nke6bbvby6Gf2tjyQ5lwVLZQHj5kRxkRpKjqD7fgfU1Q",
-      "office": "にじさんじ",
-      "views_gained": 690,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "2JAxMU04AAE",
-        "title": "トンデモワンダーズ",
-        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
-        "views_gained": 690
-      },
-      "rank": 9,
-      "last_week": null,
-      "peak": 9,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "三枝明那",
-      "picture": "https://yt3.ggpht.com/1gWkGOLFKaJmO5TnkdQGTSaelBY-lRtgPoo8ZS_bk_4vJt7wZ1ZT-k6MH60Ia-Oq9bgQVvlTyw",
-      "office": "にじさんじ",
-      "views_gained": 690,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "2JAxMU04AAE",
-        "title": "トンデモワンダーズ",
-        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
-        "views_gained": 690
-      },
-      "rank": 10,
-      "last_week": null,
-      "peak": 10,
       "weeks_on_chart": 1,
       "movement": "new"
     }
