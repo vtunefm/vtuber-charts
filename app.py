@@ -1,3 +1,4 @@
+import html
 import json
 import os
 
@@ -11,12 +12,14 @@ st.markdown(
       .block-container { padding-top: 2rem; max-width: 1100px; }
       .rank { font-size: 1.9rem; font-weight: 800; color: #b4b8c4; text-align: right; }
       .song { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+      .song a { color: #e8eaf0; text-decoration: none; }
+      .song a:hover { text-decoration: underline; }
       .who { font-size: .85rem; color: #8b90a0; }
       .gain { font-size: 1rem; font-weight: 700; color: #6ee7a0; text-align: right; }
       .tag { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
              color: #8b90a0; border: 1px solid #2a2f3a; border-radius: 3px;
              padding: 1px 5px; margin-left: 6px; }
-      .row { border-bottom: 1px solid #1c2029; padding: .55rem 0; }
+      .thumb img { width: 100%; border-radius: 4px; display: block; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -25,12 +28,36 @@ st.markdown(
 st.title("VTune FM")
 st.caption("Weekly VTuber music charts · Top 10 by views gained, Monday to Saturday")
 
+WATCH = "https://www.youtube.com/watch?v={}"
+
 
 def load(path):
     if not os.path.exists(path):
         return None
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def link(video_id):
+    return WATCH.format(video_id)
+
+
+def thumb_html(entry):
+    return (
+        f"<a href='{link(entry['video_id'])}' target='_blank' rel='noopener'>"
+        f"<img src='{entry['thumbnail']}' alt=''></a>"
+    )
+
+
+def title_html(entry):
+    tag = f"<span class='tag'>{html.escape(entry['type'])}</span>" if entry.get("type") else ""
+    safe = html.escape(entry["title"] or "")
+    return (
+        f"<div class='song'>"
+        f"<a href='{link(entry['video_id'])}' target='_blank' rel='noopener'>{safe}</a>"
+        f"{tag}</div>"
+        f"<div class='who'>{html.escape(entry.get('artists') or '')}</div>"
+    )
 
 
 chart = load("data/chart.json")
@@ -41,13 +68,8 @@ if chart and chart.get("entries"):
     for entry in chart["entries"]:
         rank, thumb, body, gain = st.columns([1, 1, 6, 2])
         rank.markdown(f"<div class='rank'>{entry['rank']}</div>", unsafe_allow_html=True)
-        thumb.image(entry["thumbnail"], use_container_width=True)
-        tag = f"<span class='tag'>{entry['type']}</span>" if entry.get("type") else ""
-        body.markdown(
-            f"<div class='song'>{entry['title']}{tag}</div>"
-            f"<div class='who'>{entry.get('artists') or entry.get('channel') or ''}</div>",
-            unsafe_allow_html=True,
-        )
+        thumb.markdown(thumb_html(entry), unsafe_allow_html=True)
+        body.markdown(title_html(entry), unsafe_allow_html=True)
         gain.markdown(
             f"<div class='gain'>+{entry['views_gained']:,}</div>"
             f"<div class='who'>{entry['days_covered']}d</div>",
@@ -64,13 +86,8 @@ yesterday_rows = newest.get("yesterday") or []
 def release_block(rows):
     for entry in rows:
         thumb, body, when = st.columns([1, 6, 2])
-        thumb.image(entry["thumbnail"], use_container_width=True)
-        tag = f"<span class='tag'>{entry['type']}</span>" if entry.get("type") else ""
-        body.markdown(
-            f"<div class='song'>{entry['title']}{tag}</div>"
-            f"<div class='who'>{entry.get('artists') or ''}</div>",
-            unsafe_allow_html=True,
-        )
+        thumb.markdown(thumb_html(entry), unsafe_allow_html=True)
+        body.markdown(title_html(entry), unsafe_allow_html=True)
         when.markdown(
             f"<div class='who' style='text-align:right'>{entry['published_at']}</div>",
             unsafe_allow_html=True,
