@@ -56,23 +56,37 @@ if chart and chart.get("entries"):
 else:
     st.info("No chart published yet.")
 
-st.header("Newest Releases")
-newest = load("data/newest.json")
-if newest and newest.get("entries"):
-    for entry in newest["entries"]:
+newest = load("data/newest.json") or {}
+today_rows = newest.get("today") or []
+yesterday_rows = newest.get("yesterday") or []
+
+
+def release_block(rows):
+    for entry in rows:
         thumb, body, when = st.columns([1, 6, 2])
         thumb.image(entry["thumbnail"], use_container_width=True)
         tag = f"<span class='tag'>{entry['type']}</span>" if entry.get("type") else ""
         body.markdown(
             f"<div class='song'>{entry['title']}{tag}</div>"
-            f"<div class='who'>{entry.get('artists') or entry.get('channel') or ''}</div>",
+            f"<div class='who'>{entry.get('artists') or ''}</div>",
             unsafe_allow_html=True,
         )
         when.markdown(
             f"<div class='who' style='text-align:right'>{entry['published_at']}</div>",
             unsafe_allow_html=True,
         )
+
+
+if today_rows or yesterday_rows:
+    if today_rows:
+        st.header("Today's Releases")
+        release_block(today_rows)
+    if yesterday_rows:
+        st.header("Yesterday's Releases")
+        release_block(yesterday_rows)
 else:
-    st.info("No releases yet.")
+    st.header("Recent Releases")
+    st.caption("Nothing in the last two days.")
+    release_block((newest.get("earlier") or [])[:10])
 
 st.caption("Views are counted Monday–Saturday and frozen when the chart publishes.")
