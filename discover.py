@@ -2,6 +2,8 @@ import csv
 import os
 import re
 import time
+from collections import Counter
+
 import requests
 from googleapiclient.discovery import build
 
@@ -11,6 +13,8 @@ DELAY = 0.7
 
 MAX_NEW_CHANNELS = 3
 MAX_VIDEOS_PER_CHANNEL = 40
+LONG_SEC = 900
+MAX_DURATION = 1500
 
 TRACKS = "data/tracks.csv"
 CHANNELS = "data/channels.csv"
@@ -18,21 +22,25 @@ CHANNELS = "data/channels.csv"
 COLS = [
     "video_id", "video_name", "music_name", "channel_name", "channel_key",
     "artists", "offices", "published_at", "duration_sec", "type", "is_short",
-    "first_stat_date", "latest_views", "latest_likes", "discovered_via",
-    "first_seen", "status",
+    "is_long", "first_stat_date", "latest_views", "latest_likes",
+    "discovered_via", "first_seen", "status",
 ]
 
 COVER_PAT = ["cover", "歌ってみた", "カバー", "covered by", "歌枠", "歌配信"]
-ORIG_PAT = ["original", "オリジナル", "書き下ろし", "official mv", "debut song"]
+ORIG_PAT = ["original", "オリジナル", "書き下ろし", "official mv",
+            "music video", "lyric video", "debut song"]
 
 API_KEY = os.environ.get("YOUTUBE_API_KEY")
 youtube = build("youtube", "v3", developerKey=API_KEY) if API_KEY else None
 
 TAG_RE = re.compile(r"#\S+")
+LONE_HASH_RE = re.compile(r"#(?=\s|$)")
 BRACKET_RE = re.compile(r"[【】『』「」]")
 SLASH_RE = re.compile(r"\s*[/／]\s*")
 NOISE_RE = re.compile(r"(歌ってみた|covered by.*$|カバー|\bcover\b)", re.I)
 BY_RE = re.compile(r"\bby\b", re.I)
+QUOTE_SONG_RE = re.compile(r"[｢「]([^｣」]{1,60})[｣」]")
+OFFICE_STRIP_RE = re.compile(r"【[^】]*】")
 
 
 def fetch_json(url, tries=3):
@@ -50,17 +58,21 @@ def fetch_json(url, tries=3):
 
 
 def clean_song(name, fallback):
-    s = TAG_RE.sub(" ", name or "")
-    s = BRACKET_RE.sub(" ", s)
-    s = SLASH_RE.split(s)[0]
-    s = NOISE_RE.sub(" ", s)
-    s = BY_RE.sub(" ", s)
-    s = s.replace('"', " ")
-    s = re.sub(r"\s+", " ", s).strip(" -_·|,")
-    if len(s) < 2:
-        s = TAG_RE.sub(" ", fallback or "")
-        s = re.sub(r"\s+", " ", BRACKET_RE.sub(" ", s)).strip(" -_·|,")
-    return s
+    m = QUOTE_SONG_RE.search(name or "")
+    if m and "LIVE" in (name or "").upper():
+        return m.group(1).strip()
+    for src in (name, fallback):
+        s = TAG_RE.sub(" ", src or "")
+        s = LONE_HASH_RE.sub(" ", s)
+        s = BRACKET_RE.sub(" ", s)
+        s = SLASH_RE.split(s)[0]
+        s = NOISE_RE.sub(" ", s)
+        s = BY_RE.sub(" ", s)
+        s = s.replace('"', " ")
+        s = re.sub(r"\s+", " ", s).strip(" -_·|,")
+        if len(s) >= 2:
+            return s
+    return (name or "").strip()
 
 
 def channel_key(channel):
@@ -68,6 +80,14 @@ def channel_key(channel):
         return ""
     first = SLASH_RE.split(channel)[0].strip()
     return first or channel.strip()
+
+
+def channel_candidates(channel, key):
+    out = [key]
+    alt = OFFICE_STRIP_RE.sub("", channel or "").strip()
+    if alt and alt not in out:
+        out.append(alt)
+    return [c for c in out if c]
 
 
 def classify(name, channel):
@@ -128,14 +148,17 @@ def video_row(video_id, discovered_via, published):
 
     name = data.get("videoname") or ""
     channel = data.get("channelname") or ""
-    members = [m for m in (data.get("memberdata") or []) if m.get("nickname")]
     duration = data.get("movietime") or 0
+    members = data.get("memberdata") or []
 
-    artists = " / ".join(m["nickname"] for m in members)
+    artists = " / ".join(m["nickname"] for m in members if m.get("nickname"))
     if not artists:
         seg = SLASH_RE.split(name)
         if len(seg) > 1:
             artists = seg[1].strip()
+    artists = re.sub(r"\s*(cover|カバー)\s*$", "", artists, flags=re.I).strip()
+
+    offices = " / ".join(m["office"] for m in members if m.get("office"))
 
     stats = data.get("statisticsdata") or []
     first_stat = views = likes = ""
@@ -151,11 +174,12 @@ def video_row(video_id, discovered_via, published):
         "channel_name": channel,
         "channel_key": channel_key(channel),
         "artists": artists,
-        "offices": " / ".join(m.get("office") or "" for m in members),
+        "offices": offices,
         "published_at": published.get(video_id, ""),
         "duration_sec": duration,
         "type": classify(name, channel),
         "is_short": is_short(name, duration),
+        "is_long": duration > LONG_SEC,
         "first_stat_date": first_stat,
         "latest_views": views,
         "latest_likes": likes,
@@ -167,8 +191,11 @@ def video_row(video_id, discovered_via, published):
 
 def main():
     print(f"youtube client: {'ready' if youtube else 'MISSING KEY'}")
-    print("selftest:", classify("【歌ってみた】X", "ch"), classify("X", "Foo - Topic"),
-          repr(clean_song('"CRAZY" #cover by Seible Part1', "")))
+    print("selftest:",
+          classify("【歌ってみた】X", "ch"),
+          classify("X", "Foo - Topic"),
+          repr(clean_song("｢天誅｣ 2nd LIVE TOUR「緑一色」 #緑仙 #live", "")),
+          repr(clean_song('"CRAZY" #', "")))
 
     rows = read_tracks()
     known_ids = {r["video_id"] for r in rows}
@@ -183,7 +210,7 @@ def main():
     print(f"{len(queue)} new candidate(s) from latest feed")
 
     published = fetch_published([v for v, _ in queue])
-    new_channels = []
+    pending_channels = []
 
     while queue:
         video_id, via = queue.pop(0)
@@ -191,48 +218,59 @@ def main():
             continue
         row = video_row(video_id, via, published)
         time.sleep(DELAY)
-        if not row:
+        if not row or row["duration_sec"] > MAX_DURATION:
             continue
         rows.append(row)
         known_ids.add(video_id)
         if row["channel_key"] and row["channel_key"] not in known_channels:
             known_channels.add(row["channel_key"])
-            new_channels.append(row["channel_key"])
+            pending_channels.append((row["channel_key"], row["channel_name"]))
 
     print(f"{len(rows)} tracks after latest pass")
 
-    for ch in new_channels[:MAX_NEW_CHANNELS]:
-        ch_data = fetch_json(f"{BASE}/api/v4/ch/{requests.utils.quote(ch, safe='')}.json")
-        time.sleep(DELAY)
+    counts = Counter(r["channel_key"] for r in rows)
+    pending_channels.sort(key=lambda c: counts.get(c[0], 0))
+
+    for key, full in pending_channels[:MAX_NEW_CHANNELS]:
+        ch_data = None
+        for cand in channel_candidates(full, key):
+            ch_data = fetch_json(f"{BASE}/api/v4/ch/{requests.utils.quote(cand, safe='')}.json")
+            time.sleep(DELAY)
+            if ch_data:
+                print(f"channel resolved via '{cand}'")
+                break
+            print(f"channel candidate failed: {cand}")
         if not ch_data:
-            print(f"channel expand FAILED: {ch}")
             continue
+
         vids = [v for v in (ch_data.get("videolist") or []) if v not in known_ids]
-        print(f"expanding {ch}: {len(vids)} unseen video(s)")
+        print(f"expanding {key}: {len(vids)} unseen video(s)")
 
         with open(CHANNELS, "a", newline="", encoding="utf-8") as f:
             csv.writer(f).writerow([
-                ch, ch_data.get("belongoffice") or "", len(vids), time.strftime("%Y-%m-%d"),
+                key, ch_data.get("belongoffice") or "", len(vids),
+                time.strftime("%Y-%m-%d"),
             ])
 
         batch = vids[:MAX_VIDEOS_PER_CHANNEL]
         pub = fetch_published(batch)
         pulled = 0
         for vid in batch:
-            row = video_row(vid, f"channel:{ch}", pub)
+            row = video_row(vid, f"channel:{key}", pub)
             time.sleep(DELAY)
-            if not row:
+            if not row or row["duration_sec"] > MAX_DURATION:
                 continue
             row["offices"] = ch_data.get("belongoffice") or row["offices"]
             rows.append(row)
             known_ids.add(vid)
             pulled += 1
-        print(f"expanded {ch}: +{pulled}")
+        print(f"expanded {key}: +{pulled}")
 
     write_tracks(rows)
     shorts = sum(1 for r in rows if r["is_short"] is True)
+    longs = sum(1 for r in rows if r["is_long"] is True)
     unknown = sum(1 for r in rows if r["type"] == "unknown")
-    print(f"done. {len(rows)} tracks, {shorts} shorts, {unknown} unknown type")
+    print(f"done. {len(rows)} tracks, {shorts} shorts, {longs} long, {unknown} unknown")
 
 
 if __name__ == "__main__":
