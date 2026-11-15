@@ -126,9 +126,10 @@ for col, key in zip(show_cols, ("latest_episode", "heart2heart")):
     with col:
         if pl:
             st.markdown(f"**{html.escape(pl['title'])}**")
-            components.iframe(
-                f"https://www.youtube.com/embed/videoseries?list={pl['id']}",
-                height=340,
+            st.link_button(
+                "Open playlist ↗",
+                f"https://www.youtube.com/playlist?list={pl['id']}",
+                use_container_width=True,
             )
         else:
             st.caption("Playlist not loaded yet.")
