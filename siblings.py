@@ -67,7 +67,7 @@ def main():
     added = 0
 
     for name in songs[:MAX_SONGS]:
-        data = fetch_json(f"{BASE}/api/v4/music/{requests.utils.quote(name, safe='')}.json")
+        data = fetch_json(f"{BASE}/api/v4/music/{requests.utils.quote(name, safe='/!')}.json")
         time.sleep(DELAY)
         if not data:
             print(f"music lookup failed: {name}")
