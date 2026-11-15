@@ -147,12 +147,20 @@ def write_tracks(rows):
 def recently_expanded():
     if not os.path.exists(CHANNELS):
         return set()
-    today = time.strftime("%Y-%m-%d")
+    now = time.time()
     out = set()
     with open(CHANNELS, newline="", encoding="utf-8") as f:
         for r in csv.DictReader(f):
-            if r.get("expanded_at") == today:
-                out.add(r.get("channel_name", ""))
+            name = r.get("channel_name", "")
+            stamp = r.get("expanded_at", "")
+            if stamp == time.strftime("%Y-%m-%d"):
+                out.add(name)
+            elif r.get("office") == "__failed" and stamp:
+                try:
+                    if now - time.mktime(time.strptime(stamp, "%Y-%m-%d")) < 7 * 86400:
+                        out.add(name)
+                except ValueError:
+                    pass
     return out
 
 
@@ -270,15 +278,24 @@ def main():
 
     for key in candidates[:MAX_NEW_CHANNELS]:
         ch_data = None
+        resolved = None
         for cand in channel_candidates(full_names.get(key, key), key):
             ch_data = fetch_json(f"{BASE}/api/v4/ch/{requests.utils.quote(cand, safe='')}.json")
             time.sleep(DELAY)
             if ch_data:
+                resolved = cand
                 print(f"channel resolved via '{cand}'")
                 break
             print(f"channel candidate failed: {cand}")
         if not ch_data:
+            with open(CHANNELS, "a", newline="", encoding="utf-8") as f:
+                csv.writer(f).writerow([key, "__failed", 0, time.strftime("%Y-%m-%d")])
             continue
+        if resolved != key:
+            for r in rows:
+                if r["channel_key"] == key:
+                    r["channel_key"] = resolved
+            key = resolved
 
         vids = [v for v in (ch_data.get("videolist") or []) if v not in known_ids]
         print(f"expanding {key}: {len(vids)} unseen video(s)")
