@@ -11,11 +11,12 @@ BASE = "https://old.vsing.info"
 UA = {"User-Agent": "vtunefm-charts/0.1 (+github.com/vtunefm/vtuber-charts)"}
 DELAY = 0.7
 MIN_GAIN = 500
-MAX_ENTRIES = 10
+MAX_ENTRIES = 20
 MAX_FETCH = 200
 
 TRACKS = "data/tracks.csv"
 OUT = "data/chart.json"
+ARCHIVE = "data/archive"
 
 DATE_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})$")
 TITLE_TAIL_RE = re.compile(r"\s*(cover|カバー)\s*$", re.I)
@@ -39,8 +40,7 @@ def window():
     today = datetime.now(timezone.utc).date()
     days_back = (today.weekday() - 5) % 7
     end = today - timedelta(days=days_back)
-    start = end - timedelta(days=5)
-    return start, end
+    return end - timedelta(days=5), end
 
 
 def parse_stats(data):
@@ -48,16 +48,55 @@ def parse_stats(data):
     if len(stats) < 3:
         return []
     dates, views = stats[1], stats[2]
-    out = []
+    if not dates or not views:
+        return []
+
+    total = 0
+    try:
+        total = int(stats[0][1])
+    except (IndexError, TypeError, ValueError):
+        total = 0
+
+    cumulative = False
+    try:
+        if total and abs(int(views[-1]) - total) <= max(2, total * 0.001):
+            cumulative = True
+    except (IndexError, TypeError, ValueError):
+        pass
+
+    out, prev = [], 0
     for raw, count in zip(dates, views):
         m = DATE_RE.match(str(raw))
         if not m:
             continue
         try:
-            out.append((date(int(m.group(1)), int(m.group(2)), int(m.group(3))), int(count)))
+            day = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            value = int(count)
         except ValueError:
             continue
+        out.append((day, value if not cumulative else max(0, value - prev)))
+        prev = value
     return out
+
+
+def history():
+    records = {}
+    if not os.path.isdir(ARCHIVE):
+        return records
+    for name in sorted(os.listdir(ARCHIVE)):
+        if not name.endswith(".json"):
+            continue
+        week = name[:-5]
+        try:
+            with open(os.path.join(ARCHIVE, name), encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            continue
+        for entry in data.get("entries", []):
+            rec = records.setdefault(entry["video_id"], {"peak": 999, "by_week": {}})
+            rec["peak"] = min(rec["peak"], entry["rank"])
+            rec["by_week"][week] = entry["rank"]
+    return records
 
 
 def main():
@@ -87,11 +126,9 @@ def main():
         if not data:
             continue
 
-        series = parse_stats(data)
-        in_window = [(d, v) for d, v in series if start <= d <= end]
+        in_window = [(d, v) for d, v in parse_stats(data) if start <= d <= end]
         if not in_window:
             continue
-
         gain = sum(v for _, v in in_window)
         if gain < MIN_GAIN:
             continue
@@ -101,7 +138,6 @@ def main():
             "title": TITLE_TAIL_RE.sub(
                 "", track.get("music_name") or track.get("video_name") or ""
             ).strip(),
-            "video_name": track.get("video_name"),
             "artists": TITLE_TAIL_RE.sub("", track.get("artists") or "").strip(),
             "channel": track.get("channel_name"),
             "office": track.get("offices"),
@@ -113,26 +149,51 @@ def main():
         })
 
     entries.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
-    chart = entries[:MAX_ENTRIES]
+    ranked = entries[:MAX_ENTRIES]
 
-    for i, entry in enumerate(chart, start=1):
+    records = history()
+    prior_weeks = [w for w in records.get("__weeks__", [])]
+    past_week = None
+    if os.path.isdir(ARCHIVE):
+        past = sorted(n[:-5] for n in os.listdir(ARCHIVE) if n.endswith(".json"))
+        past = [w for w in past if w < end.isoformat()]
+        past_week = past[-1] if past else None
+
+    for i, entry in enumerate(ranked, start=1):
         entry["rank"] = i
+        rec = records.get(entry["video_id"], {"peak": i, "by_week": {}})
+        last = rec["by_week"].get(past_week) if past_week else None
+        entry["last_week"] = last
+        entry["peak"] = min(rec["peak"], i)
+        entry["weeks_on_chart"] = len(rec["by_week"]) + 1
+        if last is None:
+            entry["movement"] = "new"
+        elif i < last:
+            entry["movement"] = "up"
+        elif i > last:
+            entry["movement"] = "down"
+        else:
+            entry["movement"] = "same"
 
     payload = {
         "week_start": start.isoformat(),
         "week_end": end.isoformat(),
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "entry_count": len(chart),
-        "entries": chart,
+        "entry_count": len(ranked),
+        "entries": ranked,
     }
 
-    os.makedirs("data", exist_ok=True)
+    os.makedirs(ARCHIVE, exist_ok=True)
+    with open(os.path.join(ARCHIVE, f"{end.isoformat()}.json"), "w", encoding="utf-8") as f:
+        json.dump({"entries": ranked}, f, ensure_ascii=False, indent=2)
+
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    print(f"wrote {len(chart)} entries to {OUT}")
-    for e in chart:
-        print(f"  #{e['rank']} {e['views_gained']:>8,} ({e['days_covered']}d) {e['title']}")
+    print(f"wrote {len(ranked)} entries")
+    for e in ranked:
+        print(f"  #{e['rank']} {e['movement']:<4} LW={e['last_week']} PK={e['peak']} "
+              f"{e['weeks_on_chart']}w  {e['views_gained']:>8,}  {e['title']}")
 
 
 if __name__ == "__main__":
