@@ -102,7 +102,7 @@ def main():
                 "", track.get("music_name") or track.get("video_name") or ""
             ).strip(),
             "video_name": track.get("video_name"),
-            "artists": track.get("artists"),
+            "artists": TITLE_TAIL_RE.sub("", track.get("artists") or "").strip(),
             "channel": track.get("channel_name"),
             "office": track.get("offices"),
             "type": track.get("type"),
