@@ -1,7 +1,7 @@
 {
   "week_start": "2026-11-09",
   "week_end": "2026-11-14",
-  "generated_at": "2026-11-15T21:03:00+00:00",
+  "generated_at": "2026-11-15T21:15:37+00:00",
   "entry_count": 10,
   "entries": [
     {
@@ -19,8 +19,22 @@
       "rank": 1
     },
     {
+      "video_id": "m9jik3Ywzq4",
+      "title": "生命線",
+      "video_name": "生命線 - ReoNa／星川サラ(cover)【月姫 A piece of blue glass moon】",
+      "artists": "星川サラ",
+      "channel": "星川サラ / Sara Hoshikawa",
+      "office": "にじさんじ",
+      "type": "cover",
+      "published_at": "2026-10-28",
+      "views_gained": 58920,
+      "days_covered": 6,
+      "thumbnail": "https://i.ytimg.com/vi/m9jik3Ywzq4/hqdefault.jpg",
+      "rank": 2
+    },
+    {
       "video_id": "Z07wK_HfAyA",
-      "title": "D/N/A / 緑仙×空澄セナ Cover",
+      "title": "D/N/A / 緑仙×空澄セナ",
       "video_name": "D/N/A / 緑仙×空澄セナ Cover",
       "artists": "緑仙",
       "channel": "緑仙 / Ryushen",
@@ -30,7 +44,7 @@
       "views_gained": 35293,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/Z07wK_HfAyA/hqdefault.jpg",
-      "rank": 2
+      "rank": 3
     },
     {
       "video_id": "fEBjeV7U9Dw",
@@ -44,7 +58,7 @@
       "views_gained": 23764,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/fEBjeV7U9Dw/hqdefault.jpg",
-      "rank": 3
+      "rank": 4
     },
     {
       "video_id": "SuS23yoRKJY",
@@ -58,7 +72,7 @@
       "views_gained": 17702,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/SuS23yoRKJY/hqdefault.jpg",
-      "rank": 4
+      "rank": 5
     },
     {
       "video_id": "Y5Nyy2ZvL1c",
@@ -72,7 +86,7 @@
       "views_gained": 12496,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/Y5Nyy2ZvL1c/hqdefault.jpg",
-      "rank": 5
+      "rank": 6
     },
     {
       "video_id": "gPBwiuijMQg",
@@ -86,7 +100,7 @@
       "views_gained": 12448,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/gPBwiuijMQg/hqdefault.jpg",
-      "rank": 6
+      "rank": 7
     },
     {
       "video_id": "scZd7VJvGNs",
@@ -100,7 +114,7 @@
       "views_gained": 10093,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/scZd7VJvGNs/hqdefault.jpg",
-      "rank": 7
+      "rank": 8
     },
     {
       "video_id": "hTik3uYVY48",
@@ -114,7 +128,7 @@
       "views_gained": 9801,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/hTik3uYVY48/hqdefault.jpg",
-      "rank": 8
+      "rank": 9
     },
     {
       "video_id": "oq-sW1xxVC8",
@@ -128,20 +142,6 @@
       "views_gained": 4834,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/oq-sW1xxVC8/hqdefault.jpg",
-      "rank": 9
-    },
-    {
-      "video_id": "7HOjqxRIy4k",
-      "title": "ダンス・デカダンス",
-      "video_name": "ダンス・デカダンス / 緑仙 Cover",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-06-07",
-      "views_gained": 4694,
-      "days_covered": 6,
-      "thumbnail": "https://i.ytimg.com/vi/7HOjqxRIy4k/hqdefault.jpg",
       "rank": 10
     }
   ]
