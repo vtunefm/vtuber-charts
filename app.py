@@ -21,6 +21,7 @@ st.markdown(
              color: #a78bfa; border: 1px solid #3b2f63; border-radius: 3px;
              padding: 1px 5px; margin-left: 6px; }
       .thumb img { width: 100%; border-radius: 4px; display: block; }
+      .avatar img { aspect-ratio: 1; object-fit: cover; border-radius: 50%; }
       .tagline { font-size: .95rem; color: #9aa0b4; margin-top: -6px; }
       h1, h2, h3 { color: #f2f3f8; }
       a { color: #a78bfa; }
@@ -57,7 +58,7 @@ if os.path.exists("assets/logo.png"):
 with head_col:
     st.title("VTune FM")
     st.markdown(
-        "<div class='tagline'>Weekly VTuber music charts · Top 10 by views gained, Monday to Saturday</div>",
+        "<div class='tagline'>Weekly VTuber music charts · Top 20 by views gained, Monday to Saturday</div>",
         unsafe_allow_html=True,
     )
 
@@ -86,28 +87,18 @@ def movement(entry):
         return f"<span class='mv down'>▼{entry['rank'] - last}</span>"
     return "<span class='mv same'>=</span>"
 
-def artist_row(entry):
-    top = entry["top_video"]
-    url = WATCH.format(top["video_id"])
+
+def stats_line(entry):
     last = entry.get("last_week")
     return (
-        f"<div class='chartrow' style='animation-delay:{(20 - entry['rank']) * 0.14:.2f}s'>"
-        f"<div class='rank'>{entry['rank']}</div>"
-        f"<div class='thumb'><a href='{url}' target='_blank' rel='noopener'>"
-        f"<img src='{top['thumbnail']}' alt=''></a></div>"
-        f"<div><div class='song'>{html.escape(entry['name'])}</div>"
-        f"<div class='who'>{html.escape(top['title'] or '')}</div></div>"
-        f"<div>{movement(entry)}<div class='stats'>LW {last if last else '—'}"
-        f" · PK {entry['peak']} · {entry['weeks_on_chart']}w</div></div>"
-        f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
-        f"<div class='who' style='text-align:right'>{entry['video_count']} vids</div></div>"
-        f"</div>"
+        f"{movement(entry)}<div class='stats'>LW {last if last else '—'}"
+        f" · PK {entry['peak']} · {entry['weeks_on_chart']}w</div>"
     )
+
 
 def chart_row(entry):
     tag = f"<span class='tag'>{html.escape(entry['type'])}</span>" if entry.get("type") else ""
     url = WATCH.format(entry["video_id"])
-    last = entry.get("last_week")
     return (
         f"<div class='chartrow' style='animation-delay:{(20 - entry['rank']) * 0.14:.2f}s'>"
         f"<div class='rank'>{entry['rank']}</div>"
@@ -116,10 +107,26 @@ def chart_row(entry):
         f"<div><div class='song'><a href='{url}' target='_blank' rel='noopener'>"
         f"{html.escape(entry['title'] or '')}</a>{tag}</div>"
         f"<div class='who'>{html.escape(entry.get('artists') or '')}</div></div>"
-        f"<div>{movement(entry)}<div class='stats'>LW {last if last else '—'}"
-        f" · PK {entry['peak']} · {entry['weeks_on_chart']}w</div></div>"
+        f"<div>{stats_line(entry)}</div>"
         f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
         f"<div class='who' style='text-align:right'>{entry['days_covered']}d</div></div>"
+        f"</div>"
+    )
+
+
+def artist_row(entry):
+    top = entry["top_video"]
+    url = WATCH.format(top["video_id"])
+    return (
+        f"<div class='chartrow' style='animation-delay:{(20 - entry['rank']) * 0.14:.2f}s'>"
+        f"<div class='rank'>{entry['rank']}</div>"
+        f"<div class='thumb avatar'><a href='{url}' target='_blank' rel='noopener'>"
+        f"<img src='{entry['picture']}' alt=''></a></div>"
+        f"<div><div class='song'>{html.escape(entry['name'])}</div>"
+        f"<div class='who'>{html.escape(top['title'] or '')}</div></div>"
+        f"<div>{stats_line(entry)}</div>"
+        f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
+        f"<div class='who' style='text-align:right'>{entry['video_count']} vids</div></div>"
         f"</div>"
     )
 
@@ -141,9 +148,6 @@ def title_html(entry):
         f"<div class='who'>{html.escape(entry.get('artists') or '')}</div>"
     )
 
-
-chart = load("data/chart.json")
-entries = (chart or {}).get("entries") or []
 
 chart = load("data/chart.json")
 entries = (chart or {}).get("entries") or []
@@ -179,10 +183,6 @@ if artists:
     st.markdown("".join(artist_row(a) for a in artists), unsafe_allow_html=True)
 else:
     st.info("No artist chart published yet.")
-
-if len(entries) > 10:
-    st.subheader("Bubbling Under")
-    st.markdown("".join(chart_row(e) for e in entries[10:20]), unsafe_allow_html=True)
 
 newest = load("data/newest.json") or {}
 today_rows = newest.get("today") or []
