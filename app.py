@@ -24,8 +24,12 @@ st.markdown(
       .tagline { font-size: .95rem; color: #9aa0b4; margin-top: -6px; }
       h1, h2, h3 { color: #f2f3f8; }
       a { color: #a78bfa; }
+      .mv { font-size: .8rem; font-weight: 700; }
+      .up { color: #6ee7a0; } .down { color: #f87171; }
+      .same { color: #6b7285; } .new { color: #fbbf24; letter-spacing: .1em; }
+      .stats { font-size: .7rem; color: #7b8194; }
       .chartrow {
-        display: grid; grid-template-columns: 48px 100px 1fr 140px;
+        display: grid; grid-template-columns: 48px 100px 1fr 92px 140px;
         gap: 14px; align-items: center; padding: .5rem 0;
         border-bottom: 1px solid #1c2029;
         animation: slide .5s cubic-bezier(.2,.8,.3,1) both;
@@ -34,6 +38,14 @@ st.markdown(
         from { opacity: 0; transform: translateX(-48px); }
         to   { opacity: 1; transform: translateX(0); }
       }
+      .hero { display: grid; grid-template-columns: 220px 1fr; gap: 20px;
+              align-items: center; border: 1px solid #2a2f3a; border-radius: 8px;
+              padding: 14px; margin-bottom: 18px; background: #12151c; }
+      .hero img { width: 100%; border-radius: 6px; display: block; }
+      .hero .kicker { font-size: .7rem; letter-spacing: .18em; color: #fbbf24;
+                      text-transform: uppercase; }
+      .hero .big { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 4px 0; }
+      .hero .big a { color: #fff; text-decoration: none; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -63,18 +75,32 @@ def load(path):
         return json.load(f)
 
 
+def movement(entry):
+    m = entry.get("movement")
+    last = entry.get("last_week")
+    if m == "new":
+        return "<span class='mv new'>NEW</span>"
+    if m == "up" and last:
+        return f"<span class='mv up'>▲{last - entry['rank']}</span>"
+    if m == "down" and last:
+        return f"<span class='mv down'>▼{entry['rank'] - last}</span>"
+    return "<span class='mv same'>=</span>"
+
+
 def chart_row(entry):
     tag = f"<span class='tag'>{html.escape(entry['type'])}</span>" if entry.get("type") else ""
     url = WATCH.format(entry["video_id"])
-    delay = (10 - entry["rank"]) * 0.28
+    last = entry.get("last_week")
     return (
-        f"<div class='chartrow' style='animation-delay:{delay:.2f}s'>"
+        f"<div class='chartrow' style='animation-delay:{(20 - entry['rank']) * 0.14:.2f}s'>"
         f"<div class='rank'>{entry['rank']}</div>"
         f"<div class='thumb'><a href='{url}' target='_blank' rel='noopener'>"
         f"<img src='{entry['thumbnail']}' alt=''></a></div>"
         f"<div><div class='song'><a href='{url}' target='_blank' rel='noopener'>"
         f"{html.escape(entry['title'] or '')}</a>{tag}</div>"
         f"<div class='who'>{html.escape(entry.get('artists') or '')}</div></div>"
+        f"<div>{movement(entry)}<div class='stats'>LW {last if last else '—'}"
+        f" · PK {entry['peak']} · {entry['weeks_on_chart']}w</div></div>"
         f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
         f"<div class='who' style='text-align:right'>{entry['days_covered']}d</div></div>"
         f"</div>"
@@ -100,16 +126,33 @@ def title_html(entry):
 
 
 chart = load("data/chart.json")
+entries = (chart or {}).get("entries") or []
 
-st.header("Top 10")
-if chart and chart.get("entries"):
-    st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
+if entries:
+    top = entries[0]
     st.markdown(
-        "".join(chart_row(e) for e in chart["entries"]),
+        f"<div class='hero'>"
+        f"<a href='{WATCH.format(top['video_id'])}' target='_blank' rel='noopener'>"
+        f"<img src='{top['thumbnail']}' alt=''></a>"
+        f"<div><div class='kicker'>No. 1 this week</div>"
+        f"<div class='big'><a href='{WATCH.format(top['video_id'])}' target='_blank' "
+        f"rel='noopener'>{html.escape(top['title'] or '')}</a></div>"
+        f"<div class='who'>{html.escape(top.get('artists') or '')}</div>"
+        f"<div class='gain' style='text-align:left;margin-top:6px'>+{top['views_gained']:,}</div>"
+        f"</div></div>",
         unsafe_allow_html=True,
     )
+
+st.header("Top 10")
+if chart and entries:
+    st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
+    st.markdown("".join(chart_row(e) for e in entries[:10]), unsafe_allow_html=True)
 else:
     st.info("No chart published yet.")
+
+if len(entries) > 10:
+    st.subheader("Bubbling Under")
+    st.markdown("".join(chart_row(e) for e in entries[10:20]), unsafe_allow_html=True)
 
 newest = load("data/newest.json") or {}
 today_rows = newest.get("today") or []
