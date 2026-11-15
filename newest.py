@@ -13,7 +13,7 @@ ARTIST_JUNK_RE = re.compile(r"\s*【[^】]*$")
 
 
 def build(r):
-    artists = ARTIST_JUNK_RE.sub("", r.get("artists") or "").strip()
+    artists = TITLE_TAIL_RE.sub("", ARTIST_JUNK_RE.sub("", r.get("artists") or "")).strip()
     return {
         "video_id": r["video_id"],
         "title": TITLE_TAIL_RE.sub("", r.get("music_name") or r.get("video_name") or "").strip(),
