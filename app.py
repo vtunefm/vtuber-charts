@@ -3,7 +3,6 @@ import json
 import os
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 st.set_page_config(page_title="VTune FM — VTuber Music Charts", page_icon="📻", layout="wide")
 
@@ -25,6 +24,16 @@ st.markdown(
       .tagline { font-size: .95rem; color: #9aa0b4; margin-top: -6px; }
       h1, h2, h3 { color: #f2f3f8; }
       a { color: #a78bfa; }
+      .chartrow {
+        display: grid; grid-template-columns: 48px 100px 1fr 140px;
+        gap: 14px; align-items: center; padding: .5rem 0;
+        border-bottom: 1px solid #1c2029;
+        animation: slide .5s cubic-bezier(.2,.8,.3,1) both;
+      }
+      @keyframes slide {
+        from { opacity: 0; transform: translateX(-48px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
     </style>
     """,
     unsafe_allow_html=True,
@@ -54,6 +63,24 @@ def load(path):
         return json.load(f)
 
 
+def chart_row(entry):
+    tag = f"<span class='tag'>{html.escape(entry['type'])}</span>" if entry.get("type") else ""
+    url = WATCH.format(entry["video_id"])
+    delay = (10 - entry["rank"]) * 0.28
+    return (
+        f"<div class='chartrow' style='animation-delay:{delay:.2f}s'>"
+        f"<div class='rank'>{entry['rank']}</div>"
+        f"<div class='thumb'><a href='{url}' target='_blank' rel='noopener'>"
+        f"<img src='{entry['thumbnail']}' alt=''></a></div>"
+        f"<div><div class='song'><a href='{url}' target='_blank' rel='noopener'>"
+        f"{html.escape(entry['title'] or '')}</a>{tag}</div>"
+        f"<div class='who'>{html.escape(entry.get('artists') or '')}</div></div>"
+        f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
+        f"<div class='who' style='text-align:right'>{entry['days_covered']}d</div></div>"
+        f"</div>"
+    )
+
+
 def thumb_html(entry):
     return (
         f"<a href='{WATCH.format(entry['video_id'])}' target='_blank' rel='noopener'>"
@@ -77,16 +104,10 @@ chart = load("data/chart.json")
 st.header("Top 10")
 if chart and chart.get("entries"):
     st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
-    for entry in chart["entries"]:
-        rank, thumb, body, gain = st.columns([1, 1, 6, 2])
-        rank.markdown(f"<div class='rank'>{entry['rank']}</div>", unsafe_allow_html=True)
-        thumb.markdown(thumb_html(entry), unsafe_allow_html=True)
-        body.markdown(title_html(entry), unsafe_allow_html=True)
-        gain.markdown(
-            f"<div class='gain'>+{entry['views_gained']:,}</div>"
-            f"<div class='who'>{entry['days_covered']}d</div>",
-            unsafe_allow_html=True,
-        )
+    st.markdown(
+        "".join(chart_row(e) for e in chart["entries"]),
+        unsafe_allow_html=True,
+    )
 else:
     st.info("No chart published yet.")
 
