@@ -310,11 +310,19 @@ def main():
                 time.strftime("%Y-%m-%d"),
             ])
 
-        probe = vids[:PROBE_LIMIT]
-        pub = fetch_published(probe)
+        pub = {}
         cutoff = (datetime.now(timezone.utc).date() - timedelta(days=RECENT_DAYS)).isoformat()
-        batch = [v for v in probe if (pub.get(v) or "") >= cutoff][:MAX_VIDEOS_PER_CHANNEL]
-        print(f"{len(batch)} recent of {len(probe)} probed")
+        batch, stale, pos = [], 0, 0
+        while pos < len(vids) and len(batch) < MAX_VIDEOS_PER_CHANNEL and stale < 2:
+            chunk = vids[pos:pos + 50]
+            got = fetch_published(chunk)
+            pub.update(got)
+            recent = [v for v in chunk if (got.get(v) or "") >= cutoff]
+            batch.extend(recent)
+            stale = 0 if recent else stale + 1
+            pos += 50
+        batch = batch[:MAX_VIDEOS_PER_CHANNEL]
+        print(f"{len(batch)} recent of {pos} probed")
         pulled = 0
         for vid in batch:
             row = video_row(vid, f"channel:{key}", pub)
