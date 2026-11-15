@@ -77,6 +77,9 @@ else:
 # Calculate the difference
 df_latest['weekly_views'] = df_latest['view_count'] - df_latest['view_count_old']
 
+# Convert timestamp back to string so JSON can save it
+df_latest['snapshot_at'] = df_latest['snapshot_at'].astype(str)
+
 # 5. Generate JSON files
 # Top 10 by Weekly Views
 df_sorted_weekly = df_latest.sort_values(by='weekly_views', ascending=False)
