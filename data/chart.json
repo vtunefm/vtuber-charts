@@ -1,7 +1,7 @@
 {
   "week_start": "2026-11-09",
   "week_end": "2026-11-14",
-  "generated_at": "2026-11-15T21:15:37+00:00",
+  "generated_at": "2026-11-15T21:58:50+00:00",
   "entry_count": 10,
   "entries": [
     {
@@ -103,6 +103,20 @@
       "rank": 7
     },
     {
+      "video_id": "cdzJt6C7gLg",
+      "title": "幽霊みたい",
+      "video_name": "幽霊みたい    /    ましろ爻   cover",
+      "artists": "ましろ",
+      "channel": "ましろ",
+      "office": "個人勢",
+      "type": "cover",
+      "published_at": "2024-11-26",
+      "views_gained": 11779,
+      "days_covered": 6,
+      "thumbnail": "https://i.ytimg.com/vi/cdzJt6C7gLg/hqdefault.jpg",
+      "rank": 8
+    },
+    {
       "video_id": "scZd7VJvGNs",
       "title": "1925",
       "video_name": "1925 / 緑仙 Cover",
@@ -114,7 +128,7 @@
       "views_gained": 10093,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/scZd7VJvGNs/hqdefault.jpg",
-      "rank": 8
+      "rank": 9
     },
     {
       "video_id": "hTik3uYVY48",
@@ -128,20 +142,6 @@
       "views_gained": 9801,
       "days_covered": 6,
       "thumbnail": "https://i.ytimg.com/vi/hTik3uYVY48/hqdefault.jpg",
-      "rank": 9
-    },
-    {
-      "video_id": "oq-sW1xxVC8",
-      "title": "CROSS FIGHT!",
-      "video_name": "CROSS FIGHT! / 緑仙×社築 Cover",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-09-28",
-      "views_gained": 4834,
-      "days_covered": 6,
-      "thumbnail": "https://i.ytimg.com/vi/oq-sW1xxVC8/hqdefault.jpg",
       "rank": 10
     }
   ]
