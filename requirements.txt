@@ -1,1 +1,2 @@
-# placeholder - dependencies added later
+pandas
+google-api-python-client
