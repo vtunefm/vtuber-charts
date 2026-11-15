@@ -1,7 +1,7 @@
 {
   "week_start": "2026-11-09",
   "week_end": "2026-11-14",
-  "generated_at": "2026-11-15T23:10:28+00:00",
+  "generated_at": "2026-11-15T23:23:21+00:00",
   "entries": [
     {
       "video_id": "rQ6oG2ZEaVE",
@@ -17,7 +17,7 @@
       "rank": 1,
       "last_week": null,
       "peak": 1,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -34,7 +34,7 @@
       "rank": 2,
       "last_week": null,
       "peak": 2,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -51,7 +51,7 @@
       "rank": 3,
       "last_week": null,
       "peak": 3,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -68,7 +68,7 @@
       "rank": 4,
       "last_week": null,
       "peak": 4,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -85,7 +85,7 @@
       "rank": 5,
       "last_week": null,
       "peak": 5,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -102,7 +102,7 @@
       "rank": 6,
       "last_week": null,
       "peak": 6,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -119,7 +119,7 @@
       "rank": 7,
       "last_week": null,
       "peak": 7,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -136,7 +136,7 @@
       "rank": 8,
       "last_week": null,
       "peak": 8,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -153,7 +153,7 @@
       "rank": 9,
       "last_week": null,
       "peak": 9,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -170,7 +170,7 @@
       "rank": 10,
       "last_week": null,
       "peak": 10,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -187,7 +187,7 @@
       "rank": 11,
       "last_week": null,
       "peak": 11,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -204,7 +204,7 @@
       "rank": 12,
       "last_week": null,
       "peak": 12,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -221,7 +221,7 @@
       "rank": 13,
       "last_week": null,
       "peak": 13,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -238,7 +238,7 @@
       "rank": 14,
       "last_week": null,
       "peak": 14,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -255,7 +255,7 @@
       "rank": 15,
       "last_week": null,
       "peak": 15,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -272,7 +272,7 @@
       "rank": 16,
       "last_week": null,
       "peak": 16,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -289,7 +289,7 @@
       "rank": 17,
       "last_week": null,
       "peak": 17,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -306,7 +306,7 @@
       "rank": 18,
       "last_week": null,
       "peak": 18,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -323,7 +323,7 @@
       "rank": 19,
       "last_week": null,
       "peak": 19,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     },
     {
@@ -340,13 +340,14 @@
       "rank": 20,
       "last_week": null,
       "peak": 20,
-      "weeks_on_chart": 2,
+      "weeks_on_chart": 1,
       "movement": "new"
     }
   ],
   "artists": [
     {
       "name": "える",
+      "picture": "https://yt3.ggpht.com/_Y4hljDfpzuiQW0gipoAr2DLpQ_ciTWK3skuUKEq2lt5EPYjSiAkgIAvtwYVDRISWn3Czu1Q",
       "office": "にじさんじ",
       "views_gained": 407438,
       "video_count": 20,
@@ -364,6 +365,7 @@
     },
     {
       "name": "緑仙",
+      "picture": "https://yt3.ggpht.com/gqKMT95qDCACrpgG3iGrTOfELcpwIkIao4PFK-3vnmQusaS_1RW7yxjBXOVpXs3B_iNOegIT",
       "office": "にじさんじ",
       "views_gained": 123581,
       "video_count": 17,
@@ -381,6 +383,7 @@
     },
     {
       "name": "星川サラ",
+      "picture": "https://yt3.ggpht.com/ytc/AIdro_mWoZ_onsr56ZbnQQ21cnkYPfKTMJNHN3UOc1lmr44mTuc",
       "office": "にじさんじ",
       "views_gained": 58920,
       "video_count": 1,
@@ -398,6 +401,7 @@
     },
     {
       "name": "樋口楓",
+      "picture": "https://yt3.ggpht.com/8IvNB1yT48uO5JrmJ5aKP5DO3oAydtZ2PSyFq7Z-HLpgkAUvsf9O552DbSfkgD_q0CbHvMjeSA",
       "office": "にじさんじ",
       "views_gained": 36450,
       "video_count": 10,
@@ -415,6 +419,7 @@
     },
     {
       "name": "ましろ",
+      "picture": "https://yt3.ggpht.com/n_OA_Z82gAe9O5RrJYAlqtV4fbTK-RlikfEd7uEfd3hEyhl2yDQeuQjpwLPSXyU9f4n8bX-LYwQ",
       "office": "個人勢",
       "views_gained": 11779,
       "video_count": 1,
@@ -432,6 +437,7 @@
     },
     {
       "name": "猫又おかゆ",
+      "picture": "https://yt3.ggpht.com/oD8ISaA35737mg-lt5mYSfOIXmjCeHYcSFFpTQn4AVMkqiyzrMle_THvX6NdfSxbjUO6fQ6_wg",
       "office": "ホロライブ",
       "views_gained": 6333,
       "video_count": 1,
@@ -448,7 +454,8 @@
       "movement": "new"
     },
     {
-      "name": "鈴木勝",
+      "name": "ジョー・力一",
+      "picture": "https://yt3.ggpht.com/ROBxY7XsHsyciykqX-RloV3adi7WlMviJJNf_aHFr20x_IG6mEigiZmwVHCmz5UYPPyqIKOokg",
       "office": "にじさんじ",
       "views_gained": 690,
       "video_count": 1,
@@ -465,7 +472,8 @@
       "movement": "new"
     },
     {
-      "name": "三枝明那",
+      "name": "鈴木勝",
+      "picture": "https://yt3.ggpht.com/Yquis7Z1JfRH4wTnl-q-3c-8XJHnthcKzZRswlczZhD0S7pE6rNcAZ6ISiu4_hI-69Kss4cU6t8",
       "office": "にじさんじ",
       "views_gained": 690,
       "video_count": 1,
@@ -482,7 +490,8 @@
       "movement": "new"
     },
     {
-      "name": "ジョー・力一",
+      "name": "童田明治",
+      "picture": "https://yt3.ggpht.com/ytc/AIdro_nke6bbvby6Gf2tjyQ5lwVLZQHj5kRxkRpKjqD7fgfU1Q",
       "office": "にじさんじ",
       "views_gained": 690,
       "video_count": 1,
@@ -499,7 +508,8 @@
       "movement": "new"
     },
     {
-      "name": "童田明治",
+      "name": "三枝明那",
+      "picture": "https://yt3.ggpht.com/1gWkGOLFKaJmO5TnkdQGTSaelBY-lRtgPoo8ZS_bk_4vJt7wZ1ZT-k6MH60Ia-Oq9bgQVvlTyw",
       "office": "にじさんじ",
       "views_gained": 690,
       "video_count": 1,
