@@ -14,7 +14,7 @@
       "rank": 1,
       "last_week": null,
       "peak": 1,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -31,7 +31,7 @@
       "rank": 2,
       "last_week": null,
       "peak": 2,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -48,7 +48,7 @@
       "rank": 3,
       "last_week": null,
       "peak": 3,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -65,7 +65,7 @@
       "rank": 4,
       "last_week": null,
       "peak": 4,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -82,7 +82,7 @@
       "rank": 5,
       "last_week": null,
       "peak": 5,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -99,7 +99,7 @@
       "rank": 6,
       "last_week": null,
       "peak": 6,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -116,7 +116,7 @@
       "rank": 7,
       "last_week": null,
       "peak": 7,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -133,7 +133,7 @@
       "rank": 8,
       "last_week": null,
       "peak": 8,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -150,7 +150,7 @@
       "rank": 9,
       "last_week": null,
       "peak": 9,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -167,7 +167,7 @@
       "rank": 10,
       "last_week": null,
       "peak": 10,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -184,7 +184,7 @@
       "rank": 11,
       "last_week": null,
       "peak": 11,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -201,7 +201,7 @@
       "rank": 12,
       "last_week": null,
       "peak": 12,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -218,7 +218,7 @@
       "rank": 13,
       "last_week": null,
       "peak": 13,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -235,7 +235,7 @@
       "rank": 14,
       "last_week": null,
       "peak": 14,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -252,7 +252,7 @@
       "rank": 15,
       "last_week": null,
       "peak": 15,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -269,7 +269,7 @@
       "rank": 16,
       "last_week": null,
       "peak": 16,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -286,7 +286,7 @@
       "rank": 17,
       "last_week": null,
       "peak": 17,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -303,7 +303,7 @@
       "rank": 18,
       "last_week": null,
       "peak": 18,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -320,7 +320,7 @@
       "rank": 19,
       "last_week": null,
       "peak": 19,
-      "weeks_on_chart": 1,
+      "weeks_on_chart": 2,
       "movement": "new"
     },
     {
@@ -337,6 +337,178 @@
       "rank": 20,
       "last_week": null,
       "peak": 20,
+      "weeks_on_chart": 2,
+      "movement": "new"
+    }
+  ],
+  "artists": [
+    {
+      "name": "える",
+      "office": "にじさんじ",
+      "views_gained": 407438,
+      "video_count": 20,
+      "top_video": {
+        "video_id": "rQ6oG2ZEaVE",
+        "title": "劇薬中毒",
+        "thumbnail": "https://i.ytimg.com/vi/rQ6oG2ZEaVE/hqdefault.jpg",
+        "views_gained": 383086
+      },
+      "rank": 1,
+      "last_week": null,
+      "peak": 1,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "緑仙",
+      "office": "にじさんじ",
+      "views_gained": 123581,
+      "video_count": 17,
+      "top_video": {
+        "video_id": "Z07wK_HfAyA",
+        "title": "D/N/A / 緑仙×空澄セナ",
+        "thumbnail": "https://i.ytimg.com/vi/Z07wK_HfAyA/hqdefault.jpg",
+        "views_gained": 35293
+      },
+      "rank": 2,
+      "last_week": null,
+      "peak": 2,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "星川サラ",
+      "office": "にじさんじ",
+      "views_gained": 58920,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "m9jik3Ywzq4",
+        "title": "生命線",
+        "thumbnail": "https://i.ytimg.com/vi/m9jik3Ywzq4/hqdefault.jpg",
+        "views_gained": 58920
+      },
+      "rank": 3,
+      "last_week": null,
+      "peak": 3,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "樋口楓",
+      "office": "にじさんじ",
+      "views_gained": 36450,
+      "video_count": 10,
+      "top_video": {
+        "video_id": "Y5Nyy2ZvL1c",
+        "title": "ずうっといっしょ！",
+        "thumbnail": "https://i.ytimg.com/vi/Y5Nyy2ZvL1c/hqdefault.jpg",
+        "views_gained": 12496
+      },
+      "rank": 4,
+      "last_week": null,
+      "peak": 4,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "ましろ",
+      "office": "個人勢",
+      "views_gained": 11779,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "cdzJt6C7gLg",
+        "title": "幽霊みたい",
+        "thumbnail": "https://i.ytimg.com/vi/cdzJt6C7gLg/hqdefault.jpg",
+        "views_gained": 11779
+      },
+      "rank": 5,
+      "last_week": null,
+      "peak": 5,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "猫又おかゆ",
+      "office": "ホロライブ",
+      "views_gained": 6333,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "3wFu_MptJs4",
+        "title": "キケンナアソビ",
+        "thumbnail": "https://i.ytimg.com/vi/3wFu_MptJs4/hqdefault.jpg",
+        "views_gained": 6333
+      },
+      "rank": 6,
+      "last_week": null,
+      "peak": 6,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "鈴木勝",
+      "office": "にじさんじ",
+      "views_gained": 690,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "2JAxMU04AAE",
+        "title": "トンデモワンダーズ",
+        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
+        "views_gained": 690
+      },
+      "rank": 7,
+      "last_week": null,
+      "peak": 7,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "三枝明那",
+      "office": "にじさんじ",
+      "views_gained": 690,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "2JAxMU04AAE",
+        "title": "トンデモワンダーズ",
+        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
+        "views_gained": 690
+      },
+      "rank": 8,
+      "last_week": null,
+      "peak": 8,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "ジョー・力一",
+      "office": "にじさんじ",
+      "views_gained": 690,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "2JAxMU04AAE",
+        "title": "トンデモワンダーズ",
+        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
+        "views_gained": 690
+      },
+      "rank": 9,
+      "last_week": null,
+      "peak": 9,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "童田明治",
+      "office": "にじさんじ",
+      "views_gained": 690,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "2JAxMU04AAE",
+        "title": "トンデモワンダーズ",
+        "thumbnail": "https://i.ytimg.com/vi/2JAxMU04AAE/hqdefault.jpg",
+        "views_gained": 690
+      },
+      "rank": 10,
+      "last_week": null,
+      "peak": 10,
       "weeks_on_chart": 1,
       "movement": "new"
     }
