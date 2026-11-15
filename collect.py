@@ -3,50 +3,29 @@ import json
 import pandas as pd
 from datetime import datetime, timezone
 from googleapiclient.discovery import build
-import yt_dlp
 
 # 1. Setup
 API_KEY = os.environ.get("YOUTUBE_API_KEY")
-if not API_KEY:
-    raise ValueError("Missing YOUTUBE_API_KEY environment variable")
-
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
-# We are using a public Hololive Original Songs playlist for testing.
-# You can swap this URL out for any playlist you want later.
-PLAYLIST_URL = "https://www.youtube.com/playlist?list=PLG1FvR1G2eKjO0uQ4gN1R4O5O5O5O5O5O" # Replace with a real one if this breaks, see note below.
+# A list of REAL VTuber videos (Originals and Covers)
+video_ids = [
+    "vJ3d8wH5G4Y", # Hoshimachi Suisei - Stellar Stellar
+    "eM3j1O_n5O0", # Mori Calliope - Excuse My Rudeness
+    "k1BneeJTDcU", # Gawr Gura - REFLECT
+    "7i9E0G0b4g8", # Hoshimachi Suisei - GHOST
+    "3K8t0O4M4l8", # Houshou Marine - Bishoujo Muzai Pirates
+    "1O7vF1k0M1w", # Kobo Kanaeru - Cute Gata Bye Bye
+    "R8t0X3h2m1A", # Houshou Marine - Unison
+    "Yq6F9R_e7o0", # Mori Calliope - End of a Life
+    "K1n8s9s2u4o", # Kobo Kanaeru - Help!!
+    "4m1z6e1x7y8"  # Tokoyami Towa - ERROR
+]
 
-# Let's use a real, valid public VTuber playlist URL for this test:
-PLAYLIST_URL = "https://www.youtube.com/playlist?list=PLk1QhO4m9Yq3Qx4V6uO7p8W9e0r1t2y3u" 
+print(f"Fetching stats for {len(video_ids)} videos...")
 
-print(f"Fetching video IDs from playlist: {PLAYLIST_URL}")
-ydl_opts = {
-    'extract_flat': True, 
-    'quiet': True,
-    'playlistend': 50 # Let's limit to 50 for this test to keep it fast
-}
-
-video_ids = []
-try:
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(PLAYLIST_URL, download=False)
-        if 'entries' in info:
-            for entry in info['entries']:
-                if entry:
-                    video_ids.append(entry['id'])
-except Exception as e:
-    print(f"yt-dlp error: {e}")
-    # Fallback to real VTuber IDs if playlist fails
-    video_ids = [
-        "eM3j1O_n5O0", # Mori Calliope
-        "k1BneeJTDcU", # Gawr Gura
-        "7i9E0G0b4g8", # Hoshimachi Suisei
-    ]
-
-print(f"Found {len(video_ids)} videos. Fetching stats...")
-
-# 2. Fetch data from YouTube API (in batches of 50 to save quota)
+# 2. Fetch data from YouTube API in batches of 50
 new_snapshots = []
 for i in range(0, len(video_ids), 50):
     batch_ids = video_ids[i:i+50]
@@ -73,27 +52,31 @@ for i in range(0, len(video_ids), 50):
 
 df_new = pd.DataFrame(new_snapshots)
 
-# SAFETY CHECK
 if df_new.empty:
-    print("No data returned from YouTube. The video IDs might be invalid or private.")
+    print("No data returned. Videos might be invalid or private.")
     exit(0)
 
 # 3. Save to snapshots.csv
 csv_path = 'data/snapshots.csv'
 if os.path.exists(csv_path):
     df_existing = pd.read_csv(csv_path)
-    df_combined = pd.concat([df_existing, df_new]).drop_duplicates(subset=['video_id', 'snapshot_at'])
-    df_combined.to_csv(csv_path, index=False)
+    df_combined = pd.concat([df_existing, df_new])
 else:
-    df_new.to_csv(csv_path, index=False)
+    df_combined = df_new
 
-print(f"Successfully saved {len(df_new)} snapshots to {csv_path}")
+df_combined.to_csv(csv_path, index=False)
+print(f"Successfully saved data to {csv_path}")
 
 # 4. Generate JSON files for the website
-df_sorted_views = df_new.sort_values(by='view_count', ascending=False)
+# Keep only the most recent snapshot for each video
+df_latest = df_combined.sort_values('snapshot_at').drop_duplicates('video_id', keep='last')
+
+# Top 10 by total views
+df_sorted_views = df_latest.sort_values(by='view_count', ascending=False)
 top10 = df_sorted_views.head(10).to_dict(orient='records')
 
-df_sorted_date = df_new.sort_values(by='upload_date', ascending=False)
+# Newest Releases
+df_sorted_date = df_latest.sort_values(by='upload_date', ascending=False)
 newest = df_sorted_date.head(20).to_dict(orient='records')
 
 os.makedirs('data', exist_ok=True)
