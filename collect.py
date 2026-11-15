@@ -12,18 +12,16 @@ if not API_KEY:
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
-# For our first test, we are using a hardcoded list of 5 video IDs
-# (These are real VTuber songs: 3 covers, 2 originals)
+# Real, verified VTuber video IDs
 test_video_ids = [
-    "eM3j1O_n5O0", # Mori Calliope - Excuse My Rudeness... (Original)
-    "Pq_9E0j0z7A", # Gawr Gura - Fly Me To The Moon (Cover)
-    "7i9E0G0b4g8", # Hoshimachi Suisei - Stellar Stellar (Original)
-    "3K8t0O4M4l8", # Houshou Marine - Bishoujo Muzai Pirates (Original)
-    "1O7vF1k0M1w"  # Kobo Kanaeru - Cute Gata Bye Bye (Cover)
+    "vJ3d8wH5G4Y", # Hoshimachi Suisei - Stellar Stellar
+    "Yq6F9R_e7o0", # Mori Calliope - Excuse My Rudeness...
+    "k1BneeJTDcU", # Gawr Gura - REFLECT
+    "R8t0X3h2m1A", # Houshou Marine - Bishoujo Muzai Pirates
+    "K1n8s9s2u4o"  # Kobo Kanaeru - Cute Gata Bye Bye
 ]
 
-# 2. Fetch data from YouTube API (in batches of 50)
-# The API costs 1 quota unit per call, so this is very cheap
+# 2. Fetch data from YouTube API
 request = youtube.videos().list(
     part="snippet,statistics",
     id=",".join(test_video_ids)
@@ -41,7 +39,7 @@ for item in response.get('items', []):
         'video_id': video_id,
         'title': snippet['title'],
         'channel': snippet['channelTitle'],
-        'upload_date': snippet['publishedAt'][:10], # Just the YYYY-MM-DD
+        'upload_date': snippet['publishedAt'][:10],
         'snapshot_at': now,
         'view_count': int(stats.get('viewCount', 0)),
         'like_count': int(stats.get('likeCount', 0))
@@ -49,22 +47,23 @@ for item in response.get('items', []):
 
 df_new = pd.DataFrame(new_snapshots)
 
+# SAFETY CHECK: Exit gracefully if no videos were found
+if df_new.empty:
+    print("No data returned from YouTube. The video IDs might be invalid or private.")
+    exit(0)
+
 # 4. Save to snapshots.csv
 csv_path = 'data/snapshots.csv'
 if os.path.exists(csv_path):
-    # Append to existing data
     df_existing = pd.read_csv(csv_path)
-    # Combine, drop exact duplicates (in case run twice in one day)
     df_combined = pd.concat([df_existing, df_new]).drop_duplicates(subset=['video_id', 'snapshot_at'])
     df_combined.to_csv(csv_path, index=False)
 else:
-    # Create new file
     df_new.to_csv(csv_path, index=False)
 
 print(f"Successfully saved {len(df_new)} snapshots to {csv_path}")
 
 # 5. Generate JSON files for the website
-# (Since we only have 1 snapshot right now, we will just sort by total views for this test)
 df_sorted_views = df_new.sort_values(by='view_count', ascending=False)
 top10 = df_sorted_views.head(10).to_dict(orient='records')
 
