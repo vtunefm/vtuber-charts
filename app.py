@@ -1,45 +1,78 @@
-import streamlit as st
-import pandas as pd
 import json
+import os
 
-st.set_page_config(page_title="VTuber Music Charts", page_icon="🎵", layout="wide")
-st.title("🎵 VTuber Music Charts")
-st.markdown("Tracking the top hits and newest releases in the VTuber scene.")
+import streamlit as st
 
-try:
-    with open("data/top10.json", "r") as f:
-        top10_data = json.load(f)
-    with open("data/newest.json", "r") as f:
-        newest_data = json.load(f)
-except FileNotFoundError:
-    st.error("Data files not found. Please run the GitHub Action first.")
-    st.stop()
+st.set_page_config(page_title="VTune FM — VTuber Music Charts", page_icon="📻", layout="wide")
 
-df_top10 = pd.DataFrame(top10_data)
-df_newest = pd.DataFrame(newest_data)
+st.markdown(
+    """
+    <style>
+      .block-container { padding-top: 2rem; max-width: 1100px; }
+      .rank { font-size: 1.9rem; font-weight: 800; color: #b4b8c4; text-align: right; }
+      .song { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+      .who { font-size: .85rem; color: #8b90a0; }
+      .gain { font-size: 1rem; font-weight: 700; color: #6ee7a0; text-align: right; }
+      .tag { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
+             color: #8b90a0; border: 1px solid #2a2f3a; border-radius: 3px;
+             padding: 1px 5px; margin-left: 6px; }
+      .row { border-bottom: 1px solid #1c2029; padding: .55rem 0; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-# --- Top 10 Section ---
-st.header("🔥 Top 10 by Weekly Views")
-if not df_top10.empty:
-    # We changed 'view_count' to 'weekly_views' here
-    df_display = df_top10[['title', 'channel', 'weekly_views']].copy()
-    df_display.columns = ['Song Title', 'Channel', 'Views Gained This Week']
-    
-    # Format with commas
-    df_display['Views Gained This Week'] = df_display['Views Gained This Week'].apply(lambda x: f"{int(x):,}")
-    
-    st.dataframe(df_display, use_container_width=True, hide_index=True)
+st.title("VTune FM")
+st.caption("Weekly VTuber music charts · Top 10 by views gained, Monday to Saturday")
+
+
+def load(path):
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+chart = load("data/chart.json")
+
+st.header("Top 10")
+if chart and chart.get("entries"):
+    st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
+    for entry in chart["entries"]:
+        rank, thumb, body, gain = st.columns([1, 1, 6, 2])
+        rank.markdown(f"<div class='rank'>{entry['rank']}</div>", unsafe_allow_html=True)
+        thumb.image(entry["thumbnail"], use_container_width=True)
+        tag = f"<span class='tag'>{entry['type']}</span>" if entry.get("type") else ""
+        body.markdown(
+            f"<div class='song'>{entry['title']}{tag}</div>"
+            f"<div class='who'>{entry.get('artists') or entry.get('channel') or ''}</div>",
+            unsafe_allow_html=True,
+        )
+        gain.markdown(
+            f"<div class='gain'>+{entry['views_gained']:,}</div>"
+            f"<div class='who'>{entry['days_covered']}d</div>",
+            unsafe_allow_html=True,
+        )
 else:
-    st.write("No data available.")
+    st.info("No chart published yet.")
 
-# --- Newest Releases Section ---
-st.header("🆕 Newest Releases")
-if not df_newest.empty:
-    df_new_display = df_newest[['upload_date', 'title', 'channel']].copy()
-    df_new_display.columns = ['Release Date', 'Song Title', 'Channel']
-    
-    st.dataframe(df_new_display, use_container_width=True, hide_index=True)
+st.header("Newest Releases")
+newest = load("data/newest.json")
+if newest and newest.get("entries"):
+    for entry in newest["entries"]:
+        thumb, body, when = st.columns([1, 6, 2])
+        thumb.image(entry["thumbnail"], use_container_width=True)
+        tag = f"<span class='tag'>{entry['type']}</span>" if entry.get("type") else ""
+        body.markdown(
+            f"<div class='song'>{entry['title']}{tag}</div>"
+            f"<div class='who'>{entry.get('artists') or entry.get('channel') or ''}</div>",
+            unsafe_allow_html=True,
+        )
+        when.markdown(
+            f"<div class='who' style='text-align:right'>{entry['published_at']}</div>",
+            unsafe_allow_html=True,
+        )
 else:
-    st.write("No data available.")
+    st.info("No releases yet.")
 
-st.caption("Data automatically updated daily via GitHub Actions.")
+st.caption("Views are counted Monday–Saturday and frozen when the chart publishes.")
