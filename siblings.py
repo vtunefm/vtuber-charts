@@ -2,6 +2,7 @@ import csv
 import os
 import time
 from datetime import datetime, timedelta, timezone
+from collections import Counter
 
 import requests
 
@@ -11,7 +12,7 @@ from discover import (
 )
 
 SONGS = "data/songs.csv"
-MAX_SONGS = 3
+MAX_SONGS = 8
 MAX_NEW_VIDEOS = 40
 SONG_COLS = ["music_name", "artist", "video_count", "expanded_at"]
 
@@ -43,7 +44,7 @@ def main():
     known = {r["video_id"] for r in rows}
     done = load_done()
 
-    songs = {}
+    counts = Counter()
     for r in rows:
         name = (r.get("music_name") or "").strip()
         if len(name) < 2 or name in done:
@@ -52,7 +53,9 @@ def main():
             continue
         if r.get("is_short") == "True":
             continue
-        songs.setdefault(name, r.get("artists") or "")
+        counts[name] += 1
+
+    songs = [name for name, _ in counts.most_common()]
 
     print(f"{len(songs)} song(s) eligible for sibling expansion")
     added = 0
@@ -62,7 +65,6 @@ def main():
         time.sleep(DELAY)
         if not data:
             print(f"music lookup failed: {name}")
-            log_song(name, "", 0)
             continue
 
         vids = [v for v in (data.get("videolist") or []) if v not in known]
