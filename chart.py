@@ -88,7 +88,7 @@ def past_week_for(end):
     return weeks[-1] if weeks else None
 
 
-def history(key):
+def history(key, exclude=None):
     records = {}
     if not os.path.isdir(ARCHIVE):
         return records
@@ -96,6 +96,8 @@ def history(key):
         if not name.endswith(".json"):
             continue
         week = name[:-5]
+        if week == exclude:
+            continue
         try:
             with open(os.path.join(ARCHIVE, name), encoding="utf-8") as f:
                 data = json.load(f)
@@ -168,12 +170,19 @@ def main():
         if gain < MIN_GAIN:
             continue
 
+        pictures = {
+            m["nickname"]: m["pictureurl"]
+            for m in (data.get("memberdata") or [])
+            if m.get("nickname") and m.get("pictureurl")
+        }
+
         songs.append({
             "video_id": track["video_id"],
             "title": TITLE_TAIL_RE.sub(
                 "", track.get("music_name") or track.get("video_name") or ""
             ).strip(),
             "artists": TITLE_TAIL_RE.sub("", track.get("artists") or "").strip(),
+            "pictures": pictures,
             "channel": track.get("channel_name"),
             "office": track.get("offices"),
             "type": track.get("type"),
@@ -192,15 +201,18 @@ def main():
         for name in names:
             if not name:
                 continue
-            rec = artists.setdefault(name, {"gain": 0, "count": 0, "top": song})
+            rec = artists.setdefault(name, {"gain": 0, "count": 0, "top": song, "picture": ""})
             rec["gain"] += song["views_gained"]
             rec["count"] += 1
+            if not rec["picture"]:
+                rec["picture"] = song["pictures"].get(name, "")
             if song["views_gained"] > rec["top"]["views_gained"]:
                 rec["top"] = song
 
     artist_rows = [
         {
             "name": name,
+            "picture": rec.get("picture") or rec["top"]["thumbnail"],
             "office": rec["top"].get("office"),
             "views_gained": rec["gain"],
             "video_count": rec["count"],
@@ -216,9 +228,12 @@ def main():
     artist_rows.sort(key=lambda a: -a["views_gained"])
     ranked_artists = artist_rows[:MAX_ENTRIES]
 
+    for song in ranked_songs:
+        song.pop("pictures", None)
+
     past_week = past_week_for(end)
-    apply_history(ranked_songs, history("entries"), past_week, lambda e: e["video_id"])
-    apply_history(ranked_artists, history("artists"), past_week, lambda a: a["name"])
+    apply_history(ranked_songs, history("entries", end.isoformat()), past_week, lambda e: e["video_id"])
+    apply_history(ranked_artists, history("artists", end.isoformat()), past_week, lambda a: a["name"])
 
     payload = {
         "week_start": start.isoformat(),
