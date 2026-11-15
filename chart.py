@@ -11,7 +11,7 @@ BASE = "https://old.vsing.info"
 UA = {"User-Agent": "vtunefm-charts/0.1 (+github.com/vtunefm/vtuber-charts)"}
 DELAY = 0.7
 MIN_GAIN = 500
-MAX_ENTRIES = 20
+MAX_ENTRIES = 100
 MAX_FETCH = 200
 
 TRACKS = "data/tracks.csv"
