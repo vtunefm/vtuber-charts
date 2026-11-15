@@ -18,6 +18,7 @@ TRACKS = "data/tracks.csv"
 OUT = "data/chart.json"
 
 DATE_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})$")
+TITLE_TAIL_RE = re.compile(r"\s*(cover|カバー)\s*$", re.I)
 
 
 def fetch_json(url, tries=3):
@@ -97,7 +98,9 @@ def main():
 
         entries.append({
             "video_id": track["video_id"],
-            "title": track.get("music_name") or track.get("video_name"),
+            "title": TITLE_TAIL_RE.sub(
+                "", track.get("music_name") or track.get("video_name") or ""
+            ).strip(),
             "video_name": track.get("video_name"),
             "artists": track.get("artists"),
             "channel": track.get("channel_name"),
