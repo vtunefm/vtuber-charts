@@ -172,8 +172,10 @@ else:
     st.info("No chart published yet.")
 
 st.header("Artist Top 20")
+if chart:
+    st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
+    st.caption("One entry per artist · highest-gaining video shown · collab gains credited to all")
 if artists:
-    st.caption("One entry per artist · their highest-gaining video shown · weekly gain summed")
     st.markdown("".join(artist_row(a) for a in artists), unsafe_allow_html=True)
 else:
     st.info("No artist chart published yet.")
