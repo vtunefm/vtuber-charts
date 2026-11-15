@@ -6,6 +6,7 @@ from collections import Counter
 
 import requests
 from googleapiclient.discovery import build
+from datetime import datetime, timedelta, timezone
 
 BASE = "https://old.vsing.info"
 UA = {"User-Agent": "vtunefm-charts/0.1 (+github.com/vtunefm/vtuber-charts)"}
@@ -15,6 +16,9 @@ MAX_NEW_CHANNELS = 3
 MAX_VIDEOS_PER_CHANNEL = 40
 LONG_SEC = 900
 MAX_DURATION = 1500
+
+RECENT_DAYS = 21
+PROBE_LIMIT = 80
 
 TRACKS = "data/tracks.csv"
 CHANNELS = "data/channels.csv"
@@ -306,8 +310,11 @@ def main():
                 time.strftime("%Y-%m-%d"),
             ])
 
-        batch = vids[:MAX_VIDEOS_PER_CHANNEL]
-        pub = fetch_published(batch)
+        probe = vids[:PROBE_LIMIT]
+        pub = fetch_published(probe)
+        cutoff = (datetime.now(timezone.utc).date() - timedelta(days=RECENT_DAYS)).isoformat()
+        batch = [v for v in probe if (pub.get(v) or "") >= cutoff][:MAX_VIDEOS_PER_CHANNEL]
+        print(f"{len(batch)} recent of {len(probe)} probed")
         pulled = 0
         for vid in batch:
             row = video_row(vid, f"channel:{key}", pub)
