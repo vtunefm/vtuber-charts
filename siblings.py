@@ -1,13 +1,13 @@
 import csv
 import os
+import re
 import time
-from datetime import datetime, timedelta, timezone
 from collections import Counter
 
 import requests
 
 from discover import (
-    BASE, DELAY, MAX_DURATION, RECENT_DAYS,
+    BASE, DELAY, MAX_DURATION,
     fetch_json, fetch_published, read_tracks, to_int, video_row, write_tracks,
 )
 
@@ -15,6 +15,12 @@ SONGS = "data/songs.csv"
 MAX_SONGS = 8
 MAX_NEW_VIDEOS = 40
 SONG_COLS = ["music_name", "artist", "video_count", "expanded_at"]
+MIN_VIEWS = 1000
+KEY_TAIL = re.compile(r"\s*(cover|カバー)\s*$", re.I)
+
+
+def song_key(name):
+    return KEY_TAIL.sub("", name.split(" / ")[0]).strip()
 
 
 def load_done():
@@ -46,7 +52,7 @@ def main():
 
     counts = Counter()
     for r in rows:
-        name = (r.get("music_name") or "").strip()
+        name = song_key((r.get("music_name") or "").strip())
         if len(name) < 2 or name in done:
             continue
         if r.get("type") not in ("cover", "original"):
@@ -60,7 +66,7 @@ def main():
     print(f"{len(songs)} song(s) eligible for sibling expansion")
     added = 0
 
-    for name in list(songs)[:MAX_SONGS]:
+    for name in songs[:MAX_SONGS]:
         data = fetch_json(f"{BASE}/api/v4/music/{requests.utils.quote(name, safe='')}.json")
         time.sleep(DELAY)
         if not data:
@@ -73,21 +79,25 @@ def main():
         if not vids:
             continue
 
-        cutoff = (datetime.now(timezone.utc).date() - timedelta(days=RECENT_DAYS)).isoformat()
         probe = vids[:60]
         pub = fetch_published(probe)
-        batch = [v for v in probe if (pub.get(v) or "") >= cutoff]
-        batch = batch[: max(0, MAX_NEW_VIDEOS - added)]
+        batch = probe[: max(0, MAX_NEW_VIDEOS - added)]
 
+        song_added = 0
+        thin = 0
         for vid in batch:
             row = video_row(vid, f"song:{name}", pub)
             time.sleep(DELAY)
             if not row or to_int(row["duration_sec"]) > MAX_DURATION:
                 continue
+            if to_int(row["latest_views"]) < MIN_VIEWS:
+                thin += 1
+                continue
             rows.append(row)
             known.add(vid)
             added += 1
-        print(f"  +{len(batch)} added")
+            song_added += 1
+        print(f"  +{song_added} added, {thin} below view floor")
 
     write_tracks(rows)
     print(f"done. {len(rows)} tracks (+{added})")
