@@ -3,58 +3,46 @@ import json
 import pandas as pd
 from datetime import datetime, timezone
 from googleapiclient.discovery import build
+import yt_dlp
 
 # 1. Setup
 API_KEY = os.environ.get("YOUTUBE_API_KEY")
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
-# A list of REAL VTuber videos (Originals and Covers)
-video_ids = [
-    "vJ3d8wH5G4Y", # Hoshimachi Suisei - Stellar Stellar
-    "eM3j1O_n5O0", # Mori Calliope - Excuse My Rudeness
-    "k1BneeJTDcU", # Gawr Gura - REFLECT
-    "7i9E0G0b4g8", # Hoshimachi Suisei - GHOST
-    "3K8t0O4M4l8", # Houshou Marine - Bishoujo Muzai Pirates
-    "1O7vF1k0M1w", # Kobo Kanaeru - Cute Gata Bye Bye
-    "R8t0X3h2m1A", # Houshou Marine - Unison
-    "Yq6F9R_e7o0", # Mori Calliope - End of a Life
-    "K1n8s9s2u4o", # Kobo Kanaeru - Help!!
-    "4m1z6e1x7y8"  # Tokoyami Towa - ERROR
-]
+# Search for 50 real VTuber videos
+print("Searching YouTube for VTuber songs...")
+ydl_opts = {'extract_flat': True, 'quiet': True, 'playlistend': 50}
+video_ids = []
+try:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info("ytsearch50:hololive original song", download=False)
+        for entry in info.get('entries', []):
+            if entry and 'id' in entry:
+                video_ids.append(entry['id'])
+except Exception as e:
+    print(f"yt-dlp search failed: {e}")
+    exit(1)
 
-print(f"Fetching stats for {len(video_ids)} videos...")
-
-# 2. Fetch data from YouTube API in batches of 50
+# 2. Fetch data from YouTube API
 new_snapshots = []
 for i in range(0, len(video_ids), 50):
     batch_ids = video_ids[i:i+50]
-    request = youtube.videos().list(
-        part="snippet,statistics",
-        id=",".join(batch_ids)
-    )
+    request = youtube.videos().list(part="snippet,statistics", id=",".join(batch_ids))
     response = request.execute()
     
     for item in response.get('items', []):
-        video_id = item['id']
-        snippet = item['snippet']
-        stats = item['statistics']
-        
         new_snapshots.append({
-            'video_id': video_id,
-            'title': snippet['title'],
-            'channel': snippet['channelTitle'],
-            'upload_date': snippet['publishedAt'][:10],
+            'video_id': item['id'],
+            'title': item['snippet']['title'],
+            'channel': item['snippet']['channelTitle'],
+            'upload_date': item['snippet']['publishedAt'][:10],
             'snapshot_at': now,
-            'view_count': int(stats.get('viewCount', 0)),
-            'like_count': int(stats.get('likeCount', 0))
+            'view_count': int(item['statistics'].get('viewCount', 0)),
+            'like_count': int(item['statistics'].get('likeCount', 0))
         })
 
 df_new = pd.DataFrame(new_snapshots)
-
-if df_new.empty:
-    print("No data returned. Videos might be invalid or private.")
-    exit(0)
 
 # 3. Save to snapshots.csv
 csv_path = 'data/snapshots.csv'
@@ -65,15 +53,34 @@ else:
     df_combined = df_new
 
 df_combined.to_csv(csv_path, index=False)
-print(f"Successfully saved data to {csv_path}")
 
-# 4. Generate JSON files for the website
-# Keep only the most recent snapshot for each video
-df_latest = df_combined.sort_values('snapshot_at').drop_duplicates('video_id', keep='last')
+# 4. Calculate Weekly Views
+df_combined['snapshot_at'] = pd.to_datetime(df_combined['snapshot_at'])
+latest_time = df_combined['snapshot_at'].max()
+one_week_ago = latest_time - pd.Timedelta(days=7)
 
-# Top 10 by total views
-df_sorted_views = df_latest.sort_values(by='view_count', ascending=False)
-top10 = df_sorted_views.head(10).to_dict(orient='records')
+# Get the most recent snapshot (today)
+df_latest = df_combined[df_combined['snapshot_at'] == latest_time].copy()
+
+# Get the snapshot from ~7 days ago
+df_old = df_combined[df_combined['snapshot_at'] <= one_week_ago]
+if not df_old.empty:
+    # Keep only the most recent snapshot from before 7 days ago for each video
+    df_old = df_old.sort_values('snapshot_at').groupby('video_id').last().reset_index()
+    # Merge the old views into the latest dataframe
+    df_latest = df_latest.merge(df_old[['video_id', 'view_count']], on='video_id', how='left', suffixes=('', '_old'))
+    df_latest['view_count_old'] = df_latest['view_count_old'].fillna(0)
+else:
+    # If we don't have 7 days of history yet, assume they started at 0
+    df_latest['view_count_old'] = 0
+
+# Calculate the difference
+df_latest['weekly_views'] = df_latest['view_count'] - df_latest['view_count_old']
+
+# 5. Generate JSON files
+# Top 10 by Weekly Views
+df_sorted_weekly = df_latest.sort_values(by='weekly_views', ascending=False)
+top10 = df_sorted_weekly.head(10).to_dict(orient='records')
 
 # Newest Releases
 df_sorted_date = df_latest.sort_values(by='upload_date', ascending=False)
@@ -86,4 +93,4 @@ with open('data/top10.json', 'w') as f:
 with open('data/newest.json', 'w') as f:
     json.dump(newest, f, indent=2)
 
-print("Successfully generated top10.json and newest.json")
+print("Successfully generated weekly top10.json and newest.json")
