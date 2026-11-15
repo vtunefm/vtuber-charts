@@ -3,30 +3,46 @@ import json
 import os
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="VTune FM — VTuber Music Charts", page_icon="📻", layout="wide")
 
 st.markdown(
     """
     <style>
-      .block-container { padding-top: 2rem; max-width: 1100px; }
-      .rank { font-size: 1.9rem; font-weight: 800; color: #b4b8c4; text-align: right; }
+      .stApp { background: #0d0f14; }
+      .block-container { padding-top: 1.6rem; max-width: 1100px; }
+      .rank { font-size: 1.9rem; font-weight: 800; color: #6b7285; text-align: right; }
       .song { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
-      .song a { color: #e8eaf0; text-decoration: none; }
+      .song a { color: #eceef5; text-decoration: none; }
       .song a:hover { text-decoration: underline; }
       .who { font-size: .85rem; color: #8b90a0; }
       .gain { font-size: 1rem; font-weight: 700; color: #6ee7a0; text-align: right; }
       .tag { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
-             color: #8b90a0; border: 1px solid #2a2f3a; border-radius: 3px;
+             color: #a78bfa; border: 1px solid #3b2f63; border-radius: 3px;
              padding: 1px 5px; margin-left: 6px; }
       .thumb img { width: 100%; border-radius: 4px; display: block; }
+      .tagline { font-size: .95rem; color: #9aa0b4; margin-top: -6px; }
+      h1, h2, h3 { color: #f2f3f8; }
+      a { color: #a78bfa; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-st.title("VTune FM")
-st.caption("Weekly VTuber music charts · Top 10 by views gained, Monday to Saturday")
+logo_col, head_col = st.columns([1, 4])
+if os.path.exists("assets/logo.png"):
+    logo_col.image("assets/logo.png", use_container_width=True)
+with head_col:
+    st.title("VTune FM")
+    st.markdown(
+        "<div class='tagline'>Weekly VTuber music charts · Top 10 by views gained, Monday to Saturday</div>",
+        unsafe_allow_html=True,
+    )
+
+link_cols = st.columns([1, 1, 6])
+link_cols[0].link_button("X · @vtunefm", "https://x.com/vtunefm", use_container_width=True)
+link_cols[1].link_button("YouTube", "https://www.youtube.com/@vtunefm-q105", use_container_width=True)
 
 WATCH = "https://www.youtube.com/watch?v={}"
 
@@ -38,13 +54,9 @@ def load(path):
         return json.load(f)
 
 
-def link(video_id):
-    return WATCH.format(video_id)
-
-
 def thumb_html(entry):
     return (
-        f"<a href='{link(entry['video_id'])}' target='_blank' rel='noopener'>"
+        f"<a href='{WATCH.format(entry['video_id'])}' target='_blank' rel='noopener'>"
         f"<img src='{entry['thumbnail']}' alt=''></a>"
     )
 
@@ -54,7 +66,7 @@ def title_html(entry):
     safe = html.escape(entry["title"] or "")
     return (
         f"<div class='song'>"
-        f"<a href='{link(entry['video_id'])}' target='_blank' rel='noopener'>{safe}</a>"
+        f"<a href='{WATCH.format(entry['video_id'])}' target='_blank' rel='noopener'>{safe}</a>"
         f"{tag}</div>"
         f"<div class='who'>{html.escape(entry.get('artists') or '')}</div>"
     )
@@ -105,5 +117,20 @@ else:
     st.header("Recent Releases")
     st.caption("Nothing in the last two days.")
     release_block((newest.get("earlier") or [])[:10])
+
+playlists = load("data/playlists.json") or {}
+st.header("From the Show")
+show_cols = st.columns(2)
+for col, key in zip(show_cols, ("latest_episode", "heart2heart")):
+    pl = playlists.get(key)
+    with col:
+        if pl:
+            st.markdown(f"**{html.escape(pl['title'])}**")
+            components.iframe(
+                f"https://www.youtube.com/embed/videoseries?list={pl['id']}",
+                height=340,
+            )
+        else:
+            st.caption("Playlist not loaded yet.")
 
 st.caption("Views are counted Monday–Saturday and frozen when the chart publishes.")
