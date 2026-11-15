@@ -1,12 +1,11 @@
 {
-  "generated_at": "2026-11-15T21:40:50+00:00",
-  "entry_count": 20,
-  "entries": [
+  "generated_at": "2026-11-15T21:51:05+00:00",
+  "today": [],
+  "yesterday": [
     {
       "video_id": "gi2V9GFC0ww",
       "title": "シュガーソングとビターステップ",
       "artists": "宇佐美リト 佐伯イッテツ 周央サンゴ 東堂コハク cover",
-      "channel": "宇佐美リト / Usami Rito【にじさんじ】",
       "office": "",
       "type": "cover",
       "published_at": "2026-11-14",
@@ -16,7 +15,6 @@
       "video_id": "JskwgN1GU6I",
       "title": "エンヴィキャットウォーク",
       "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
       "office": "にじさんじ",
       "type": "cover",
       "published_at": "2026-11-14",
@@ -26,17 +24,17 @@
       "video_id": "0Y3dV1aEDUk",
       "title": "目抜き通り",
       "artists": "える",
-      "channel": "える / Elu【にじさんじ】",
       "office": "にじさんじ",
       "type": "cover",
       "published_at": "2026-11-14",
       "thumbnail": "https://i.ytimg.com/vi/0Y3dV1aEDUk/hqdefault.jpg"
-    },
+    }
+  ],
+  "earlier": [
     {
       "video_id": "bapOytAwxAU",
       "title": "よふかしのうた",
-      "artists": "Creepy Nuts 【四季凪アキラ×渚トラウト",
-      "channel": "渚トラウト / Nagisa Trout【にじさんじ】",
+      "artists": "Creepy Nuts",
       "office": "",
       "type": "cover",
       "published_at": "2026-11-12",
@@ -46,7 +44,6 @@
       "video_id": "tjoZ69tT3LA",
       "title": "scar",
       "artists": "",
-      "channel": "弥勒のミトラ’s ちゃんねる / 声と芝居とおバカのch",
       "office": "",
       "type": "unknown",
       "published_at": "2026-11-10",
@@ -56,7 +53,6 @@
       "video_id": "EKVse4SjUk8",
       "title": "あなたの声を聞かせて",
       "artists": "",
-      "channel": "NANAJIGEN SEITOKAI! - Topic",
       "office": "",
       "type": "original",
       "published_at": "2026-11-10",
@@ -66,7 +62,6 @@
       "video_id": "73elT-nM7OE",
       "title": "ねぇ、このまま",
       "artists": "",
-      "channel": "NANAJIGEN SEITOKAI! - Topic",
       "office": "",
       "type": "original",
       "published_at": "2026-11-10",
@@ -76,7 +71,6 @@
       "video_id": "kVbJsxftY_k",
       "title": "永久不可逆ディストピア",
       "artists": "",
-      "channel": "NANAJIGEN SEITOKAI! - Topic",
       "office": "",
       "type": "original",
       "published_at": "2026-11-10",
@@ -86,7 +80,6 @@
       "video_id": "d4V2g9ajQ6Q",
       "title": "トゥルーエンドは誰の夢？",
       "artists": "",
-      "channel": "NANAJIGEN SEITOKAI! - Topic",
       "office": "",
       "type": "original",
       "published_at": "2026-11-10",
@@ -96,7 +89,6 @@
       "video_id": "rQ6oG2ZEaVE",
       "title": "劇薬中毒",
       "artists": "える",
-      "channel": "える / Elu【にじさんじ】",
       "office": "にじさんじ",
       "type": "cover",
       "published_at": "2026-11-09",
@@ -106,7 +98,6 @@
       "video_id": "m9jik3Ywzq4",
       "title": "生命線",
       "artists": "星川サラ",
-      "channel": "星川サラ / Sara Hoshikawa",
       "office": "にじさんじ",
       "type": "cover",
       "published_at": "2026-10-28",
@@ -116,7 +107,6 @@
       "video_id": "scZd7VJvGNs",
       "title": "1925",
       "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
       "office": "にじさんじ",
       "type": "cover",
       "published_at": "2026-10-18",
@@ -126,81 +116,10 @@
       "video_id": "oq-sW1xxVC8",
       "title": "CROSS FIGHT!",
       "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
       "office": "にじさんじ",
       "type": "cover",
       "published_at": "2026-09-28",
       "thumbnail": "https://i.ytimg.com/vi/oq-sW1xxVC8/hqdefault.jpg"
-    },
-    {
-      "video_id": "Z07wK_HfAyA",
-      "title": "D/N/A / 緑仙×空澄セナ Cover",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-09-12",
-      "thumbnail": "https://i.ytimg.com/vi/Z07wK_HfAyA/hqdefault.jpg"
-    },
-    {
-      "video_id": "qWf1qcm23d4",
-      "title": "駄菓子屋商売",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-08-08",
-      "thumbnail": "https://i.ytimg.com/vi/qWf1qcm23d4/hqdefault.jpg"
-    },
-    {
-      "video_id": "a6XIYS-SkVg",
-      "title": "ザムザ",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-08-02",
-      "thumbnail": "https://i.ytimg.com/vi/a6XIYS-SkVg/hqdefault.jpg"
-    },
-    {
-      "video_id": "dqx--1Sjovw",
-      "title": "モエチャッカファイア",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-07-26",
-      "thumbnail": "https://i.ytimg.com/vi/dqx--1Sjovw/hqdefault.jpg"
-    },
-    {
-      "video_id": "LAxTwFDwDx0",
-      "title": "modify Youth",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-07-05",
-      "thumbnail": "https://i.ytimg.com/vi/LAxTwFDwDx0/hqdefault.jpg"
-    },
-    {
-      "video_id": "SuS23yoRKJY",
-      "title": "もう恋なんてしない",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "cover",
-      "published_at": "2026-06-28",
-      "thumbnail": "https://i.ytimg.com/vi/SuS23yoRKJY/hqdefault.jpg"
-    },
-    {
-      "video_id": "xl2Aq-E4kN8",
-      "title": "機械仕掛けのワルツ",
-      "artists": "緑仙",
-      "channel": "緑仙 / Ryushen",
-      "office": "にじさんじ",
-      "type": "original",
-      "published_at": "2026-06-26",
-      "thumbnail": "https://i.ytimg.com/vi/xl2Aq-E4kN8/hqdefault.jpg"
     }
   ]
 }
