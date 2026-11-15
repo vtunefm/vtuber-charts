@@ -10,9 +10,6 @@ EP_RE = re.compile(r"^ep\s*\d+", re.I)
 H2H_RE = re.compile(r"heart[\s-]*2[\s-]*heart", re.I)
 H2H_FALLBACK = {"id": "PL9qLUw9u1phYWWrxcw147cRqmpRXFa-7w", "title": "Heart-2-Heart"}
 
-MIN_VIDEOS = 12
-MAX_PROBE = 8
-
 
 def flat(url, limit=None):
     opts = {"extract_flat": True, "quiet": True}
@@ -22,6 +19,17 @@ def flat(url, limit=None):
         return ydl.extract_info(url, download=False)
 
 
+def first_thumb(playlist_id):
+    try:
+        playlist = flat(f"https://www.youtube.com/playlist?list={playlist_id}", 1)
+    except Exception as e:
+        print(f"thumb failed {playlist_id}: {e}")
+        return ""
+    entries = playlist.get("entries") or []
+    vid = entries[0].get("id") if entries else None
+    return f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg" if vid else ""
+
+
 def main():
     try:
         info = flat(CHANNEL, 40)
@@ -29,36 +37,27 @@ def main():
         print(f"scrape failed: {e}")
         return
 
-    candidates = []
-    h2h = None
+    latest = h2h = None
     for entry in info.get("entries") or []:
         title = (entry.get("title") or "").strip()
+        if latest is None and EP_RE.match(title):
+            latest = {"id": entry["id"], "title": title}
         if h2h is None and H2H_RE.search(title):
             h2h = {"id": entry["id"], "title": title}
-        if EP_RE.match(title) and "bonus" not in title.lower():
-            candidates.append({"id": entry["id"], "title": title})
-
-    latest_ep = None
-    for cand in candidates[:MAX_PROBE]:
-        try:
-            playlist = flat(f"https://www.youtube.com/playlist?list={cand['id']}")
-        except Exception as e:
-            print(f"probe failed {cand['id']}: {e}")
-            continue
-        count = len(playlist.get("entries") or [])
-        print(f"{cand['title']}: {count} videos")
-        if count >= MIN_VIDEOS:
-            latest_ep = cand
-            break
 
     if h2h is None:
-        h2h = H2H_FALLBACK
+        h2h = dict(H2H_FALLBACK)
+
+    for item in (latest, h2h):
+        if item:
+            item["thumb"] = first_thumb(item["id"])
 
     os.makedirs("data", exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
-        json.dump({"latest_episode": latest_ep, "heart2heart": h2h}, f, ensure_ascii=False, indent=2)
+        json.dump({"latest_episode": latest, "heart2heart": h2h}, f, ensure_ascii=False, indent=2)
 
-    print(f"episode={latest_ep} heart2heart={h2h}")
+    print(f"latest={latest}")
+    print(f"heart2heart={h2h}")
 
 
 if __name__ == "__main__":
