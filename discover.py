@@ -108,11 +108,31 @@ def is_short(name, duration):
     return bool(duration) and duration <= 62
 
 
+def to_int(value):
+    try:
+        return int(float(value or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
+def normalize_row(row):
+    name = row.get("video_name", "")
+    dur = to_int(row.get("duration_sec"))
+    row["is_short"] = str(is_short(name, dur))
+    row["is_long"] = str(dur > LONG_SEC)
+    if row.get("type") in ("", "unknown"):
+        row["type"] = classify(name, row.get("channel_name", ""))
+    song = row.get("music_name", "")
+    if len(song) < 2 or song.endswith("#") or song.startswith("#"):
+        row["music_name"] = clean_song(song, name)
+    return row
+
+
 def read_tracks():
     if not os.path.exists(TRACKS):
         return []
     with open(TRACKS, newline="", encoding="utf-8") as f:
-        return [{k: r.get(k, "") for k in COLS} for r in csv.DictReader(f)]
+        return [normalize_row({k: r.get(k, "") for k in COLS}) for r in csv.DictReader(f)]
 
 
 def write_tracks(rows):
@@ -122,6 +142,18 @@ def write_tracks(rows):
         w.writeheader()
         for row in rows:
             w.writerow({k: row.get(k, "") for k in COLS})
+
+
+def recently_expanded():
+    if not os.path.exists(CHANNELS):
+        return set()
+    today = time.strftime("%Y-%m-%d")
+    out = set()
+    with open(CHANNELS, newline="", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if r.get("expanded_at") == today:
+                out.add(r.get("channel_name", ""))
+    return out
 
 
 def fetch_published(ids):
@@ -178,8 +210,8 @@ def video_row(video_id, discovered_via, published):
         "published_at": published.get(video_id, ""),
         "duration_sec": duration,
         "type": classify(name, channel),
-        "is_short": is_short(name, duration),
-        "is_long": duration > LONG_SEC,
+        "is_short": str(is_short(name, duration)),
+        "is_long": str(duration > LONG_SEC),
         "first_stat_date": first_stat,
         "latest_views": views,
         "latest_likes": likes,
@@ -202,38 +234,43 @@ def main():
     known_channels = {r["channel_key"] for r in rows if r["channel_key"]}
 
     feed = fetch_json(f"{BASE}/api/latest.json")
-    if not feed:
-        print("latest.json unavailable")
-        return
-
-    queue = [(i[0], "latest") for i in feed.get("index", []) if i and i[0] not in known_ids]
-    print(f"{len(queue)} new candidate(s) from latest feed")
-
-    published = fetch_published([v for v, _ in queue])
-    pending_channels = []
-
-    while queue:
-        video_id, via = queue.pop(0)
-        if video_id in known_ids:
-            continue
-        row = video_row(video_id, via, published)
-        time.sleep(DELAY)
-        if not row or row["duration_sec"] > MAX_DURATION:
-            continue
-        rows.append(row)
-        known_ids.add(video_id)
-        if row["channel_key"] and row["channel_key"] not in known_channels:
+    published = {}
+    if feed:
+        queue = [(i[0], "latest") for i in feed.get("index", []) if i and i[0] not in known_ids]
+        print(f"{len(queue)} new candidate(s) from latest feed")
+        published = fetch_published([v for v, _ in queue])
+        while queue:
+            video_id, via = queue.pop(0)
+            if video_id in known_ids:
+                continue
+            row = video_row(video_id, via, published)
+            time.sleep(DELAY)
+            if not row or to_int(row["duration_sec"]) > MAX_DURATION:
+                continue
+            rows.append(row)
+            known_ids.add(video_id)
             known_channels.add(row["channel_key"])
-            pending_channels.append((row["channel_key"], row["channel_name"]))
+    else:
+        print("latest.json unavailable")
 
     print(f"{len(rows)} tracks after latest pass")
 
+    skip = recently_expanded()
     counts = Counter(r["channel_key"] for r in rows)
-    pending_channels.sort(key=lambda c: counts.get(c[0], 0))
+    full_names = {}
+    for r in rows:
+        full_names.setdefault(r["channel_key"], r["channel_name"])
 
-    for key, full in pending_channels[:MAX_NEW_CHANNELS]:
+    candidates = [
+        c for c in known_channels
+        if c and c not in skip
+    ]
+    candidates.sort(key=lambda c: counts.get(c, 0))
+    print(f"{len(candidates)} channel(s) eligible for expansion, {len(skip)} expanded today")
+
+    for key in candidates[:MAX_NEW_CHANNELS]:
         ch_data = None
-        for cand in channel_candidates(full, key):
+        for cand in channel_candidates(full_names.get(key, key), key):
             ch_data = fetch_json(f"{BASE}/api/v4/ch/{requests.utils.quote(cand, safe='')}.json")
             time.sleep(DELAY)
             if ch_data:
@@ -258,7 +295,7 @@ def main():
         for vid in batch:
             row = video_row(vid, f"channel:{key}", pub)
             time.sleep(DELAY)
-            if not row or row["duration_sec"] > MAX_DURATION:
+            if not row or to_int(row["duration_sec"]) > MAX_DURATION:
                 continue
             row["offices"] = ch_data.get("belongoffice") or row["offices"]
             rows.append(row)
@@ -267,10 +304,10 @@ def main():
         print(f"expanded {key}: +{pulled}")
 
     write_tracks(rows)
-    shorts = sum(1 for r in rows if r["is_short"] is True)
-    longs = sum(1 for r in rows if r["is_long"] is True)
-    unknown = sum(1 for r in rows if r["type"] == "unknown")
-    print(f"done. {len(rows)} tracks, {shorts} shorts, {longs} long, {unknown} unknown")
+    print(f"done. {len(rows)} tracks, "
+          f"{sum(1 for r in rows if r['is_short'] == 'True')} shorts, "
+          f"{sum(1 for r in rows if r['is_long'] == 'True')} long, "
+          f"{sum(1 for r in rows if r['type'] == 'unknown')} unknown")
 
 
 if __name__ == "__main__":
