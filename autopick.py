@@ -7,11 +7,13 @@ CANDS = "data/candidates.csv"
 COLS = ["query", "channel_id", "channel_name", "handle", "subscribers", "status", "note"]
 
 STRIP_RE = re.compile(r"[\s\-_.·・「」『』【】()（）]+")
+JUNK_RE = re.compile(
+    r"(clip|clips|切り抜き|翻訳|translat|moments|highlights|reacts|fan ?ch)", re.I
+)
 
 
 def norm(value):
-    value = unicodedata.normalize("NFKC", value or "").lower()
-    return STRIP_RE.sub("", value)
+    return STRIP_RE.sub("", unicodedata.normalize("NFKC", value or "").lower())
 
 
 def main():
@@ -24,31 +26,35 @@ def main():
 
     groups = {}
     for row in rows:
-        if row.get("status") == "pending":
-            groups.setdefault(row["query"], []).append(row)
+        if "manual" in (row.get("note") or ""):
+            continue
+        row["status"] = "pending"
+        groups.setdefault(row["query"], []).append(row)
 
-    picked = left = 0
+    kept = left = 0
     for query, group in groups.items():
-        key = norm(query)
-        if len(key) < 4:
+        keys = [k for k in (norm(p) for p in re.split(r"[/|]", query)) if len(k) >= 4]
+        if not keys:
             left += 1
             continue
 
-        match = None
-        for row in group:
-            if key in norm(row["channel_name"]):
-                match = row
-                break
+        hits = [
+            r for r in group
+            if any(k in norm(r["channel_name"]) for k in keys)
+        ]
+        real = [r for r in hits if not JUNK_RE.search(r["channel_name"])]
 
-        if not match:
+        if not real:
             left += 1
             continue
 
-        match["status"] = "approved"
-        match["note"] = (match["note"] + " auto").strip()
-        picked += 1
-        for row in group:
-            if row is not match:
+        for row in real:
+            row["status"] = "approved"
+            if "auto" not in row["note"]:
+                row["note"] = (row["note"] + " auto").strip()
+            kept += 1
+        for row in hits:
+            if row["status"] != "approved":
                 row["status"] = "rejected"
 
     with open(CANDS, "w", newline="", encoding="utf-8") as f:
@@ -57,9 +63,7 @@ def main():
         for row in rows:
             w.writerow(row)
 
-    print(f"auto-approved {picked} · {left} name(s) need a human")
-    if left:
-        print("review the remaining 'pending' rows and approve one each")
+    print(f"approved {kept} · {left} name(s) need a human")
 
 
 if __name__ == "__main__":
