@@ -57,6 +57,9 @@ def main():
             if row["status"] != "approved":
                 row["status"] = "rejected"
 
+    order = {"pending": 0, "approved": 1, "rejected": 2}
+    rows.sort(key=lambda r: (order.get(r.get("status"), 3), r.get("query", "").lower()))
+
     with open(CANDS, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLS)
         w.writeheader()
