@@ -1,8 +1,6 @@
 name: Expand Song Siblings
 
 on:
-  schedule:
-    - cron: '0 8 * * *'
   workflow_dispatch:
 
 permissions:
