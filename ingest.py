@@ -33,6 +33,8 @@ def main():
         print("no candidates.csv")
         return
 
+    seen_channels = set()
+
     with open(CANDS, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
@@ -47,6 +49,10 @@ def main():
     for cand in approved:
         if added >= MAX_ADD:
             break
+        if cand["channel_id"] in seen_channels:
+            cand["status"] = "done"
+            continue
+        seen_channels.add(cand["channel_id"])            
         vids = [v for v in uploads(cand["channel_id"]) if v not in known]
         print(f"{cand['channel_name']}: {len(vids)} unseen")
         if not vids:
