@@ -8,8 +8,15 @@ from datetime import date, datetime, timedelta, timezone
 import requests
 
 BASE = "https://old.vsing.info"
-UA = {"User-Agent": "vtunefm-charts/0.1 (+github.com/vtunefm/vtuber-charts)"}
-DELAY = 0.7
+UA = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    ),
+    "Accept": "application/json,text/plain,*/*",
+    "Referer": "https://old.vsing.info/",
+}
+DELAY = 1.0
 MIN_GAIN = 1
 MAX_ENTRIES = 100
 MAX_FETCH = 200
@@ -23,17 +30,25 @@ TITLE_TAIL_RE = re.compile(r"\s*(cover|カバー)\s*$", re.I)
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
 
 
-def fetch_json(url, tries=3):
+def fetch_json(url, tries=4):
     for attempt in range(tries):
         try:
             r = requests.get(url, headers=UA, timeout=30)
             if r.status_code == 200:
-                return r.json()
-            if r.status_code == 404:
+                try:
+                    return r.json()
+                except ValueError:
+                    print(f"  bad json ({r.status_code}, {len(r.text)}b)")
+            elif r.status_code == 404:
+                print(f"  404 ...{url[-28:]}")
                 return None
-        except Exception:
-            pass
-        time.sleep(1.5 * (attempt + 1))
+            elif r.status_code in (429, 403, 503):
+                print(f"  HTTP {r.status_code} (throttled) ...{url[-28:]}")
+            else:
+                print(f"  HTTP {r.status_code} ...{url[-28:]}")
+        except Exception as e:
+            print(f"  err {type(e).__name__}")
+        time.sleep(2.0 * (attempt + 1))
     return None
 
 
@@ -157,15 +172,21 @@ def main():
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
     songs = []
+    fetched = failed = no_window = 0
+
     for track in eligible[:MAX_FETCH]:
         data = fetch_json(f"{BASE}/api/v4/videoid/{track['video_id']}.json")
         time.sleep(DELAY)
         if not data:
+            failed += 1
             continue
+        fetched += 1
 
         in_window = [(d, v) for d, v in parse_stats(data) if start <= d <= end]
         if not in_window:
+            no_window += 1
             continue
+
         gain = sum(v for _, v in in_window)
         if gain < MIN_GAIN:
             continue
@@ -191,6 +212,8 @@ def main():
             "days_covered": len(in_window),
             "thumbnail": f"https://i.ytimg.com/vi/{track['video_id']}/hqdefault.jpg",
         })
+
+    print(f"fetched={fetched} failed={failed} no_window_data={no_window} qualified={len(songs)}")
 
     songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
     ranked_songs = songs[:MAX_ENTRIES]
