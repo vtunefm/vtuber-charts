@@ -23,6 +23,7 @@ jobs:
       - run: pip install yt-dlp
 
       - run: python resolve.py
+      - run: python autopick.py
 
       - name: Commit candidates
         run: |
