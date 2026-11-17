@@ -11,12 +11,15 @@ MAX_FETCH = 5000
 TRACKS = "data/tracks.csv"
 SNAPSHOTS = "data/snapshots.csv"
 AVATARS = "data/avatars.csv"
+CANDS = "data/candidates.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
 
 TITLE_TAIL_RE = re.compile(r"\s*[（(]?\s*(cover|カバー)\s*[)）]?\s*$", re.I)
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
 ROMAJI_CUT_RE = re.compile(r"\s*(?:Ch\.|【|/|｜|\|).*$")
+CH_SUFFIX_RE = re.compile(r"\s*ch\.?\s*$", re.I)
+CH_PREFIX_RE = re.compile(r"^.*?\bch\.?\s+", re.I)
 
 
 def to_int(value):
@@ -33,6 +36,18 @@ def has_latin(text):
 def display_name(name, channel):
     base = ROMAJI_CUT_RE.sub("", channel or "").strip()
     return base if base and has_latin(base) else name
+
+
+def name_variants(text):
+    out = set()
+    for part in ARTIST_SPLIT_RE.split(text or ""):
+        p = part.strip().lower()
+        if not p:
+            continue
+        out.add(p)
+        out.add(CH_SUFFIX_RE.sub("", p).strip())
+        out.add(CH_PREFIX_RE.sub("", p).strip())
+    return {v for v in out if v}
 
 
 def snapshot_deltas():
@@ -132,15 +147,47 @@ def split_artists(value):
     return [a.strip() for a in ARTIST_SPLIT_RE.split(value or "") if a.strip()]
 
 
-def load_avatars():
-    out = {}
+def load_avatars(tracks):
+    """channel_id -> avatar, plus every name spelling that maps onto one."""
+    by_id, by_name = {}, {}
     if not os.path.exists(AVATARS):
-        return out
+        return by_id, by_name
+
     with open(AVATARS, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
             if row.get("channel_id") and row.get("avatar"):
-                out[row["channel_id"]] = row["avatar"]
-    return out
+                by_id[row["channel_id"]] = row["avatar"]
+
+    if not by_id:
+        return by_id, by_name
+
+    if os.path.exists(CANDS):
+        with open(CANDS, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                url = by_id.get((row.get("channel_id") or "").strip())
+                if not url:
+                    continue
+                for name in (row.get("channel_name"), row.get("handle")):
+                    for v in name_variants(name):
+                        by_name.setdefault(v, url)
+
+    for track in tracks:
+        url = by_id.get((track.get("channel_id") or "").strip())
+        if not url:
+            continue
+        for name in (track.get("channel_name"), track.get("channel_key")):
+            for v in name_variants(name):
+                by_name.setdefault(v, url)
+
+    return by_id, by_name
+
+
+def picture_for(name, channel_id, by_id, by_name):
+    for v in name_variants(name):
+        url = by_name.get(v)
+        if url:
+            return url
+    return by_id.get(channel_id or "", "")
 
 
 def main():
@@ -161,7 +208,8 @@ def main():
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
     deltas = snapshot_deltas()
-    avatars = load_avatars()
+    avatars_by_id, avatars_by_name = load_avatars(tracks)
+    print(f"{len(avatars_by_id)} avatar(s) known, {len(avatars_by_name)} name spelling(s)")
     start, end, partial = choose_window(deltas)
     print(f"window: {start} .. {end} (partial={partial}) · snapshot tracks={len(deltas)}")
 
@@ -222,16 +270,20 @@ def main():
             if not name:
                 continue
             disp = alias.get(name) or display_name(name, song.get("channel")) or name
+            pic = picture_for(name, song.get("channel_id"), avatars_by_id, avatars_by_name)
             rec = artists.setdefault(disp, {
                 "name": name, "display": disp, "gain": 0, "count": 0,
-                "top": song, "picture": avatars.get(song.get("channel_id") or "", ""),
+                "top": song, "picture": pic,
             })
             rec["gain"] += song["views_gained"]
             rec["count"] += 1
             if not rec["picture"]:
-                rec["picture"] = avatars.get(song.get("channel_id") or "", "")
+                rec["picture"] = pic
             if song["views_gained"] > rec["top"]["views_gained"]:
                 rec["top"] = song
+
+    pictured = sum(1 for rec in artists.values() if rec["picture"])
+    print(f"artist pictures resolved: {pictured}/{len(artists)}")
 
     artist_rows = [
         {
