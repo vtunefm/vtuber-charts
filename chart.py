@@ -2,24 +2,11 @@ import csv
 import json
 import os
 import re
-import time
 from datetime import date, datetime, timedelta, timezone
 
-import requests
-
-BASE = "https://old.vsing.info"
-UA = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-    ),
-    "Accept": "application/json,text/plain,*/*",
-    "Referer": "https://old.vsing.info/",
-}
-DELAY = 0.3
 MIN_GAIN = 1
 MAX_ENTRIES = 100
-MAX_FETCH = 1200
+MAX_FETCH = 5000
 
 TRACKS = "data/tracks.csv"
 SNAPSHOTS = "data/snapshots.csv"
@@ -27,7 +14,6 @@ AVATARS = "data/avatars.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
 
-DATE_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})$")
 TITLE_TAIL_RE = re.compile(r"\s*[（(]?\s*(cover|カバー)\s*[)）]?\s*$", re.I)
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
 ROMAJI_CUT_RE = re.compile(r"\s*(?:Ch\.|【|/|｜|\|).*$")
@@ -47,20 +33,6 @@ def has_latin(text):
 def display_name(name, channel):
     base = ROMAJI_CUT_RE.sub("", channel or "").strip()
     return base if base and has_latin(base) else name
-
-
-def fetch_json(url, tries=3):
-    for attempt in range(tries):
-        try:
-            r = requests.get(url, headers=UA, timeout=30)
-            if r.status_code == 200:
-                return r.json()
-            if r.status_code == 404:
-                return None
-        except Exception:
-            pass
-        time.sleep(1.5 * (attempt + 1))
-    return None
 
 
 def window():
@@ -94,39 +66,6 @@ def snapshot_deltas():
         if per_day:
             gains[vid] = per_day
     return gains
-
-
-def parse_stats(data):
-    stats = data.get("statisticsdata") or []
-    if len(stats) < 3:
-        return []
-    dates, views = stats[1], stats[2]
-    if not dates or not views:
-        return []
-    total = 0
-    try:
-        total = int(stats[0][1])
-    except (IndexError, TypeError, ValueError):
-        total = 0
-    cumulative = False
-    try:
-        if total and abs(int(views[-1]) - total) <= max(2, total * 0.001):
-            cumulative = True
-    except (IndexError, TypeError, ValueError):
-        pass
-    out, prev = [], 0
-    for raw, count in zip(dates, views):
-        m = DATE_RE.match(str(raw))
-        if not m:
-            continue
-        try:
-            day = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-            value = int(count)
-        except ValueError:
-            continue
-        out.append((day, value if not cumulative else max(0, value - prev)))
-        prev = value
-    return out
 
 
 def past_week_for(end):
@@ -214,7 +153,6 @@ def main():
         and t.get("type") != "unknown"
         and t.get("status", "active") == "active"
     ]
-    eligible.sort(key=lambda t: -to_int(t.get("latest_views")))
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
     deltas = snapshot_deltas()
@@ -222,32 +160,16 @@ def main():
     print(f"snapshot coverage: {len(deltas)} · avatars: {len(avatars)}")
 
     songs = []
-    from_snap = from_vsong = 0
-
     for track in eligible[:MAX_FETCH]:
         vid = track["video_id"]
-        gain = None
-        covered = 0
-
         per_day = deltas.get(vid)
-        if per_day:
-            hits = [(d, v) for d, v in per_day.items() if start <= d <= end]
-            if hits:
-                gain = sum(v for _, v in hits)
-                covered = len(hits)
-                from_snap += 1
-
-        if gain is None:
-            data = fetch_json(f"{BASE}/api/v4/videoid/{vid}.json")
-            time.sleep(DELAY)
-            if data:
-                hits = [(d, v) for d, v in parse_stats(data) if start <= d <= end]
-                if hits:
-                    gain = sum(v for _, v in hits)
-                    covered = len(hits)
-                    from_vsong += 1
-
-        if gain is None or gain < MIN_GAIN:
+        if not per_day:
+            continue
+        hits = [(d, v) for d, v in per_day.items() if start <= d <= end]
+        if not hits:
+            continue
+        gain = sum(v for _, v in hits)
+        if gain < MIN_GAIN:
             continue
 
         artists_raw = (track.get("artists") or "").strip()
@@ -270,11 +192,13 @@ def main():
             "type": track.get("type"),
             "published_at": track.get("published_at"),
             "views_gained": gain,
-            "days_covered": covered,
+            "days_covered": len(hits),
             "thumbnail": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
         })
 
-    print(f"qualified={len(songs)} via_snapshot={from_snap} via_vsong={from_vsong}")
+    print(f"qualified={len(songs)}")
+    if not songs:
+        print("no gains yet — needs at least two snapshot runs")
 
     songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
     ranked_songs = songs[:MAX_ENTRIES]
