@@ -1,0 +1,12 @@
+Standard loop, no different from the earlier ones:
+
+1. **`roster.txt`** — add the name, one per line. Include an alias after a slash if the channel is named differently than the romanization, e.g. `Momosuzu Nene / 桃鈴ねね`. Names already attempted are skipped, so re-adding an existing line is harmless.
+2. **Run `Resolve Roster Names`.** It processes up to 30 new names and drops 3 candidates each into `candidates.csv`, pending rows at the top.
+3. **Review the pending block.** For each name: approve the real channel *and* its Topic channel if one exists, set `note` to `manual` on anything you chose by hand, and reject clip/translation channels. Leave names pending if the right channel isn't there — that's an alias problem, not an approval problem.
+4. **Run `Ingest Approved Channels`.** Least-covered channels go first. If it prints `hit MAX_ADD, stopping`, run it again — that's just the cap, not a failure.
+5. **Run `Snapshot Views`.** It also fires daily at 23:50 UTC on its own, so this is only needed to get a reading sooner.
+6. **Run `Build Weekly Chart`** and **`Build Newest Feed`.**
+
+Check `tracks.csv` grew before charting. Avatars come in on their own daily pass once the new `channel_id`s exist.
+
+Two things to watch over the next few days: whether `type` lands `unknown` often enough to keep new tracks out of the chart, and whether the 58-artist ceiling moves as ingestion spreads. Both are pool-quality signals worth telling me about.
