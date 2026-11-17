@@ -16,12 +16,13 @@ UA = {
     "Accept": "application/json,text/plain,*/*",
     "Referer": "https://old.vsing.info/",
 }
-DELAY = 0.5
+DELAY = 0.3
 MIN_GAIN = 1
 MAX_ENTRIES = 100
 MAX_FETCH = 1200
 
 TRACKS = "data/tracks.csv"
+SNAPSHOTS = "data/snapshots.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
 
@@ -37,25 +38,17 @@ def to_int(value):
         return 0
 
 
-def fetch_json(url, tries=4):
+def fetch_json(url, tries=3):
     for attempt in range(tries):
         try:
             r = requests.get(url, headers=UA, timeout=30)
             if r.status_code == 200:
-                try:
-                    return r.json()
-                except ValueError:
-                    print(f"  bad json ({r.status_code}, {len(r.text)}b)")
-            elif r.status_code == 404:
-                print(f"  404 ...{url[-28:]}")
+                return r.json()
+            if r.status_code == 404:
                 return None
-            elif r.status_code in (429, 403, 503):
-                print(f"  HTTP {r.status_code} (throttled) ...{url[-28:]}")
-            else:
-                print(f"  HTTP {r.status_code} ...{url[-28:]}")
-        except Exception as e:
-            print(f"  err {type(e).__name__}")
-        time.sleep(2.0 * (attempt + 1))
+        except Exception:
+            pass
+        time.sleep(1.5 * (attempt + 1))
     return None
 
 
@@ -64,6 +57,34 @@ def window():
     days_back = (today.weekday() - 5) % 7
     end = today - timedelta(days=days_back)
     return end - timedelta(days=5), end
+
+
+def snapshot_deltas():
+    gains = {}
+    if not os.path.exists(SNAPSHOTS):
+        return gains
+
+    series = {}
+    with open(SNAPSHOTS, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            vid = row.get("video_id")
+            stamp = row.get("snapshot_at") or ""
+            if not vid or len(stamp) < 10:
+                continue
+            series.setdefault(vid, []).append((stamp, to_int(row.get("view_count"))))
+
+    for vid, points in series.items():
+        points.sort()
+        per_day = {}
+        for (_, prev), (stamp, cur) in zip(points, points[1:]):
+            try:
+                day = date.fromisoformat(stamp[:10])
+            except ValueError:
+                continue
+            per_day[day] = per_day.get(day, 0) + max(0, cur - prev)
+        if per_day:
+            gains[vid] = per_day
+    return gains
 
 
 def parse_stats(data):
@@ -179,49 +200,54 @@ def main():
     eligible.sort(key=lambda t: -to_int(t.get("latest_views")))
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
+    deltas = snapshot_deltas()
+    print(f"snapshot coverage: {len(deltas)} track(s)")
+
     songs = []
-    fetched = failed = no_window = 0
+    from_snap = from_vsong = 0
 
     for track in eligible[:MAX_FETCH]:
-        data = fetch_json(f"{BASE}/api/v4/videoid/{track['video_id']}.json")
-        time.sleep(DELAY)
-        if not data:
-            failed += 1
-            continue
-        fetched += 1
+        vid = track["video_id"]
+        gain = None
+        covered = 0
 
-        in_window = [(d, v) for d, v in parse_stats(data) if start <= d <= end]
-        if not in_window:
-            no_window += 1
-            continue
+        per_day = deltas.get(vid)
+        if per_day:
+            hits = [(d, v) for d, v in per_day.items() if start <= d <= end]
+            if hits:
+                gain = sum(v for _, v in hits)
+                covered = len(hits)
+                from_snap += 1
 
-        gain = sum(v for _, v in in_window)
-        if gain < MIN_GAIN:
-            continue
+        if gain is None:
+            data = fetch_json(f"{BASE}/api/v4/videoid/{vid}.json")
+            time.sleep(DELAY)
+            if data:
+                hits = [(d, v) for d, v in parse_stats(data) if start <= d <= end]
+                if hits:
+                    gain = sum(v for _, v in hits)
+                    covered = len(hits)
+                    from_vsong += 1
 
-        pictures = {
-            m["nickname"]: m["pictureurl"]
-            for m in (data.get("memberdata") or [])
-            if m.get("nickname") and m.get("pictureurl")
-        }
+        if gain is None or gain < MIN_GAIN:
+            continue
 
         songs.append({
-            "video_id": track["video_id"],
+            "video_id": vid,
             "title": TITLE_TAIL_RE.sub(
                 "", track.get("music_name") or track.get("video_name") or ""
             ).strip(),
             "artists": TITLE_TAIL_RE.sub("", track.get("artists") or "").strip(),
-            "pictures": pictures,
             "channel": track.get("channel_name"),
             "office": track.get("offices"),
             "type": track.get("type"),
             "published_at": track.get("published_at"),
             "views_gained": gain,
-            "days_covered": len(in_window),
-            "thumbnail": f"https://i.ytimg.com/vi/{track['video_id']}/hqdefault.jpg",
+            "days_covered": covered,
+            "thumbnail": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
         })
 
-    print(f"fetched={fetched} failed={failed} no_window_data={no_window} qualified={len(songs)}")
+    print(f"qualified={len(songs)} via_snapshot={from_snap} via_vsong={from_vsong}")
 
     songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
     ranked_songs = songs[:MAX_ENTRIES]
@@ -235,15 +261,13 @@ def main():
             rec = artists.setdefault(name, {"gain": 0, "count": 0, "top": song, "picture": ""})
             rec["gain"] += song["views_gained"]
             rec["count"] += 1
-            if not rec["picture"]:
-                rec["picture"] = song["pictures"].get(name, "")
             if song["views_gained"] > rec["top"]["views_gained"]:
                 rec["top"] = song
 
     artist_rows = [
         {
             "name": name,
-            "picture": rec.get("picture") or rec["top"]["thumbnail"],
+            "picture": rec["top"]["thumbnail"],
             "office": rec["top"].get("office"),
             "views_gained": rec["gain"],
             "video_count": rec["count"],
@@ -258,9 +282,6 @@ def main():
     ]
     artist_rows.sort(key=lambda a: -a["views_gained"])
     ranked_artists = artist_rows[:MAX_ENTRIES]
-
-    for song in ranked_songs:
-        song.pop("pictures", None)
 
     past_week = past_week_for(end)
     apply_history(ranked_songs, history("entries", end.isoformat()), past_week, lambda e: e["video_id"])
@@ -282,10 +303,6 @@ def main():
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
     print(f"songs={len(ranked_songs)} artists={len(ranked_artists)}")
-    for e in ranked_songs[:5]:
-        print(f"  song #{e['rank']} {e['views_gained']:>8,} {e['title']}")
-    for a in ranked_artists[:5]:
-        print(f"  artist #{a['rank']} {a['views_gained']:>8,} {a['name']} ({a['video_count']} vids)")
 
 
 if __name__ == "__main__":
