@@ -1,6 +1,5 @@
 import csv
 import os
-import re
 import time
 
 from googleapiclient.discovery import build
@@ -23,46 +22,50 @@ TCOLS = [
     "discovered_via", "first_seen", "status",
 ]
 
-SPLIT_RE = re.compile(r"\s*/\s*")
-CH_SUFFIX_RE = re.compile(r"\s*ch\.?\s*$", re.I)
-CH_PREFIX_RE = re.compile(r"^.*?\bch\.?\s+", re.I)
+
+def to_int(value):
+    try:
+        return int(float(value or 0))
+    except (TypeError, ValueError):
+        return 0
 
 
-def variants(text):
-    """Every spelling of a channel name we are willing to match on."""
-    out = set()
-    for part in SPLIT_RE.split(text or ""):
-        p = part.strip().lower()
-        if not p:
-            continue
-        out.add(p)
-        out.add(CH_SUFFIX_RE.sub("", p).strip())
-        out.add(CH_PREFIX_RE.sub("", p).strip())
-    return {v for v in out if v}
-
-
-def load_candidate_ids():
-    """name variants -> channel_id, plus channel_ids worth fetching regardless."""
-    by_name = {}
-    wanted = set()
+def load_channels():
+    index = []
     if not os.path.exists(CANDS):
-        return by_name, wanted
-
+        return index
     with open(CANDS, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            cid = (row.get("channel_id") or "").strip()
-            if not cid:
+            if (row.get("status") or "") not in ("done", "approved"):
                 continue
-            for name in (row.get("channel_name"), row.get("handle")):
-                for v in variants(name):
-                    by_name.setdefault(v, cid)
-            if (row.get("status") or "") in ("approved", "done"):
-                wanted.add(cid)
-    return by_name, wanted
+            cid = (row.get("channel_id") or "").strip()
+            name = (row.get("channel_name") or "").strip().lower()
+            if not cid or not name:
+                continue
+            index.append({
+                "id": cid,
+                "name": name,
+                "subs": to_int(row.get("subscribers")),
+                "topic": name.endswith("- topic"),
+            })
+    return index
 
 
-def backfill_channel_ids(by_name):
-    if not (os.path.exists(TRACKS) and by_name):
+def best_channel(track_name, index):
+    """Longest curated channel name that matches this track's channel."""
+    key = (track_name or "").strip().lower()
+    if len(key) < 3:
+        return None
+    best = None
+    for c in index:
+        if c["name"] in key or key in c["name"]:
+            if best is None or len(c["name"]) > len(best["name"]):
+                best = c
+    return best
+
+
+def backfill_channel_ids(index):
+    if not (os.path.exists(TRACKS) and index):
         return 0
 
     with open(TRACKS, newline="", encoding="utf-8") as f:
@@ -72,12 +75,10 @@ def backfill_channel_ids(by_name):
     for row in rows:
         if row.get("channel_id"):
             continue
-        for source in (row.get("channel_name"), row.get("channel_key")):
-            hit = next((by_name[v] for v in variants(source) if v in by_name), None)
-            if hit:
-                row["channel_id"] = hit
-                filled += 1
-                break
+        hit = best_channel(row.get("channel_name") or row.get("channel_key"), index)
+        if hit:
+            row["channel_id"] = hit["id"]
+            filled += 1
 
     if filled:
         with open(TRACKS, "w", newline="", encoding="utf-8") as f:
@@ -90,10 +91,11 @@ def backfill_channel_ids(by_name):
 
 
 def main():
-    by_name, wanted = load_candidate_ids()
-    print(f"{len(by_name)} known channel name(s), {len(wanted)} approved channel(s)")
+    index = load_channels()
+    wanted = {c["id"] for c in index}
+    print(f"{len(index)} curated channel(s)")
 
-    filled = backfill_channel_ids(by_name)
+    filled = backfill_channel_ids(index)
     print(f"backfilled {filled} channel_id(s)")
 
     if not os.path.exists(TRACKS):
