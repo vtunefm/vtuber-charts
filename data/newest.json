@@ -1,34 +1,116 @@
 {
-  "generated_at": "2026-11-17T01:39:08+00:00",
+  "generated_at": "2026-11-17T10:54:15+00:00",
   "today": [],
-  "yesterday": [],
+  "yesterday": [
+    {
+      "video_id": "TnntRX-Z8qM",
+      "title": "SIX (cover)【SIX the Musical】",
+      "artists": "Tokaku〜ん",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-16",
+      "thumbnail": "https://i.ytimg.com/vi/TnntRX-Z8qM/hqdefault.jpg"
+    },
+    {
+      "video_id": "Zjy3VU5rWM8",
+      "title": "Matara Found Out About Lumi Struggling to Reach Out... 😭",
+      "artists": "Matara",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-16",
+      "thumbnail": "https://i.ytimg.com/vi/Zjy3VU5rWM8/hqdefault.jpg"
+    }
+  ],
   "earlier": [
     {
-      "video_id": "c9yFK-ytqPg",
-      "title": "Goblok Tenan | OST Troublemaker 2 Beyond Dream AREA15 hololive",
-      "artists": "アイラニ・イオフィフティーン",
-      "office": "ホロライブ",
-      "type": "unknown",
-      "published_at": "2026-10-31",
-      "thumbnail": "https://i.ytimg.com/vi/c9yFK-ytqPg/hqdefault.jpg"
-    },
-    {
-      "video_id": "UVc8OHeq6Fs",
-      "title": "Blessed Messiah and the Tower of AI",
-      "artists": "ID】",
-      "office": "個人勢",
-      "type": "unknown",
-      "published_at": "2026-10-30",
-      "thumbnail": "https://i.ytimg.com/vi/UVc8OHeq6Fs/hqdefault.jpg"
-    },
-    {
-      "video_id": "xZVjjUTFgj0",
-      "title": "IRIS OUT",
-      "artists": "AZKi",
-      "office": "ホロライブ",
+      "video_id": "YPIabZFCPVE",
+      "title": "I Don't Need Your Love (cover)【SIX the Musical】",
+      "artists": "Tokaku〜ん",
+      "office": "",
       "type": "cover",
-      "published_at": "2026-10-30",
-      "thumbnail": "https://i.ytimg.com/vi/xZVjjUTFgj0/hqdefault.jpg"
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/YPIabZFCPVE/hqdefault.jpg"
+    },
+    {
+      "video_id": "6tq-DL9u-ho",
+      "title": "Neuro Ranks Matara as The SCARIEST 😭",
+      "artists": "Matara",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/6tq-DL9u-ho/hqdefault.jpg"
+    },
+    {
+      "video_id": "5XdFoWtqNK4",
+      "title": "忍者(？都是很擅長收集情報的，至於情報的來源…【AZKi x 風真伊呂波 】【Hololive中文精華】",
+      "artists": "AZKi",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-14",
+      "thumbnail": "https://i.ytimg.com/vi/5XdFoWtqNK4/hqdefault.jpg"
+    },
+    {
+      "video_id": "b0DiToJMCQc",
+      "title": "【Clip】Night owl with RAMEN!",
+      "artists": "Hani Hima",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-14",
+      "thumbnail": "https://i.ytimg.com/vi/b0DiToJMCQc/hqdefault.jpg"
+    },
+    {
+      "video_id": "YezMCmPnUVg",
+      "title": "Ironmouse Cover - The Great Despair from Warframe @ Club Ironmouse San Diego 2026",
+      "artists": "Ironmouse",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-14",
+      "thumbnail": "https://i.ytimg.com/vi/YezMCmPnUVg/hqdefault.jpg"
+    },
+    {
+      "video_id": "FksUrVAuhjc",
+      "title": "4nim0sity|99.999999999%| ENGLISH COVER 【Lemi Lichen】イチ",
+      "artists": "Lemi Lichen",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-14",
+      "thumbnail": "https://i.ytimg.com/vi/FksUrVAuhjc/hqdefault.jpg"
+    },
+    {
+      "video_id": "dxGgR7wH56M",
+      "title": "AZKi在發售日提前待機購買國道卡，沒想到廠商會主動送一套給AZKi www【AZKi x 熱千玫拉】【Hololive中文精華】",
+      "artists": "AZKi",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-12",
+      "thumbnail": "https://i.ytimg.com/vi/dxGgR7wH56M/hqdefault.jpg"
+    },
+    {
+      "video_id": "6Tv_afF1zO4",
+      "title": "Still Here - Octavio, Banzoin Hakka, Crimzon Ruze 【OFFICIAL MV】",
+      "artists": "Octavio",
+      "office": "",
+      "type": "original",
+      "published_at": "2026-11-12",
+      "thumbnail": "https://i.ytimg.com/vi/6Tv_afF1zO4/hqdefault.jpg"
+    },
+    {
+      "video_id": "JhxN89KIr6E",
+      "title": "EX WIVES (cover)【SIX the Musical】",
+      "artists": "Tokaku〜ん",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-11",
+      "thumbnail": "https://i.ytimg.com/vi/JhxN89KIr6E/hqdefault.jpg"
+    },
+    {
+      "video_id": "ThNn5nnUz80",
+      "title": "Hachi 24 Giờ Sở Hữu Găng Tay Sức Mạnh Của Cartoon Cat",
+      "artists": "HACHI",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-11",
+      "thumbnail": "https://i.ytimg.com/vi/ThNn5nnUz80/hqdefault.jpg"
     }
   ]
 }
