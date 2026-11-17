@@ -16,18 +16,25 @@ UA = {
     "Accept": "application/json,text/plain,*/*",
     "Referer": "https://old.vsing.info/",
 }
-DELAY = 1.0
+DELAY = 0.5
 MIN_GAIN = 1
 MAX_ENTRIES = 100
-MAX_FETCH = 200
+MAX_FETCH = 1200
 
 TRACKS = "data/tracks.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
 
 DATE_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})$")
-TITLE_TAIL_RE = re.compile(r"\s*(cover|カバー)\s*$", re.I)
+TITLE_TAIL_RE = re.compile(r"\s*[（(]?\s*(cover|カバー)\s*[)）]?\s*$", re.I)
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
+
+
+def to_int(value):
+    try:
+        return int(float(value or 0))
+    except (TypeError, ValueError):
+        return 0
 
 
 def fetch_json(url, tries=4):
@@ -169,6 +176,7 @@ def main():
         and t.get("type") != "unknown"
         and t.get("status", "active") == "active"
     ]
+    eligible.sort(key=lambda t: -to_int(t.get("latest_views")))
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
     songs = []
