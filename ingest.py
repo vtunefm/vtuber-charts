@@ -9,8 +9,8 @@ from discover import MAX_DURATION, fetch_published, read_tracks, to_int, video_r
 
 CANDS = "data/candidates.csv"
 COLS = ["query", "channel_id", "channel_name", "handle", "subscribers", "status", "note"]
-MAX_ADD = 15000
-PER_CHANNEL = 12
+MAX_ADD = 1500
+PER_CHANNEL = 40
 PROBE = 120
 
 
@@ -69,6 +69,7 @@ def main():
             time.sleep(0.5)
             if not row or to_int(row["duration_sec"]) > MAX_DURATION:
                 continue
+            row["channel_id"] = cand["channel_id"]
             row["offices"] = row["offices"] or cand["channel_name"]
             tracks.append(row)
             known.add(vid)
