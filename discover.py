@@ -25,8 +25,8 @@ CHANNELS = "data/channels.csv"
 
 COLS = [
     "video_id", "video_name", "music_name", "channel_name", "channel_key",
-    "artists", "offices", "published_at", "duration_sec", "type", "is_short",
-    "is_long", "first_stat_date", "latest_views", "latest_likes",
+    "channel_id", "artists", "offices", "published_at", "duration_sec", "type",
+    "is_short", "is_long", "first_stat_date", "latest_views", "latest_likes",
     "discovered_via", "first_seen", "status",
 ]
 
