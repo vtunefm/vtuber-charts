@@ -1,7 +1,7 @@
 {
   "week_start": "2026-11-09",
   "week_end": "2026-11-14",
-  "generated_at": "2026-11-17T03:02:13+00:00",
+  "generated_at": "2026-11-17T03:19:23+00:00",
   "entries": [
     {
       "video_id": "AJRfDbuDne4",
@@ -1707,6 +1707,7 @@
   "artists": [
     {
       "name": "宝鐘マリン",
+      "display": "Marine",
       "picture": "https://i.ytimg.com/vi/-H4bB6hxeEs/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 945365,
@@ -1725,6 +1726,7 @@
     },
     {
       "name": "星街すいせい",
+      "display": "Suisei Channel",
       "picture": "https://i.ytimg.com/vi/mLwtfg57kbs/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 621405,
@@ -1743,6 +1745,7 @@
     },
     {
       "name": "町田ちま×虎金妃笑虎",
+      "display": "Niko",
       "picture": "https://i.ytimg.com/vi/AJRfDbuDne4/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 526071,
@@ -1761,6 +1764,7 @@
     },
     {
       "name": "博衣こより",
+      "display": "Koyori ch. 博衣こより - holoX -",
       "picture": "https://i.ytimg.com/vi/YFnkzhUyz18/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 137735,
@@ -1779,6 +1783,7 @@
     },
     {
       "name": "AZKi",
+      "display": "AZKi Channel",
       "picture": "https://i.ytimg.com/vi/xZVjjUTFgj0/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 121845,
@@ -1797,6 +1802,7 @@
     },
     {
       "name": "風真いろは",
+      "display": "Iroha ch. 風真いろは - holoX -",
       "picture": "https://i.ytimg.com/vi/NfZnchcKVw0/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 119853,
@@ -1815,6 +1821,7 @@
     },
     {
       "name": "猫又おかゆ",
+      "display": "Okayu",
       "picture": "https://i.ytimg.com/vi/_wFR042t70Q/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 86294,
@@ -1833,6 +1840,7 @@
     },
     {
       "name": "大空スバル",
+      "display": "Koyori ch. 博衣こより - holoX -",
       "picture": "https://i.ytimg.com/vi/YFnkzhUyz18/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 61458,
@@ -1851,6 +1859,7 @@
     },
     {
       "name": "アイリス",
+      "display": "IRyS",
       "picture": "https://i.ytimg.com/vi/pIJX76AVP5M/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 55124,
@@ -1869,6 +1878,7 @@
     },
     {
       "name": "こぼ・かなえる",
+      "display": "Kobo Kanaeru",
       "picture": "https://i.ytimg.com/vi/hDALUZZrE5U/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 49389,
@@ -1887,6 +1897,7 @@
     },
     {
       "name": "Kanade Ch. 音乃瀬奏 ‐ ReGLOSS",
+      "display": "Kanade",
       "picture": "https://i.ytimg.com/vi/pTwFsTxsf4w/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 47548,
@@ -1905,6 +1916,7 @@
     },
     {
       "name": "戌神ころね",
+      "display": "Korone",
       "picture": "https://i.ytimg.com/vi/xTy12kFtmWk/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 47115,
@@ -1923,6 +1935,7 @@
     },
     {
       "name": "尾丸ポルカ",
+      "display": "Koyori ch. 博衣こより - holoX -",
       "picture": "https://i.ytimg.com/vi/YFnkzhUyz18/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 45991,
@@ -1941,6 +1954,7 @@
     },
     {
       "name": "ムーナ・ホシノヴァ",
+      "display": "Moona Hoshinova hololive-ID",
       "picture": "https://i.ytimg.com/vi/m-EWIsKurhg/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 38972,
@@ -1959,6 +1973,7 @@
     },
     {
       "name": "百鬼あやめ",
+      "display": "Nakiri Ayame",
       "picture": "https://i.ytimg.com/vi/k4IJROgvWHc/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 36856,
@@ -1977,6 +1992,7 @@
     },
     {
       "name": "沙花叉クロヱ",
+      "display": "Koyori ch. 博衣こより - holoX -",
       "picture": "https://i.ytimg.com/vi/YFnkzhUyz18/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 34388,
@@ -1995,6 +2011,7 @@
     },
     {
       "name": "奏手イヅル",
+      "display": "Izuru",
       "picture": "https://i.ytimg.com/vi/Vj1XOWOxTho/hqdefault.jpg",
       "office": "ホロスターズ",
       "views_gained": 34356,
@@ -2013,6 +2030,7 @@
     },
     {
       "name": "ときのそら",
+      "display": "Koyori ch. 博衣こより - holoX -",
       "picture": "https://i.ytimg.com/vi/YFnkzhUyz18/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 32017,
@@ -2031,6 +2049,7 @@
     },
     {
       "name": "HIMEHINA Channel",
+      "display": "HIMEHINA Channel",
       "picture": "https://i.ytimg.com/vi/X8ZP3g9_MZ0/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 31546,
@@ -2049,6 +2068,7 @@
     },
     {
       "name": "大神ミオ",
+      "display": "Mio Channel 大神ミオ",
       "picture": "https://i.ytimg.com/vi/KmebvK80v7Y/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 29889,
@@ -2067,6 +2087,7 @@
     },
     {
       "name": "アユンダ・リス",
+      "display": "Ayunda Risu",
       "picture": "https://i.ytimg.com/vi/6ulGdHRkzGs/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 29805,
@@ -2085,6 +2106,7 @@
     },
     {
       "name": "姫森ルーナ",
+      "display": "Luna",
       "picture": "https://i.ytimg.com/vi/ua9r5T3WZj8/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 27043,
@@ -2103,6 +2125,7 @@
     },
     {
       "name": "森カリオペ",
+      "display": "Suisei Channel",
       "picture": "https://i.ytimg.com/vi/EjlMPu5sEgw/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ",
       "views_gained": 25218,
@@ -2121,6 +2144,7 @@
     },
     {
       "name": "ラプラス・ダークネス",
+      "display": "Iroha ch. 風真いろは - holoX -",
       "picture": "https://i.ytimg.com/vi/23w6ThmX4a4/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ",
       "views_gained": 23070,
@@ -2139,6 +2163,7 @@
     },
     {
       "name": "ハコス・ベールズ",
+      "display": "Hakos Baelz",
       "picture": "https://i.ytimg.com/vi/6jfmO1B4n58/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 19572,
@@ -2157,6 +2182,7 @@
     },
     {
       "name": "赤井はあと",
+      "display": "HAACHAMA Ch 赤井はあと",
       "picture": "https://i.ytimg.com/vi/JopgqurdtaU/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 19274,
@@ -2175,6 +2201,7 @@
     },
     {
       "name": "アキ・ローゼンダール",
+      "display": "アキロゼCh。Vtuber",
       "picture": "https://i.ytimg.com/vi/Ti2ELlQbuYc/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 16759,
@@ -2193,6 +2220,7 @@
     },
     {
       "name": "アステル･レダ",
+      "display": "Suisei Channel",
       "picture": "https://i.ytimg.com/vi/UXQDUhSr8nU/hqdefault.jpg",
       "office": "ホロスターズ / ホロスターズ / ホロライブ",
       "views_gained": 14436,
@@ -2211,6 +2239,7 @@
     },
     {
       "name": "アーニャ・メルフィッサ",
+      "display": "Anya Melfissa",
       "picture": "https://i.ytimg.com/vi/BUbCnt-iEkM/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 13921,
@@ -2229,6 +2258,7 @@
     },
     {
       "name": "小鳥遊キアラ",
+      "display": "Watson Amelia",
       "picture": "https://i.ytimg.com/vi/VupT9JCJaOY/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 12767,
@@ -2247,6 +2277,7 @@
     },
     {
       "name": "さくらみこ",
+      "display": "Suisei Channel",
       "picture": "https://i.ytimg.com/vi/9yBLZKFKXyg/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ",
       "views_gained": 12652,
@@ -2265,6 +2296,7 @@
     },
     {
       "name": "バニーガール - Kaela Kovalskia & Ouro Kronii",
+      "display": "Kaela Kovalskia",
       "picture": "https://i.ytimg.com/vi/HsNmKTG-VSc/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 11458,
@@ -2283,6 +2315,7 @@
     },
     {
       "name": "パヴォリア・レイネ",
+      "display": "Pavolia Reine",
       "picture": "https://i.ytimg.com/vi/Cs33S-Z6H14/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 10814,
@@ -2301,6 +2334,7 @@
     },
     {
       "name": "Kaela Kovalskia Ch. hololive-ID",
+      "display": "Kaela Kovalskia",
       "picture": "https://i.ytimg.com/vi/XG0WLXP1qLA/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 8977,
@@ -2319,6 +2353,7 @@
     },
     {
       "name": "夏色まつり",
+      "display": "Matsuri Channel 夏色まつり",
       "picture": "https://i.ytimg.com/vi/BwA-GzfYzMs/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 7648,
@@ -2337,6 +2372,7 @@
     },
     {
       "name": "一伊那尓栖",
+      "display": "Watson Amelia",
       "picture": "https://i.ytimg.com/vi/VupT9JCJaOY/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 7320,
@@ -2355,6 +2391,7 @@
     },
     {
       "name": "ワトソン・アメリア",
+      "display": "Watson Amelia",
       "picture": "https://i.ytimg.com/vi/VupT9JCJaOY/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 7320,
@@ -2373,6 +2410,7 @@
     },
     {
       "name": "がうる・ぐら",
+      "display": "Watson Amelia",
       "picture": "https://i.ytimg.com/vi/VupT9JCJaOY/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 7320,
@@ -2391,6 +2429,7 @@
     },
     {
       "name": "常闇トワ",
+      "display": "Towa",
       "picture": "https://i.ytimg.com/vi/c5qJc8ArTUo/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 7202,
@@ -2409,6 +2448,7 @@
     },
     {
       "name": "AZKi ときのそら【歌ってみた】",
+      "display": "AZKi",
       "picture": "https://i.ytimg.com/vi/46CUBRHdZA4/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 6533,
@@ -2427,6 +2467,7 @@
     },
     {
       "name": "ベスティア・ゼータ",
+      "display": "Vestia Zeta",
       "picture": "https://i.ytimg.com/vi/oe4wxQmP6qc/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 6133,
@@ -2445,6 +2486,7 @@
     },
     {
       "name": "桃鈴ねね",
+      "display": "Nene",
       "picture": "https://i.ytimg.com/vi/4BuB6fcFHLw/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 5686,
@@ -2463,6 +2505,7 @@
     },
     {
       "name": "クレイジー・オリー",
+      "display": "Kureiji Ollie",
       "picture": "https://i.ytimg.com/vi/g56qInpOaM8/hqdefault.jpg",
       "office": "ホロライブ",
       "views_gained": 5445,
@@ -2481,6 +2524,7 @@
     },
     {
       "name": "アルランディス",
+      "display": "Aruran",
       "picture": "https://i.ytimg.com/vi/vwutb7neH04/hqdefault.jpg",
       "office": "ホロスターズ",
       "views_gained": 4231,
@@ -2499,6 +2543,7 @@
     },
     {
       "name": "6の夢旅人2002",
+      "display": "Raden",
       "picture": "https://i.ytimg.com/vi/2uaoZXXC6jY/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 3698,
@@ -2517,6 +2562,7 @@
     },
     {
       "name": "戌亥とこ",
+      "display": "Suisei Channel",
       "picture": "https://i.ytimg.com/vi/aWv2KjaFqBA/hqdefault.jpg",
       "office": "にじさんじ / ホロライブ",
       "views_gained": 3207,
@@ -2535,6 +2581,7 @@
     },
     {
       "name": "鷹嶺ルイ",
+      "display": "Koyori ch. 博衣こより - holoX -",
       "picture": "https://i.ytimg.com/vi/nCyKjz-ie3c/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 2371,
@@ -2553,6 +2600,7 @@
     },
     {
       "name": "影山シエン",
+      "display": "Shien",
       "picture": "https://i.ytimg.com/vi/QMUxZaE-odM/hqdefault.jpg",
       "office": "ホロスターズ",
       "views_gained": 2169,
@@ -2571,6 +2619,7 @@
     },
     {
       "name": "岸堂天真",
+      "display": "Temma",
       "picture": "https://i.ytimg.com/vi/7NhihIbXBXg/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 2069,
@@ -2589,6 +2638,7 @@
     },
     {
       "name": "律可",
+      "display": "Izuru",
       "picture": "https://i.ytimg.com/vi/IxT1xa3YGio/hqdefault.jpg",
       "office": "ホロスターズ / ホロライブ",
       "views_gained": 1679,
@@ -2607,6 +2657,7 @@
     },
     {
       "name": "Shiori Novella Ch. hololive",
+      "display": "Shiori Novella",
       "picture": "https://i.ytimg.com/vi/zb3l3favPXk/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 1630,
@@ -2625,6 +2676,7 @@
     },
     {
       "name": "水宮枢×司賀りこ【歌ってみた】",
+      "display": "Su",
       "picture": "https://i.ytimg.com/vi/3jgf1Q7nMxI/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 853,
@@ -2643,6 +2695,7 @@
     },
     {
       "name": "雪花ラミィ",
+      "display": "Korone",
       "picture": "https://i.ytimg.com/vi/N_eK0ujrhmY/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 606,
@@ -2661,6 +2714,7 @@
     },
     {
       "name": "白銀ノエル",
+      "display": "Korone",
       "picture": "https://i.ytimg.com/vi/N_eK0ujrhmY/hqdefault.jpg",
       "office": "ホロライブ / ホロライブ / ホロライブ / ホロライブ",
       "views_gained": 606,
@@ -2679,6 +2733,7 @@
     },
     {
       "name": "ATEEZ covered by ハユン 水無世燐央 Uki Violeta",
+      "display": "Rio",
       "picture": "https://i.ytimg.com/vi/LRbF7LC2d2A/hqdefault.jpg",
       "office": "個人勢",
       "views_gained": 408,
@@ -2697,6 +2752,7 @@
     },
     {
       "name": "夕刻ロベル",
+      "display": "astel ch.アステル",
       "picture": "https://i.ytimg.com/vi/-gJOyj7Qz0I/hqdefault.jpg",
       "office": "ホロスターズ / ホロスターズ",
       "views_gained": 163,
@@ -2715,6 +2771,7 @@
     },
     {
       "name": "唯牙コハク",
+      "display": "Izuru",
       "picture": "https://i.ytimg.com/vi/GVp0yH6EEZE/hqdefault.jpg",
       "office": "ホロスターズ / ホロスターズ",
       "views_gained": 162,
@@ -2733,6 +2790,7 @@
     },
     {
       "name": "荒咬オウガ",
+      "display": "Oga",
       "picture": "https://i.ytimg.com/vi/cos54QJsb7o/hqdefault.jpg",
       "office": "ホロライブ / ホロスターズ",
       "views_gained": 102,
