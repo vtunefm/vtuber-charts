@@ -7,7 +7,7 @@ ui.inject()
 
 st.page_link("app.py", label="← Back")
 st.title("Artist Top 100")
-st.caption("One entry per artist · highest-gaining video shown · collab gains credited to all")
+st.caption("One entry per artist · links open the artist's channel · collab gains credited to all")
 
 chart = ui.load("data/chart.json")
 artists = (chart or {}).get("artists") or []
