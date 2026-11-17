@@ -23,6 +23,7 @@ MAX_FETCH = 1200
 
 TRACKS = "data/tracks.csv"
 SNAPSHOTS = "data/snapshots.csv"
+AVATARS = "data/avatars.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
 
@@ -73,7 +74,6 @@ def snapshot_deltas():
     gains = {}
     if not os.path.exists(SNAPSHOTS):
         return gains
-
     series = {}
     with open(SNAPSHOTS, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
@@ -82,7 +82,6 @@ def snapshot_deltas():
             if not vid or len(stamp) < 10:
                 continue
             series.setdefault(vid, []).append((stamp, to_int(row.get("view_count"))))
-
     for vid, points in series.items():
         points.sort()
         per_day = {}
@@ -104,20 +103,17 @@ def parse_stats(data):
     dates, views = stats[1], stats[2]
     if not dates or not views:
         return []
-
     total = 0
     try:
         total = int(stats[0][1])
     except (IndexError, TypeError, ValueError):
         total = 0
-
     cumulative = False
     try:
         if total and abs(int(views[-1]) - total) <= max(2, total * 0.001):
             cumulative = True
     except (IndexError, TypeError, ValueError):
         pass
-
     out, prev = [], 0
     for raw, count in zip(dates, views):
         m = DATE_RE.match(str(raw))
@@ -157,7 +153,7 @@ def history(key, exclude=None):
         except Exception:
             continue
         for entry in data.get(key, []):
-            ident = entry.get("video_id") or entry.get("name")
+            ident = entry.get("video_id") or entry.get("display") or entry.get("name")
             if not ident:
                 continue
             rec = records.setdefault(ident, {"peak": 999, "by_week": {}})
@@ -189,6 +185,17 @@ def split_artists(value):
     return [a.strip() for a in ARTIST_SPLIT_RE.split(value or "") if a.strip()]
 
 
+def load_avatars():
+    out = {}
+    if not os.path.exists(AVATARS):
+        return out
+    with open(AVATARS, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            if row.get("channel_id") and row.get("avatar"):
+                out[row["channel_id"]] = row["avatar"]
+    return out
+
+
 def main():
     start, end = window()
     print(f"window: {start} .. {end}")
@@ -211,7 +218,8 @@ def main():
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
     deltas = snapshot_deltas()
-    print(f"snapshot coverage: {len(deltas)} track(s)")
+    avatars = load_avatars()
+    print(f"snapshot coverage: {len(deltas)} · avatars: {len(avatars)}")
 
     songs = []
     from_snap = from_vsong = 0
@@ -242,13 +250,22 @@ def main():
         if gain is None or gain < MIN_GAIN:
             continue
 
+        artists_raw = (track.get("artists") or "").strip()
+        credited = {a.lower() for a in split_artists(artists_raw)}
+        title = TITLE_TAIL_RE.sub("", track.get("music_name") or "").strip()
+        if (
+            not title
+            or title.lower() in credited
+            or title.lower() == (track.get("channel_key") or "").lower()
+        ):
+            title = TITLE_TAIL_RE.sub("", track.get("video_name") or "").strip()
+
         songs.append({
             "video_id": vid,
-            "title": TITLE_TAIL_RE.sub(
-                "", track.get("music_name") or track.get("video_name") or ""
-            ).strip(),
-            "artists": TITLE_TAIL_RE.sub("", track.get("artists") or "").strip(),
+            "title": title,
+            "artists": artists_raw,
             "channel": track.get("channel_name"),
+            "channel_id": track.get("channel_id"),
             "office": track.get("offices"),
             "type": track.get("type"),
             "published_at": track.get("published_at"),
@@ -262,23 +279,35 @@ def main():
     songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
     ranked_songs = songs[:MAX_ENTRIES]
 
+    alias = {}
+    for song in songs:
+        names = split_artists(song["artists"])
+        if len(names) == 1:
+            alias.setdefault(names[0], display_name(names[0], song.get("channel")))
+
     artists = {}
     for song in songs:
         names = set(split_artists(song["artists"])) or {song.get("channel") or ""}
         for name in names:
             if not name:
                 continue
-            rec = artists.setdefault(name, {"gain": 0, "count": 0, "top": song, "picture": ""})
+            disp = alias.get(name) or display_name(name, song.get("channel")) or name
+            rec = artists.setdefault(disp, {
+                "name": name, "display": disp, "gain": 0, "count": 0,
+                "top": song, "picture": avatars.get(song.get("channel_id") or "", ""),
+            })
             rec["gain"] += song["views_gained"]
             rec["count"] += 1
+            if not rec["picture"]:
+                rec["picture"] = avatars.get(song.get("channel_id") or "", "")
             if song["views_gained"] > rec["top"]["views_gained"]:
                 rec["top"] = song
 
     artist_rows = [
         {
-            "name": name,
-            "display": display_name(name, rec["top"].get("channel")),
-            "picture": rec["top"]["thumbnail"],
+            "name": rec["name"],
+            "display": rec["display"],
+            "picture": rec["picture"] or rec["top"]["thumbnail"],
             "office": rec["top"].get("office"),
             "views_gained": rec["gain"],
             "video_count": rec["count"],
@@ -289,7 +318,7 @@ def main():
                 "views_gained": rec["top"]["views_gained"],
             },
         }
-        for name, rec in artists.items()
+        for rec in artists.values()
     ]
     artist_rows.sort(key=lambda a: -a["views_gained"])
     ranked_artists = artist_rows[:MAX_ENTRIES]
