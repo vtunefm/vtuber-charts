@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T16:24:11+00:00",
+  "generated_at": "2026-11-17T16:40:08+00:00",
   "today": [
     {
       "video_id": "xg0RcT8l9GU",
@@ -9,6 +9,15 @@
       "type": "cover",
       "published_at": "2026-11-17",
       "thumbnail": "https://i.ytimg.com/vi/xg0RcT8l9GU/hqdefault.jpg"
+    },
+    {
+      "video_id": "zogVnXIWkOM",
+      "title": "四国一周、すんぞ？【ホロライブ/赤井はあと】",
+      "artists": "Akai Haato",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-17",
+      "thumbnail": "https://i.ytimg.com/vi/zogVnXIWkOM/hqdefault.jpg"
     }
   ],
   "yesterday": [
@@ -29,6 +38,15 @@
       "type": "unknown",
       "published_at": "2026-11-16",
       "thumbnail": "https://i.ytimg.com/vi/Zjy3VU5rWM8/hqdefault.jpg"
+    },
+    {
+      "video_id": "IqN0XeMdGU4",
+      "title": "画面の中と向こうの君へ / AZKi (official)",
+      "artists": "AZKi",
+      "office": "",
+      "type": "unknown",
+      "published_at": "2026-11-16",
+      "thumbnail": "https://i.ytimg.com/vi/IqN0XeMdGU4/hqdefault.jpg"
     }
   ],
   "earlier": [
@@ -87,6 +105,15 @@
       "thumbnail": "https://i.ytimg.com/vi/QCT0mYfUIK8/hqdefault.jpg"
     },
     {
+      "video_id": "x0lk38D0PjA",
+      "title": "告白／柘榴シロ",
+      "artists": "Zakuro Shiro",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/x0lk38D0PjA/hqdefault.jpg"
+    },
+    {
       "video_id": "5XdFoWtqNK4",
       "title": "忍者(？都是很擅長收集情報的，至於情報的來源…【AZKi x 風真伊呂波 】【Hololive中文精華】",
       "artists": "AZKi",
@@ -112,15 +139,6 @@
       "type": "cover",
       "published_at": "2026-11-14",
       "thumbnail": "https://i.ytimg.com/vi/YezMCmPnUVg/hqdefault.jpg"
-    },
-    {
-      "video_id": "FksUrVAuhjc",
-      "title": "4nim0sity|99.999999999%| ENGLISH COVER 【Lemi Lichen】イチ",
-      "artists": "Lemi Lichen",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-14",
-      "thumbnail": "https://i.ytimg.com/vi/FksUrVAuhjc/hqdefault.jpg"
     }
   ]
 }
