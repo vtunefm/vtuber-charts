@@ -1,19 +1,16 @@
 import csv
 import os
 import time
-from datetime import datetime, timedelta, timezone
 
 import yt_dlp
 
-from discover import (
-    MAX_DURATION, RECENT_DAYS,
-    fetch_published, read_tracks, to_int, video_row, write_tracks,
-)
+from discover import MAX_DURATION, fetch_published, read_tracks, to_int, video_row, write_tracks
 
 CANDS = "data/candidates.csv"
 COLS = ["query", "channel_id", "channel_name", "handle", "subscribers", "status", "note"]
-MAX_ADD = 40
-PROBE = 60
+MAX_ADD = 300
+PER_CHANNEL = 100
+PROBE = 120
 
 
 def uploads(channel_id):
@@ -33,8 +30,6 @@ def main():
         print("no candidates.csv")
         return
 
-    seen_channels = set()
-
     with open(CANDS, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
@@ -43,8 +38,8 @@ def main():
 
     tracks = read_tracks()
     known = {r["video_id"] for r in tracks}
-    cutoff = (datetime.now(timezone.utc).date() - timedelta(days=RECENT_DAYS)).isoformat()
     added = 0
+    seen_channels = set()
 
     for cand in approved:
         if added >= MAX_ADD:
@@ -52,17 +47,17 @@ def main():
         if cand["channel_id"] in seen_channels:
             cand["status"] = "done"
             continue
-        seen_channels.add(cand["channel_id"])            
-        vids = [v for v in uploads(cand["channel_id"]) if v not in known]
+        seen_channels.add(cand["channel_id"])
+
+        vids = [v for v in uploads(cand["channel_id"]) if v not in known][:PER_CHANNEL]
         print(f"{cand['channel_name']}: {len(vids)} unseen")
         if not vids:
             cand["status"] = "done"
             continue
 
         published = fetch_published(vids)
-        batch = [v for v in vids if (published.get(v) or "") >= cutoff]
         got = 0
-        for vid in batch:
+        for vid in vids:
             if added >= MAX_ADD:
                 break
             row = video_row(vid, f"roster:{cand['query']}", published)
