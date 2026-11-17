@@ -35,13 +35,6 @@ def display_name(name, channel):
     return base if base and has_latin(base) else name
 
 
-def window():
-    today = datetime.now(timezone.utc).date()
-    days_back = (today.weekday() - 5) % 7
-    end = today - timedelta(days=days_back)
-    return end - timedelta(days=5), end
-
-
 def snapshot_deltas():
     gains = {}
     if not os.path.exists(SNAPSHOTS):
@@ -66,6 +59,21 @@ def snapshot_deltas():
         if per_day:
             gains[vid] = per_day
     return gains
+
+
+def choose_window(deltas):
+    today = datetime.now(timezone.utc).date()
+    days_back = (today.weekday() - 5) % 7
+    end = today - timedelta(days=days_back)
+    start = end - timedelta(days=5)
+
+    days = {d for per_day in deltas.values() for d in per_day}
+    if not days or any(start <= d <= end for d in days):
+        return start, end, False
+
+    latest = max(days)
+    monday = latest - timedelta(days=latest.weekday())
+    return monday, latest, True
 
 
 def past_week_for(end):
@@ -136,9 +144,6 @@ def load_avatars():
 
 
 def main():
-    start, end = window()
-    print(f"window: {start} .. {end}")
-
     if not os.path.exists(TRACKS):
         print("no tracks.csv")
         return
@@ -157,7 +162,8 @@ def main():
 
     deltas = snapshot_deltas()
     avatars = load_avatars()
-    print(f"snapshot coverage: {len(deltas)} · avatars: {len(avatars)}")
+    start, end, partial = choose_window(deltas)
+    print(f"window: {start} .. {end} (partial={partial}) · snapshot tracks={len(deltas)}")
 
     songs = []
     for track in eligible[:MAX_FETCH]:
@@ -198,7 +204,7 @@ def main():
 
     print(f"qualified={len(songs)}")
     if not songs:
-        print("no gains yet — needs at least two snapshot runs")
+        print("no gains yet — needs two snapshot runs on the same tracks")
 
     songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
     ranked_songs = songs[:MAX_ENTRIES]
@@ -254,6 +260,7 @@ def main():
     payload = {
         "week_start": start.isoformat(),
         "week_end": end.isoformat(),
+        "partial": partial,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "entries": ranked_songs,
         "artists": ranked_artists,
