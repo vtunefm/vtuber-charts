@@ -29,6 +29,7 @@ ARCHIVE = "data/archive"
 DATE_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})$")
 TITLE_TAIL_RE = re.compile(r"\s*[（(]?\s*(cover|カバー)\s*[)）]?\s*$", re.I)
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
+ROMAJI_CUT_RE = re.compile(r"\s*(?:Ch\.|【|/|｜|\|).*$")
 
 
 def to_int(value):
@@ -36,6 +37,15 @@ def to_int(value):
         return int(float(value or 0))
     except (TypeError, ValueError):
         return 0
+
+
+def has_latin(text):
+    return any("a" <= ch.lower() <= "z" for ch in text or "")
+
+
+def display_name(name, channel):
+    base = ROMAJI_CUT_RE.sub("", channel or "").strip()
+    return base if base and has_latin(base) else name
 
 
 def fetch_json(url, tries=3):
@@ -267,6 +277,7 @@ def main():
     artist_rows = [
         {
             "name": name,
+            "display": display_name(name, rec["top"].get("channel")),
             "picture": rec["top"]["thumbnail"],
             "office": rec["top"].get("office"),
             "views_gained": rec["gain"],
@@ -285,7 +296,7 @@ def main():
 
     past_week = past_week_for(end)
     apply_history(ranked_songs, history("entries", end.isoformat()), past_week, lambda e: e["video_id"])
-    apply_history(ranked_artists, history("artists", end.isoformat()), past_week, lambda a: a["name"])
+    apply_history(ranked_artists, history("artists", end.isoformat()), past_week, lambda a: a["display"])
 
     payload = {
         "week_start": start.isoformat(),
