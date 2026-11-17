@@ -1,6 +1,16 @@
 {
-  "generated_at": "2026-11-17T10:54:15+00:00",
-  "today": [],
+  "generated_at": "2026-11-17T16:24:11+00:00",
+  "today": [
+    {
+      "video_id": "xg0RcT8l9GU",
+      "title": "拝啓ドッペルゲンガー || HAKOS BAELZ COVER 【#CHU2BAE】",
+      "artists": "Hakos Baelz",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-17",
+      "thumbnail": "https://i.ytimg.com/vi/xg0RcT8l9GU/hqdefault.jpg"
+    }
+  ],
   "yesterday": [
     {
       "video_id": "TnntRX-Z8qM",
@@ -41,6 +51,42 @@
       "thumbnail": "https://i.ytimg.com/vi/6tq-DL9u-ho/hqdefault.jpg"
     },
     {
+      "video_id": "qF232RR-NvM",
+      "title": "Neurotoxin - Evil (Official Video)",
+      "artists": "Nuero-sama",
+      "office": "",
+      "type": "original",
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/qF232RR-NvM/hqdefault.jpg"
+    },
+    {
+      "video_id": "LE3nSBwNgAo",
+      "title": "【歌ってみた】「君の神様になりたい。 RAP VERSION 2026」covered by 春猿火",
+      "artists": "Harusaruhi",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/LE3nSBwNgAo/hqdefault.jpg"
+    },
+    {
+      "video_id": "Mh31tvqZqrk",
+      "title": "'No Guidnce - Is It A Crime?' | Cover by KANA",
+      "artists": "MW:MEU",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/Mh31tvqZqrk/hqdefault.jpg"
+    },
+    {
+      "video_id": "QCT0mYfUIK8",
+      "title": "REOL MIX - ヒビカセ +  宵々古今  /  Cover by Oshiriko",
+      "artists": "Oshiriko",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-15",
+      "thumbnail": "https://i.ytimg.com/vi/QCT0mYfUIK8/hqdefault.jpg"
+    },
+    {
       "video_id": "5XdFoWtqNK4",
       "title": "忍者(？都是很擅長收集情報的，至於情報的來源…【AZKi x 風真伊呂波 】【Hololive中文精華】",
       "artists": "AZKi",
@@ -75,42 +121,6 @@
       "type": "cover",
       "published_at": "2026-11-14",
       "thumbnail": "https://i.ytimg.com/vi/FksUrVAuhjc/hqdefault.jpg"
-    },
-    {
-      "video_id": "dxGgR7wH56M",
-      "title": "AZKi在發售日提前待機購買國道卡，沒想到廠商會主動送一套給AZKi www【AZKi x 熱千玫拉】【Hololive中文精華】",
-      "artists": "AZKi",
-      "office": "",
-      "type": "unknown",
-      "published_at": "2026-11-12",
-      "thumbnail": "https://i.ytimg.com/vi/dxGgR7wH56M/hqdefault.jpg"
-    },
-    {
-      "video_id": "6Tv_afF1zO4",
-      "title": "Still Here - Octavio, Banzoin Hakka, Crimzon Ruze 【OFFICIAL MV】",
-      "artists": "Octavio",
-      "office": "",
-      "type": "original",
-      "published_at": "2026-11-12",
-      "thumbnail": "https://i.ytimg.com/vi/6Tv_afF1zO4/hqdefault.jpg"
-    },
-    {
-      "video_id": "JhxN89KIr6E",
-      "title": "EX WIVES (cover)【SIX the Musical】",
-      "artists": "Tokaku〜ん",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-11",
-      "thumbnail": "https://i.ytimg.com/vi/JhxN89KIr6E/hqdefault.jpg"
-    },
-    {
-      "video_id": "ThNn5nnUz80",
-      "title": "Hachi 24 Giờ Sở Hữu Găng Tay Sức Mạnh Của Cartoon Cat",
-      "artists": "HACHI",
-      "office": "",
-      "type": "unknown",
-      "published_at": "2026-11-11",
-      "thumbnail": "https://i.ytimg.com/vi/ThNn5nnUz80/hqdefault.jpg"
     }
   ]
 }
