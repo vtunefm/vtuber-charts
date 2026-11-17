@@ -1,6 +1,7 @@
 import csv
 import os
 import time
+from collections import Counter
 
 import yt_dlp
 
@@ -8,8 +9,8 @@ from discover import MAX_DURATION, fetch_published, read_tracks, to_int, video_r
 
 CANDS = "data/candidates.csv"
 COLS = ["query", "channel_id", "channel_name", "handle", "subscribers", "status", "note"]
-MAX_ADD = 300
-PER_CHANNEL = 100
+MAX_ADD = 15000
+PER_CHANNEL = 12
 PROBE = 120
 
 
@@ -33,16 +34,20 @@ def main():
     with open(CANDS, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
-    approved = [r for r in rows if r.get("status") == "approved"]
-    print(f"{len(approved)} approved channel(s)")
-
     tracks = read_tracks()
     known = {r["video_id"] for r in tracks}
+
+    counts = Counter(r.get("channel_key") or "" for r in tracks)
+    approved = [r for r in rows if r.get("status") == "approved"]
+    approved.sort(key=lambda r: counts.get(r["channel_name"], 0))
+    print(f"{len(approved)} approved channel(s), least-covered first")
+
     added = 0
     seen_channels = set()
 
     for cand in approved:
         if added >= MAX_ADD:
+            print("hit MAX_ADD, stopping")
             break
         if cand["channel_id"] in seen_channels:
             cand["status"] = "done"
@@ -61,7 +66,7 @@ def main():
             if added >= MAX_ADD:
                 break
             row = video_row(vid, f"roster:{cand['query']}", published)
-            time.sleep(0.7)
+            time.sleep(0.5)
             if not row or to_int(row["duration_sec"]) > MAX_DURATION:
                 continue
             row["offices"] = row["offices"] or cand["channel_name"]
