@@ -1,10 +1,11 @@
-```markdown
 # VTune FM Charts — State of the Build
 
 Last updated: 2026-11-17
 
 Read this before touching anything. It exists so a fresh session does not
-re-litigate settled decisions or re-break fixed bugs.
+re-litigate settled decisions or re-break fixed bugs. Read the repo tree too —
+this file says what should be true, the tree says what is. When they disagree,
+the tree wins and this file gets fixed.
 
 ## What this is
 
@@ -15,8 +16,9 @@ Three surfaces, per the original brief:
 
 - **Music Top 100** — a Billboard-style weekly chart. Monday–Saturday window,
   Sunday is the scheduling day and is deliberately outside the window.
-- **Newest Original Releases** / **Newest Cover Releases** — a newest feed
-  capped at 10, bucketed Today / Yesterday with a Recent fallback.
+- **Newest Releases** — one feed capped at 10, bucketed Today / Yesterday with a
+  Recent fallback. The original brief called for separate Original and Cover
+  feeds; the build has not split them.
 - **Artist Top 100** — one entry per artist, deduped, collab gains credited to
   every credited artist, avatar and channel link, never a duplicate slot.
 
@@ -42,7 +44,6 @@ timeout. Everything now runs on the YouTube Data API plus our own snapshots.
 
 Data flow:
 
-```
 roster.txt ──> resolve.py ──> candidates.csv ──> autopick.py ──> manual review
                                                                     │
                                                                     v
@@ -59,7 +60,6 @@ roster.txt ──> resolve.py ──> candidates.csv ──> autopick.py ──>
                                                                chart.json
                                                                     │
                                                           Streamlit pages
-```
 
 `chart.py` derives gains **only** from deltas between our own snapshots. There
 is no external view source. A track needs two snapshots to produce a gain, so
@@ -72,7 +72,7 @@ new ingestion is invisible on the chart until the next snapshot lands.
 | `roster.txt` | Curated name list, one per line. Alias after a slash when the channel is named differently: `Momosuzu Nene / 桃鈴ねね`. |
 | `add_vtubers.txt` | The operator's loop for adding names. Follow it. |
 | `resolve.py` | Resolves roster names to channels, 30 names per run, 3 candidates each, pending sorted to the top. |
-| `autopick.py` | Auto-approves exact matches, rejects junk via `JUNK_RE`. Recomputes from scratch every run. |
+| `autopick.py` | Auto-approves exact matches, rejects junk via `JUNK_RE`. Recomputes from scratch every run. Runs automatically inside `resolve.yml`. |
 | `ingest.py` | Pulls uploads for approved channels via `ytmeta.py`. Least-covered first, `MAX_ADD` / `PER_CHANNEL` capped. |
 | `ytmeta.py` | Batched `videos.list` metadata. Replaced all vsong metadata. |
 | `snapshot.py` | Records `view_count` per track into `snapshots.csv`. |
@@ -92,13 +92,13 @@ to write them. `prune` was meant to be a one-pass removal of non-roster tracks;
 
 | Workflow | Trigger | Notes |
 |---|---|---|
-| `resolve.yml` | daily + manual | 30 names per run |
+| `resolve.yml` | daily 13:00 UTC + manual | 30 names per run, then `autopick.py` in the same job — approval is automatic |
 | `ingest.yml` | manual | `hit MAX_ADD, stopping` means run it again |
 | `snapshot.yml` | daily 23:50 UTC + manual | |
 | `chart.yml` | Sundays 09:00 UTC + manual | |
-| `newest.yml` | daily + manual | |
+| `newest.yml` | daily 10:00 UTC + manual | |
 | `avatars.yml` | daily 06:00 UTC + manual | Also rebuilds the chart, so pictures cannot drift from `chart.json` |
-| `playlists.yml` | daily + manual | |
+| `playlists.yml` | daily 11:00 UTC + manual | |
 
 `discover.yml`, `siblings.yml` and `collect.yml` were deleted; their scripts
 remain. `prune.yml` and `reset.yml` were never created.
@@ -139,7 +139,11 @@ remain. `prune.yml` and `reset.yml` were never created.
    the ceiling. Check the `artist pictures N/M · channels N/M` line in the chart
    log.
 4. **No `prune.py` / `reset.py`.**
-5. **Cosmetic list** — empty. Add to it as it comes up.
+5. **Stale copy in `app.py`** — the About tab claims a 500-view floor
+   (`MIN_GAIN` is 1) and the Artist Top 10 caption still says
+   "highest-gaining video shown." `pages/2_Artist_Top_100.py` was corrected;
+   `app.py` was not.
+6. **Cosmetic list** — empty. Add to it as it comes up.
 
 ## Gotchas
 
@@ -152,4 +156,3 @@ remain. `prune.yml` and `reset.yml` were never created.
 - The 21-day recency filter is gone. Do not re-add it.
 - YouTube `- Topic` channels classify as `original`. Topic channels are
   acceptable avatars but lose to main channels on subscriber count.
-```
