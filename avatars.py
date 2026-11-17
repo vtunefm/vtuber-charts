@@ -1,5 +1,6 @@
 import csv
 import os
+import re
 import time
 
 from googleapiclient.discovery import build
@@ -22,16 +23,47 @@ TCOLS = [
     "discovered_via", "first_seen", "status",
 ]
 
+SPLIT_RE = re.compile(r"\s*/\s*")
+CH_SUFFIX_RE = re.compile(r"\s*ch\.?\s*$", re.I)
+CH_PREFIX_RE = re.compile(r"^.*?\bch\.?\s+", re.I)
 
-def backfill_channel_ids():
-    if not (os.path.exists(TRACKS) and os.path.exists(CANDS)):
-        return 0
+
+def variants(text):
+    """Every spelling of a channel name we are willing to match on."""
+    out = set()
+    for part in SPLIT_RE.split(text or ""):
+        p = part.strip().lower()
+        if not p:
+            continue
+        out.add(p)
+        out.add(CH_SUFFIX_RE.sub("", p).strip())
+        out.add(CH_PREFIX_RE.sub("", p).strip())
+    return {v for v in out if v}
+
+
+def load_candidate_ids():
+    """name variants -> channel_id, plus channel_ids worth fetching regardless."""
+    by_name = {}
+    wanted = set()
+    if not os.path.exists(CANDS):
+        return by_name, wanted
 
     with open(CANDS, newline="", encoding="utf-8") as f:
-        by_name = {}
         for row in csv.DictReader(f):
-            if row.get("channel_id") and row.get("channel_name"):
-                by_name[row["channel_name"]] = row["channel_id"]
+            cid = (row.get("channel_id") or "").strip()
+            if not cid:
+                continue
+            for name in (row.get("channel_name"), row.get("handle")):
+                for v in variants(name):
+                    by_name.setdefault(v, cid)
+            if (row.get("status") or "") in ("approved", "done"):
+                wanted.add(cid)
+    return by_name, wanted
+
+
+def backfill_channel_ids(by_name):
+    if not (os.path.exists(TRACKS) and by_name):
+        return 0
 
     with open(TRACKS, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -40,10 +72,12 @@ def backfill_channel_ids():
     for row in rows:
         if row.get("channel_id"):
             continue
-        cid = by_name.get(row.get("channel_name") or "") or by_name.get(row.get("channel_key") or "")
-        if cid:
-            row["channel_id"] = cid
-            filled += 1
+        for source in (row.get("channel_name"), row.get("channel_key")):
+            hit = next((by_name[v] for v in variants(source) if v in by_name), None)
+            if hit:
+                row["channel_id"] = hit
+                filled += 1
+                break
 
     if filled:
         with open(TRACKS, "w", newline="", encoding="utf-8") as f:
@@ -56,7 +90,10 @@ def backfill_channel_ids():
 
 
 def main():
-    filled = backfill_channel_ids()
+    by_name, wanted = load_candidate_ids()
+    print(f"{len(by_name)} known channel name(s), {len(wanted)} approved channel(s)")
+
+    filled = backfill_channel_ids(by_name)
     print(f"backfilled {filled} channel_id(s)")
 
     if not os.path.exists(TRACKS):
@@ -64,7 +101,12 @@ def main():
         return
 
     with open(TRACKS, newline="", encoding="utf-8") as f:
-        ids = sorted({r.get("channel_id") for r in csv.DictReader(f) if r.get("channel_id")})
+        rows = list(csv.DictReader(f))
+
+    ids = {r.get("channel_id") for r in rows if r.get("channel_id")}
+    ids |= wanted
+    ids = sorted(ids)
+    print(f"{len(rows)} track(s), {len(ids)} channel(s) to cover")
 
     known = set()
     if os.path.exists(OUT):
