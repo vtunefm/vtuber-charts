@@ -2,11 +2,15 @@ name: Update Playlists
 
 on:
   schedule:
-    - cron: '0 11 * * *'
+    - cron: '0 */2 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
 
 jobs:
   playlists:
@@ -29,4 +33,11 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update playlists" && git push)
+          if git diff --quiet && git diff --staged --quiet; then exit 0; fi
+          git commit -m "Update playlists"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main && git push && exit 0
+            echo "push failed, retry $i"
+            sleep $((i * 5))
+          done
+          exit 1
