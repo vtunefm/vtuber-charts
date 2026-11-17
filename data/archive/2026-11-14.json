@@ -1,4 +1,41 @@
 {
-  "entries": [],
-  "artists": []
+  "entries": [
+    {
+      "video_id": "xZVjjUTFgj0",
+      "title": "IRIS OUT",
+      "artists": "AZKi",
+      "channel": "AZKi Channel",
+      "office": "ホロライブ",
+      "type": "cover",
+      "published_at": "2026-10-30",
+      "views_gained": 115228,
+      "days_covered": 5,
+      "thumbnail": "https://i.ytimg.com/vi/xZVjjUTFgj0/hqdefault.jpg",
+      "rank": 1,
+      "last_week": null,
+      "peak": 1,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    }
+  ],
+  "artists": [
+    {
+      "name": "AZKi",
+      "picture": "https://yt3.ggpht.com/tRZGMhn8vSvYE0_15SjaE_3dTH5JTZzjdnb5gs1StecT1tKn1gQ2tVkRfi_n42Q5fYz13ewdayo",
+      "office": "ホロライブ",
+      "views_gained": 115228,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "xZVjjUTFgj0",
+        "title": "IRIS OUT",
+        "thumbnail": "https://i.ytimg.com/vi/xZVjjUTFgj0/hqdefault.jpg",
+        "views_gained": 115228
+      },
+      "rank": 1,
+      "last_week": null,
+      "peak": 1,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    }
+  ]
 }
