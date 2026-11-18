@@ -80,7 +80,7 @@ def stats_line(entry):
 
 
 def delay(rank, total):
-    step = 0.05 if total <= 20 else 0.05
+    step = 0.07 if total <= 20 else 0.07
     return max(0, rank - 1) * step
 
 
