@@ -116,7 +116,7 @@ def artist_row(entry, total):
         f"<a href='{url}' target='_blank' rel='noopener'>{disp}</a></div>{sub}</div>"
         f"<div>{stats_line(entry)}</div>"
         f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
-        f"<div class='who' style='text-align:right'>{entry['video_count']} vids</div></div>"
+        f"<div class='who' style='text-align:right'></div></div>"
         f"</div>"
     )
 
