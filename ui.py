@@ -97,7 +97,7 @@ def chart_row(entry, total):
         f"<div class='who'>{html.escape(entry.get('artists') or '')}</div></div>"
         f"<div>{stats_line(entry)}</div>"
         f"<div><div class='gain'>+{entry['views_gained']:,}</div>"
-        f"<div class='who' style='text-align:right'>{entry['days_covered']}d</div></div>"
+        f"<div class='who' style='text-align:right'></div></div>"
         f"</div>"
     )
 
