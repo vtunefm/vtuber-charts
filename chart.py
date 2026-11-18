@@ -21,6 +21,15 @@ TITLE_TAIL_RE = re.compile(r"\s*[（(]?\s*(cover|カバー)\s*[)）]?\s*$", re.I
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
 CH_SUFFIX_RE = re.compile(r"\s*ch\.?\s*$", re.I)
 CH_PREFIX_RE = re.compile(r"^.*?\bch\.?\s+", re.I)
+CH_HEAD_RE = re.compile(r"\bch\.?\b.*$", re.I)
+
+# Offices, units and agencies are not people — they never take a credit or a share.
+OFFICE_TAGS = {
+    "hololive", "hololive en", "hololive id", "hololive dev_is", "holostars",
+    "holostars en", "nijisanji", "nijisanji en", "nijisanji id", "nijisanji kr",
+    "regloss", "vspo", "vsinger", "aogiri", "neo-porte", "phase connect",
+    "idol corp", "prism project", "kizuna ai inc.",
+}
 
 
 def to_int(value):
@@ -127,6 +136,10 @@ def split_artists(value):
     return [a.strip() for a in ARTIST_SPLIT_RE.split(value or "") if a.strip()]
 
 
+def is_office(name):
+    return (name or "").strip().lower() in OFFICE_TAGS
+
+
 def title_variants(text):
     out = set()
     for part in ARTIST_SPLIT_RE.split(text or ""):
@@ -136,6 +149,7 @@ def title_variants(text):
         out.add(p)
         out.add(CH_SUFFIX_RE.sub("", p).strip())
         out.add(CH_PREFIX_RE.sub("", p).strip())
+        out.add(CH_HEAD_RE.sub("", p).strip())
     return {v for v in out if v}
 
 
@@ -151,7 +165,7 @@ def load_avatars():
 
 
 def load_channels():
-    """channel_id -> canonical English name, plus title spellings -> that name."""
+    """channel_id -> canonical English name, plus every accepted spelling -> that name."""
     by_id, alias = {}, {}
     if not os.path.exists(CHANNELS):
         return by_id, alias
@@ -162,6 +176,7 @@ def load_channels():
             if not cid or not name or row.get("status") != "ok":
                 continue
             by_id[cid] = name
+            alias[name.lower()] = name
             for v in title_variants(row.get("channel_title")):
                 alias.setdefault(v, name)
     return by_id, alias
@@ -187,6 +202,7 @@ def main():
     deltas = snapshot_deltas()
     avatars = load_avatars()
     names_by_id, title_alias = load_channels()
+    id_by_name = {n.lower(): i for i, n in names_by_id.items()}
     print(f"{len(avatars)} avatar(s) · {len(names_by_id)} known channel(s)")
     start, end, partial = choose_window(deltas)
     print(f"window: {start} .. {end} (partial={partial}) · snapshot tracks={len(deltas)}")
@@ -238,43 +254,81 @@ def main():
     ranked_songs = songs[:MAX_ENTRIES]
 
     artists = {}
+    unresolved = set()
+    splits = 0
     for song in songs:
         names = split_artists(song["artists"])
         owner_id = song.get("channel_id") or ""
         owner_name = names_by_id.get(owner_id) or song.get("artist_name") or ""
-        solo = len(names) <= 1
 
-        if solo:
-            credits = [(owner_name, owner_id)]
+        if len(names) <= 1:
+            credits = {owner_id or owner_name.lower(): (owner_name, owner_id)}
         else:
-            credits = []
+            credits = {}
             for name in names:
-                hit = title_alias.get(name.lower())
-                if hit:
-                    cid = next((i for i, n in names_by_id.items() if n == hit), "")
-                    credits.append((hit, cid))
-                else:
-                    credits.append((name, ""))
+                low = name.lower()
+                cid = id_by_name.get(low, "")
+                if not cid:
+                    hit = title_alias.get(low)
+                    if hit:
+                        cid = id_by_name.get(hit.lower(), "")
+                        name = hit
+                if not cid:
+                    if is_office(name):
+                        continue
+                    unresolved.add(name)
+                credits[cid or name.lower()] = (name, cid)
 
-        for name, cid in credits:
+            if not credits:
+                credits[owner_id or owner_name.lower()] = (owner_name, owner_id)
+            elif len(credits) > 1:
+                splits += 1
+
+        share = song["views_gained"] / max(1, len(credits))
+
+        for name, cid in credits.values():
             if not name:
                 continue
             key = cid or name.lower()
             rec = artists.setdefault(key, {
-                "name": name, "display": name, "gain": 0, "count": 0,
-                "top": song, "channel_id": cid, "channel_url": "", "picture": "",
+                "name": name, "display": name, "gain": 0.0, "count": 0,
+                "top": song, "top_share": share, "channel_id": cid,
+                "channel_url": "", "picture": "",
             })
             if cid and not rec["channel_url"]:
                 rec["channel_url"] = CHANNEL.format(cid)
                 rec["picture"] = avatars.get(cid, "")
-            rec["gain"] += song["views_gained"]
+            rec["gain"] += share
             rec["count"] += 1
             if song["views_gained"] > rec["top"]["views_gained"]:
                 rec["top"] = song
+                rec["top_share"] = share
+
+    merged = 0
+    for key in [k for k, r in artists.items() if not r["channel_id"]]:
+        rec = artists[key]
+        twin = next(
+            (k for k, r in artists.items()
+             if r["channel_id"] and r["name"].lower() == rec["name"].lower()),
+            None,
+        )
+        if not twin:
+            continue
+        target = artists[twin]
+        target["gain"] += rec["gain"]
+        target["count"] += rec["count"]
+        if rec["top"]["views_gained"] > target["top"]["views_gained"]:
+            target["top"] = rec["top"]
+            target["top_share"] = rec["top_share"]
+        del artists[key]
+        merged += 1
+    print(f"merged {merged} name-only duplicate(s) · {splits} collab(s) split")
 
     pictured = sum(1 for r in artists.values() if r["picture"])
     linked = sum(1 for r in artists.values() if r["channel_url"])
     print(f"artist pictures {pictured}/{len(artists)} · channels {linked}/{len(artists)}")
+    if unresolved:
+        print(f"{len(unresolved)} unresolved credit(s): " + ", ".join(sorted(unresolved)))
 
     artist_rows = [
         {
@@ -284,18 +338,18 @@ def main():
             "channel_url": rec["channel_url"],
             "picture": rec["picture"] or rec["top"]["thumbnail"],
             "office": rec["top"].get("office"),
-            "views_gained": rec["gain"],
+            "views_gained": int(round(rec["gain"])),
             "video_count": rec["count"],
             "top_video": {
                 "video_id": rec["top"]["video_id"],
                 "title": rec["top"]["title"],
                 "thumbnail": rec["top"]["thumbnail"],
-                "views_gained": rec["top"]["views_gained"],
+                "views_gained": int(round(rec["top_share"])),
             },
         }
         for rec in artists.values()
     ]
-    artist_rows.sort(key=lambda a: -a["views_gained"])
+    artist_rows.sort(key=lambda a: (-a["views_gained"], -a["video_count"], a["name"]))
     ranked_artists = artist_rows[:MAX_ENTRIES]
 
     past_week = past_week_for(end)
