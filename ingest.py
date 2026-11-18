@@ -1,5 +1,6 @@
 import csv
 import os
+import re
 import time
 from collections import Counter
 
@@ -8,6 +9,7 @@ import yt_dlp
 from ytmeta import fetch_meta
 
 CHANNELS = "data/channels.csv"
+ALIASES = "data/aliases.csv"
 TRACKS = "data/tracks.csv"
 TCOLS = [
     "video_id", "video_name", "music_name", "artist_name", "channel_name",
@@ -15,11 +17,12 @@ TCOLS = [
     "duration_sec", "type", "is_short", "is_long", "first_stat_date",
     "latest_views", "latest_likes", "discovered_via", "first_seen", "status",
 ]
-MAX_ADD = 1500
+MAX_ADD = 4000
 PER_CHANNEL = 40
 PROBE = 120
 LONG_SEC = 900
 MAX_DURATION = 1500
+MIN_NAME = 4
 
 COVER_PAT = ["cover", "歌ってみた", "カバー", "covered by", "歌枠", "歌配信"]
 ORIG_PAT = ["original", "オリジナル", "書き下ろし", "official mv",
@@ -66,6 +69,35 @@ def write_tracks(rows):
             w.writerow({k: row.get(k, "") for k in TCOLS})
 
 
+def load_name_index(channels):
+    """Every spelling we accept in a title -> canonical English name."""
+    index = {}
+    for ch in channels:
+        for source in (ch["name"], ch.get("channel_title")):
+            key = (source or "").strip().lower()
+            if len(key) >= MIN_NAME:
+                index.setdefault(key, ch["name"])
+    if os.path.exists(ALIASES):
+        with open(ALIASES, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                jp = (row.get("japanese") or "").strip().lower()
+                en = (row.get("english") or "").strip()
+                if jp and en and len(jp) >= MIN_NAME:
+                    index.setdefault(jp, en)
+    return index
+
+
+def partners(title, uploader, index):
+    low = (title or "").lower()
+    found = []
+    for key, name in index.items():
+        if name == uploader or name in found:
+            continue
+        if key in low:
+            found.append(name)
+    return found
+
+
 def main():
     if not os.path.exists(CHANNELS):
         print("no channels.csv — run sync.py first")
@@ -77,11 +109,12 @@ def main():
             if r.get("status") == "ok" and r.get("channel_id")
         ]
 
+    index = load_name_index(channels)
     tracks = read_tracks()
     known = {r["video_id"] for r in tracks}
     counts = Counter(r.get("channel_id") or "" for r in tracks)
     channels.sort(key=lambda r: counts.get(r["channel_id"], 0))
-    print(f"{len(channels)} resolved channel(s), least-covered first")
+    print(f"{len(channels)} resolved channel(s), least-covered first, {len(index)} title alias(es)")
 
     added = 0
     seen = set()
@@ -109,6 +142,8 @@ def main():
             if not info or info["duration"] > MAX_DURATION:
                 continue
             title = info["title"]
+            extra = partners(title, ch["name"], index)
+            credits = "/".join([ch["name"]] + extra)
             tracks.append({
                 "video_id": vid,
                 "video_name": title,
@@ -117,7 +152,7 @@ def main():
                 "channel_name": info["channel"] or ch.get("channel_title", ""),
                 "channel_key": ch.get("channel_title", ""),
                 "channel_id": cid,
-                "artists": ch["name"],
+                "artists": credits,
                 "offices": "",
                 "published_at": info["published"],
                 "duration_sec": info["duration"],
