@@ -11,7 +11,7 @@ MAX_FETCH = 5000
 TRACKS = "data/tracks.csv"
 SNAPSHOTS = "data/snapshots.csv"
 AVATARS = "data/avatars.csv"
-CANDS = "data/candidates.csv"
+CHANNELS = "data/channels.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
 
@@ -19,7 +19,8 @@ CHANNEL = "https://www.youtube.com/channel/{}"
 
 TITLE_TAIL_RE = re.compile(r"\s*[（(]?\s*(cover|カバー)\s*[)）]?\s*$", re.I)
 ARTIST_SPLIT_RE = re.compile(r"\s*/\s*")
-ROMAJI_CUT_RE = re.compile(r"\s*(?:Ch\.|【|/|｜|\|).*$")
+CH_SUFFIX_RE = re.compile(r"\s*ch\.?\s*$", re.I)
+CH_PREFIX_RE = re.compile(r"^.*?\bch\.?\s+", re.I)
 
 
 def to_int(value):
@@ -27,15 +28,6 @@ def to_int(value):
         return int(float(value or 0))
     except (TypeError, ValueError):
         return 0
-
-
-def has_latin(text):
-    return any("a" <= ch.lower() <= "z" for ch in text or "")
-
-
-def display_name(name, channel):
-    base = ROMAJI_CUT_RE.sub("", channel or "").strip()
-    return base if base and has_latin(base) else name
 
 
 def snapshot_deltas():
@@ -103,7 +95,7 @@ def history(key, exclude=None):
         except Exception:
             continue
         for entry in data.get(key, []):
-            ident = entry.get("video_id") or entry.get("display") or entry.get("name")
+            ident = entry.get("video_id") or entry.get("channel_id") or entry.get("name")
             if not ident:
                 continue
             rec = records.setdefault(ident, {"peak": 999, "by_week": {}})
@@ -135,6 +127,18 @@ def split_artists(value):
     return [a.strip() for a in ARTIST_SPLIT_RE.split(value or "") if a.strip()]
 
 
+def title_variants(text):
+    out = set()
+    for part in ARTIST_SPLIT_RE.split(text or ""):
+        p = part.strip().lower()
+        if not p:
+            continue
+        out.add(p)
+        out.add(CH_SUFFIX_RE.sub("", p).strip())
+        out.add(CH_PREFIX_RE.sub("", p).strip())
+    return {v for v in out if v}
+
+
 def load_avatars():
     out = {}
     if not os.path.exists(AVATARS):
@@ -147,51 +151,20 @@ def load_avatars():
 
 
 def load_channels():
-    """Curated channels only — rejected clip channels never enter this index."""
-    index = []
-    if not os.path.exists(CANDS):
-        return index
-    with open(CANDS, newline="", encoding="utf-8") as f:
+    """channel_id -> canonical English name, plus title spellings -> that name."""
+    by_id, alias = {}, {}
+    if not os.path.exists(CHANNELS):
+        return by_id, alias
+    with open(CHANNELS, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            if (row.get("status") or "") not in ("done", "approved"):
-                continue
             cid = (row.get("channel_id") or "").strip()
-            name = (row.get("channel_name") or "").strip().lower()
-            if not cid or not name:
+            name = (row.get("name") or "").strip()
+            if not cid or not name or row.get("status") != "ok":
                 continue
-            index.append({
-                "id": cid,
-                "name": name,
-                "subs": to_int(row.get("subscribers")),
-                "topic": name.endswith("- topic"),
-            })
-    return index
-
-
-def find_channel(name, index):
-    key = (name or "").strip().lower()
-    if len(key) < 3:
-        return None
-    hits = [c for c in index if key in c["name"]]
-    if not hits:
-        return None
-    hits.sort(key=lambda c: (c["topic"], -c["subs"]))
-    return hits[0]
-
-
-def resolve_artist(name, song, index, avatars):
-    """Own channel first; the uploader only when this artist is the uploader."""
-    hit = find_channel(name, index)
-    if hit:
-        cid = hit["id"]
-    else:
-        cid = ""
-        channel = (song.get("channel") or "").lower()
-        key = (name or "").lower()
-        if key and (key in channel or (song.get("channel_key") or "").lower() == key):
-            cid = song.get("channel_id") or ""
-    url = CHANNEL.format(cid) if cid else ""
-    return cid, url, avatars.get(cid, "")
+            by_id[cid] = name
+            for v in title_variants(row.get("channel_title")):
+                alias.setdefault(v, name)
+    return by_id, alias
 
 
 def main():
@@ -213,8 +186,8 @@ def main():
 
     deltas = snapshot_deltas()
     avatars = load_avatars()
-    index = load_channels()
-    print(f"{len(avatars)} avatar(s) known · {len(index)} curated channel(s)")
+    names_by_id, title_alias = load_channels()
+    print(f"{len(avatars)} avatar(s) · {len(names_by_id)} known channel(s)")
     start, end, partial = choose_window(deltas)
     print(f"window: {start} .. {end} (partial={partial}) · snapshot tracks={len(deltas)}")
 
@@ -245,6 +218,7 @@ def main():
             "video_id": vid,
             "title": title,
             "artists": artists_raw,
+            "artist_name": track.get("artist_name") or "",
             "channel": track.get("channel_name"),
             "channel_id": track.get("channel_id"),
             "channel_key": track.get("channel_key"),
@@ -263,35 +237,43 @@ def main():
     songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
     ranked_songs = songs[:MAX_ENTRIES]
 
-    alias = {}
-    for song in songs:
-        names = split_artists(song["artists"])
-        if len(names) == 1:
-            alias.setdefault(names[0], display_name(names[0], song.get("channel")))
-
     artists = {}
     for song in songs:
-        names = set(split_artists(song["artists"])) or {song.get("channel") or ""}
-        for name in names:
+        names = split_artists(song["artists"])
+        owner_id = song.get("channel_id") or ""
+        owner_name = names_by_id.get(owner_id) or song.get("artist_name") or ""
+        solo = len(names) <= 1
+
+        if solo:
+            credits = [(owner_name, owner_id)]
+        else:
+            credits = []
+            for name in names:
+                hit = title_alias.get(name.lower())
+                if hit:
+                    cid = next((i for i, n in names_by_id.items() if n == hit), "")
+                    credits.append((hit, cid))
+                else:
+                    credits.append((name, ""))
+
+        for name, cid in credits:
             if not name:
                 continue
-            disp = alias.get(name) or display_name(name, song.get("channel")) or name
-            rec = artists.setdefault(disp, {
-                "name": name, "display": disp, "gain": 0, "count": 0,
-                "top": song, "channel_id": "", "channel_url": "", "picture": "",
+            key = cid or name.lower()
+            rec = artists.setdefault(key, {
+                "name": name, "display": name, "gain": 0, "count": 0,
+                "top": song, "channel_id": cid, "channel_url": "", "picture": "",
             })
-            if not rec["channel_id"]:
-                cid, url, pic = resolve_artist(name, song, index, avatars)
-                rec["channel_id"] = cid
-                rec["channel_url"] = url
-                rec["picture"] = pic
+            if cid and not rec["channel_url"]:
+                rec["channel_url"] = CHANNEL.format(cid)
+                rec["picture"] = avatars.get(cid, "")
             rec["gain"] += song["views_gained"]
             rec["count"] += 1
             if song["views_gained"] > rec["top"]["views_gained"]:
                 rec["top"] = song
 
-    pictured = sum(1 for rec in artists.values() if rec["picture"])
-    linked = sum(1 for rec in artists.values() if rec["channel_url"])
+    pictured = sum(1 for r in artists.values() if r["picture"])
+    linked = sum(1 for r in artists.values() if r["channel_url"])
     print(f"artist pictures {pictured}/{len(artists)} · channels {linked}/{len(artists)}")
 
     artist_rows = [
@@ -318,7 +300,7 @@ def main():
 
     past_week = past_week_for(end)
     apply_history(ranked_songs, history("entries", end.isoformat()), past_week, lambda e: e["video_id"])
-    apply_history(ranked_artists, history("artists", end.isoformat()), past_week, lambda a: a["display"])
+    apply_history(ranked_artists, history("artists", end.isoformat()), past_week, lambda a: a["channel_id"] or a["name"])
 
     payload = {
         "week_start": start.isoformat(),
