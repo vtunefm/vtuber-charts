@@ -2,7 +2,7 @@
   "week_start": "2026-11-16",
   "week_end": "2026-11-18",
   "partial": true,
-  "generated_at": "2026-11-18T05:02:18+00:00",
+  "generated_at": "2026-11-18T05:21:44+00:00",
   "entries": [
     {
       "video_id": "XPLkkdMFmco",
@@ -2013,6 +2013,7 @@
       "channel_url": "https://www.youtube.com/channel/UC7z-RiUCCbQqZPlqRgJtkPw",
       "picture": "https://yt3.ggpht.com/Jd4UzRL6F6972dfKcCcy9dvzQ2vzMKJlvo1hokoGY92WaALn2tSjFKWvHNLtZA_QiofzZ2R6QBg=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 183685,
       "video_count": 34,
       "top_video": {
@@ -2028,19 +2029,20 @@
       "movement": "new"
     },
     {
-      "name": "Hakos Baelz",
-      "display": "Hakos Baelz",
-      "channel_id": "UCgmPnx-EEeOrZSg5Tiw7ZRQ",
-      "channel_url": "https://www.youtube.com/channel/UCgmPnx-EEeOrZSg5Tiw7ZRQ",
-      "picture": "https://yt3.ggpht.com/sFBVGkudEnu_MCH23nJdS2oTnOzd9M7e6Mgki5JBhbj4PnjWGgG2hNmW2Vozw5rr8-K0s-DpaPs=s800-c-k-c0x00ffffff-no-rj",
+      "name": "Houshou Marine",
+      "display": "Houshou Marine",
+      "channel_id": "UCCzUftO8KOVkV4wQG1vkUvg",
+      "channel_url": "https://www.youtube.com/channel/UCCzUftO8KOVkV4wQG1vkUvg",
+      "picture": "https://yt3.ggpht.com/RnFYoR_VkEZZ4OGRJz2cPXem1iRqMNzcGVp5LIxTRqhDu4vqckc83DBrVi2uwxiCPWEmmH6vSJk=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 136538,
-      "video_count": 23,
+      "office_channel": false,
+      "views_gained": 174230,
+      "video_count": 21,
       "top_video": {
-        "video_id": "xg0RcT8l9GU",
-        "title": "拝啓ドッペルゲンガー || HAKOS BAELZ COVER 【#CHU2BAE】",
-        "thumbnail": "https://i.ytimg.com/vi/xg0RcT8l9GU/hqdefault.jpg",
-        "views_gained": 67784
+        "video_id": "-H4bB6hxeEs",
+        "title": "【original anime MV】きゃぴ【宝鐘マリン / hololive】",
+        "thumbnail": "https://i.ytimg.com/vi/-H4bB6hxeEs/hqdefault.jpg",
+        "views_gained": 40157
       },
       "rank": 2,
       "last_week": null,
@@ -2049,44 +2051,24 @@
       "movement": "new"
     },
     {
-      "name": "Houshou Marine",
-      "display": "Houshou Marine",
-      "channel_id": "UCCzUftO8KOVkV4wQG1vkUvg",
-      "channel_url": "https://www.youtube.com/channel/UCCzUftO8KOVkV4wQG1vkUvg",
-      "picture": "https://yt3.ggpht.com/RnFYoR_VkEZZ4OGRJz2cPXem1iRqMNzcGVp5LIxTRqhDu4vqckc83DBrVi2uwxiCPWEmmH6vSJk=s800-c-k-c0x00ffffff-no-rj",
+      "name": "Hakos Baelz",
+      "display": "Hakos Baelz",
+      "channel_id": "UCgmPnx-EEeOrZSg5Tiw7ZRQ",
+      "channel_url": "https://www.youtube.com/channel/UCgmPnx-EEeOrZSg5Tiw7ZRQ",
+      "picture": "https://yt3.ggpht.com/sFBVGkudEnu_MCH23nJdS2oTnOzd9M7e6Mgki5JBhbj4PnjWGgG2hNmW2Vozw5rr8-K0s-DpaPs=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 97184,
-      "video_count": 21,
+      "office_channel": false,
+      "views_gained": 137220,
+      "video_count": 23,
       "top_video": {
-        "video_id": "-H4bB6hxeEs",
-        "title": "【original anime MV】きゃぴ【宝鐘マリン / hololive】",
-        "thumbnail": "https://i.ytimg.com/vi/-H4bB6hxeEs/hqdefault.jpg",
-        "views_gained": 20078
+        "video_id": "xg0RcT8l9GU",
+        "title": "拝啓ドッペルゲンガー || HAKOS BAELZ COVER 【#CHU2BAE】",
+        "thumbnail": "https://i.ytimg.com/vi/xg0RcT8l9GU/hqdefault.jpg",
+        "views_gained": 67784
       },
       "rank": 3,
       "last_week": null,
       "peak": 3,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "hololive",
-      "display": "hololive",
-      "channel_id": "UCJFZiqLMntJufDCHc6bQixg",
-      "channel_url": "https://www.youtube.com/channel/UCJFZiqLMntJufDCHc6bQixg",
-      "picture": "https://yt3.ggpht.com/rl6ZG9_MqKPDABLRDNG75FPX7EOPGXHtJ-2Hm97yqWziq6gkcwnsSe6wA8vv8xIhGuQe9joF=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 87770,
-      "video_count": 42,
-      "top_video": {
-        "video_id": "-H4bB6hxeEs",
-        "title": "【original anime MV】きゃぴ【宝鐘マリン / hololive】",
-        "thumbnail": "https://i.ytimg.com/vi/-H4bB6hxeEs/hqdefault.jpg",
-        "views_gained": 20078
-      },
-      "rank": 4,
-      "last_week": null,
-      "peak": 4,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2097,6 +2079,7 @@
       "channel_url": "https://www.youtube.com/channel/UC8eitCE9Z6EwUCs-VUi1blg",
       "picture": "https://yt3.ggpht.com/w-0D87KiPH6FgFtJKtuodQYepQYJ-XHWMprRBNysqXpWN4FsyRZ4eweLg0xDgIHqThnWt7fD6w=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 35662,
       "video_count": 2,
       "top_video": {
@@ -2105,9 +2088,9 @@
         "thumbnail": "https://i.ytimg.com/vi/pm4Vck0LCqE/hqdefault.jpg",
         "views_gained": 27914
       },
-      "rank": 5,
+      "rank": 4,
       "last_week": null,
-      "peak": 5,
+      "peak": 4,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2118,7 +2101,8 @@
       "channel_url": "https://www.youtube.com/channel/UCt9H_RpQzhxzlyBxFqrdHqA",
       "picture": "https://yt3.ggpht.com/eC6k63zvyZma-t4NwtxhKXaP7smdQuXM6KA9r8i-ZLxnfSh5ngfAPibEAwtbFy4QEGnt_lY6lA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 30150,
+      "office_channel": false,
+      "views_gained": 31573,
       "video_count": 20,
       "top_video": {
         "video_id": "Yr1EI_jYBB8",
@@ -2126,9 +2110,9 @@
         "thumbnail": "https://i.ytimg.com/vi/Yr1EI_jYBB8/hqdefault.jpg",
         "views_gained": 8321
       },
-      "rank": 6,
+      "rank": 5,
       "last_week": null,
-      "peak": 6,
+      "peak": 5,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2139,6 +2123,7 @@
       "channel_url": "https://www.youtube.com/channel/UChgPVLjqugDQpRLWvC7zzig",
       "picture": "https://yt3.ggpht.com/Hw_8fnZCI8UeE2G3S0sFMmJeETgR34JbzYKNv_XTsYIiSthwKR1LWrOCqOkB-jKHXTlAbhfkeJw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 25684,
       "video_count": 7,
       "top_video": {
@@ -2147,9 +2132,9 @@
         "thumbnail": "https://i.ytimg.com/vi/YezMCmPnUVg/hqdefault.jpg",
         "views_gained": 10511
       },
-      "rank": 7,
+      "rank": 6,
       "last_week": null,
-      "peak": 7,
+      "peak": 6,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2160,7 +2145,8 @@
       "channel_url": "https://www.youtube.com/channel/UC0TXe_LYZ4scaW2XMyi5_kw",
       "picture": "https://yt3.ggpht.com/tRZGMhn8vSvYE0_15SjaE_3dTH5JTZzjdnb5gs1StecT1tKn1gQ2tVkRfi_n42Q5fYz13ewdayo=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 23637,
+      "office_channel": false,
+      "views_gained": 23736,
       "video_count": 13,
       "top_video": {
         "video_id": "xZVjjUTFgj0",
@@ -2168,9 +2154,9 @@
         "thumbnail": "https://i.ytimg.com/vi/xZVjjUTFgj0/hqdefault.jpg",
         "views_gained": 17528
       },
-      "rank": 8,
+      "rank": 7,
       "last_week": null,
-      "peak": 8,
+      "peak": 7,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2181,6 +2167,7 @@
       "channel_url": "https://www.youtube.com/channel/UCFv2z4iM5vHrS8bZPq4fHQQ",
       "picture": "https://yt3.ggpht.com/nPHRhyl-fq_XwruRR5btA8_lafZKoc86TZBBDx6XjiclwI1qU51ejBG_wwj69CdWKyDyDmLM=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 21426,
       "video_count": 10,
       "top_video": {
@@ -2189,9 +2176,9 @@
         "thumbnail": "https://i.ytimg.com/vi/EivKeDT692Y/hqdefault.jpg",
         "views_gained": 15318
       },
-      "rank": 9,
+      "rank": 8,
       "last_week": null,
-      "peak": 9,
+      "peak": 8,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2202,6 +2189,7 @@
       "channel_url": "https://www.youtube.com/channel/UC5CwaMl1eIgY8h02uZw7u8A",
       "picture": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 20402,
       "video_count": 4,
       "top_video": {
@@ -2210,9 +2198,9 @@
         "thumbnail": "https://i.ytimg.com/vi/lGQDHKzLznE/hqdefault.jpg",
         "views_gained": 8969
       },
-      "rank": 10,
+      "rank": 9,
       "last_week": null,
-      "peak": 10,
+      "peak": 9,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2223,7 +2211,8 @@
       "channel_url": "https://www.youtube.com/channel/UC8rcEBzJSleTkf_-agPM20g",
       "picture": "https://yt3.ggpht.com/zztv3u0fMtIbGu5nLjKPTwR_8-U0nSq80kmWW0xBpc42tA6dFHlDb_TG3VjSPLNFBuAIZtaFrw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 17505,
+      "office_channel": false,
+      "views_gained": 17882,
       "video_count": 29,
       "top_video": {
         "video_id": "pIJX76AVP5M",
@@ -2231,9 +2220,9 @@
         "thumbnail": "https://i.ytimg.com/vi/pIJX76AVP5M/hqdefault.jpg",
         "views_gained": 5646
       },
-      "rank": 11,
+      "rank": 10,
       "last_week": null,
-      "peak": 11,
+      "peak": 10,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2244,6 +2233,7 @@
       "channel_url": "https://www.youtube.com/channel/UC9LSiN9hXI55svYEBrrK-tw",
       "picture": "https://yt3.ggpht.com/4eNoZ3izogRHDyK8Bsoaz8rQwOGqCn6oumnmOr9GJ5RW4aD_lD03FSAnm7XNdmDFbuqM9mje=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 16974,
       "video_count": 15,
       "top_video": {
@@ -2252,9 +2242,9 @@
         "thumbnail": "https://i.ytimg.com/vi/f8BtL7bxj9s/hqdefault.jpg",
         "views_gained": 6200
       },
-      "rank": 12,
+      "rank": 11,
       "last_week": null,
-      "peak": 12,
+      "peak": 11,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2265,6 +2255,7 @@
       "channel_url": "https://www.youtube.com/channel/UCE7gtjLeZKNXLp5YURzYYeg",
       "picture": "https://yt3.ggpht.com/H2caJ6gD8AujDWON1gZwGYL7jCdHOmr5Mf8TGCjIt1vAz5uw29TdWL1Ihf9SB_4rQevQrwye3F0=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 14642,
       "video_count": 32,
       "top_video": {
@@ -2272,6 +2263,28 @@
         "title": "【歌ってみた】「君の神様になりたい。 RAP VERSION 2026」covered by 春猿火",
         "thumbnail": "https://i.ytimg.com/vi/LE3nSBwNgAo/hqdefault.jpg",
         "views_gained": 6150
+      },
+      "rank": 12,
+      "last_week": null,
+      "peak": 12,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "hololive EN",
+      "display": "hololive EN",
+      "channel_id": "UCotXwY6s8pWmuWd_snKYjhg",
+      "channel_url": "https://www.youtube.com/channel/UCotXwY6s8pWmuWd_snKYjhg",
+      "picture": "https://yt3.ggpht.com/TvszWVCadS-5F30r3omWB2K2SZWfu6ZTcKHZ69N7Mmb0Qx6VD22vgaKkEkm9frbF_x2pnx7K=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": true,
+      "views_gained": 13482,
+      "video_count": 14,
+      "top_video": {
+        "video_id": "T2351eZtQC0",
+        "title": "【MV】THIS IS MYTH 【hololive -Myth- Original Song】",
+        "thumbnail": "https://i.ytimg.com/vi/T2351eZtQC0/hqdefault.jpg",
+        "views_gained": 3576
       },
       "rank": 13,
       "last_week": null,
@@ -2286,6 +2299,7 @@
       "channel_url": "https://www.youtube.com/channel/UCW5uhrG1eCBYditmhL0Ykjw",
       "picture": "https://yt3.ggpht.com/1aoKeoCGzuD7XK2U8nUIHfpynIOLecHxF7Adh09XshlrL9kne2uKGOllFcoA2iXBVVe51_V6E48=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 12741,
       "video_count": 23,
       "top_video": {
@@ -2307,6 +2321,7 @@
       "channel_url": "https://www.youtube.com/channel/UCDHABijvPBnJm7F-KlNME3w",
       "picture": "https://yt3.ggpht.com/VTrjE6XoUY0QRq9VgwPIADiUA1S2FYPvJ7qRpUpgix8JLiU-mjKwEtADjS35w9C21Yarxk9kKA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 12438,
       "video_count": 14,
       "top_video": {
@@ -2328,6 +2343,7 @@
       "channel_url": "https://www.youtube.com/channel/UCvN5h1ShZtc7nly3pezRayg",
       "picture": "https://yt3.ggpht.com/sSuJylnDA4Si69bKWVzwUhrOhgIkBCzGE6DHgDyHCJux8TKi7WU8GyKaKZHEN0a3QG7s2yJ399g=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 11778,
       "video_count": 8,
       "top_video": {
@@ -2349,6 +2365,7 @@
       "channel_url": "https://www.youtube.com/channel/UCDpX_q4mlkbuPJbY6h62eHQ",
       "picture": "https://yt3.ggpht.com/rkFdTgKDsoXj6T5CFfBNXJnDIC3M8pPzJ7Nspty0wEZeFTg4vE3ZAKXcs9CtiM0akTwVmfzBtw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 11697,
       "video_count": 40,
       "top_video": {
@@ -2370,6 +2387,7 @@
       "channel_url": "https://www.youtube.com/channel/UC6eWCld0KwmyHFbAqK3V-Rw",
       "picture": "https://yt3.ggpht.com/2PoZqbHNPXXxjPRgtAuDGY_p6use0QRNk2rN0oXPeE9NtrQGuTuD1psw6sCFDGy8fO_3JwjQPxw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 9798,
       "video_count": 13,
       "top_video": {
@@ -2391,6 +2409,7 @@
       "channel_url": "https://www.youtube.com/channel/UCa9Y57gfeY0Zro_noHRVrnw",
       "picture": "https://yt3.ggpht.com/05zupy7ai3DW0mEmY3tSgkb4CGjHadAXG0bs_PSzg09l0_5MInPrG4Bh-ZRlAWcPncOe9cnQkQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 9298,
       "video_count": 15,
       "top_video": {
@@ -2412,6 +2431,7 @@
       "channel_url": "https://www.youtube.com/channel/UChAnqc_AY5_I3Px5dig3X1Q",
       "picture": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 9236,
       "video_count": 11,
       "top_video": {
@@ -2427,33 +2447,13 @@
       "movement": "new"
     },
     {
-      "name": "hololive EN",
-      "display": "hololive EN",
-      "channel_id": "UCotXwY6s8pWmuWd_snKYjhg",
-      "channel_url": "https://www.youtube.com/channel/UCotXwY6s8pWmuWd_snKYjhg",
-      "picture": "https://yt3.ggpht.com/TvszWVCadS-5F30r3omWB2K2SZWfu6ZTcKHZ69N7Mmb0Qx6VD22vgaKkEkm9frbF_x2pnx7K=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 8143,
-      "video_count": 17,
-      "top_video": {
-        "video_id": "T2351eZtQC0",
-        "title": "【MV】THIS IS MYTH 【hololive -Myth- Original Song】",
-        "thumbnail": "https://i.ytimg.com/vi/T2351eZtQC0/hqdefault.jpg",
-        "views_gained": 1788
-      },
-      "rank": 21,
-      "last_week": null,
-      "peak": 21,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
       "name": "Axel Syrios",
       "display": "Axel Syrios",
       "channel_id": "UC2hx0xVkMoHGWijwr_lA01w",
       "channel_url": "https://www.youtube.com/channel/UC2hx0xVkMoHGWijwr_lA01w",
       "picture": "https://yt3.ggpht.com/uAvVek-I4lHF06RJdq5uPL-KHP3BvwtFgfBi7c9Yma8xUdAx_s8p0jc5GNooXJMSGizeoHXLiAk=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 6644,
       "video_count": 13,
       "top_video": {
@@ -2462,9 +2462,9 @@
         "thumbnail": "https://i.ytimg.com/vi/UVc8OHeq6Fs/hqdefault.jpg",
         "views_gained": 5312
       },
-      "rank": 22,
+      "rank": 21,
       "last_week": null,
-      "peak": 22,
+      "peak": 21,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2475,6 +2475,7 @@
       "channel_url": "https://www.youtube.com/channel/UC727SQYUvx5pDDGQpTICNWg",
       "picture": "https://yt3.ggpht.com/I1hkzp7Vty4M-KkSccRORE32t4cFq2HI2uAB1t4BPlwej6_XJ4eRlpy7NNZ9x4JBnqlkOnGz=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 5943,
       "video_count": 24,
       "top_video": {
@@ -2483,9 +2484,9 @@
         "thumbnail": "https://i.ytimg.com/vi/nxx0SVGp5yQ/hqdefault.jpg",
         "views_gained": 2011
       },
-      "rank": 23,
+      "rank": 22,
       "last_week": null,
-      "peak": 23,
+      "peak": 22,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2496,6 +2497,7 @@
       "channel_url": "https://www.youtube.com/channel/UCOyYb1c43VlX9rc_lT6NKQw",
       "picture": "https://yt3.ggpht.com/8dYniYG0Fm49TBxwOW39wDzM25P3aAU7r-wecNaOz5a3I1t8dsYbS5OPZXFeHYQpmVRrY9KrSg=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 4991,
       "video_count": 10,
       "top_video": {
@@ -2503,6 +2505,28 @@
         "title": "【Ayunda Risu】S.O.Re : Song Of Reality 【Original Song MV】",
         "thumbnail": "https://i.ytimg.com/vi/ZngEAESMgyI/hqdefault.jpg",
         "views_gained": 1874
+      },
+      "rank": 23,
+      "last_week": null,
+      "peak": 23,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Airani Iofifteen",
+      "display": "Airani Iofifteen",
+      "channel_id": "UCAoy6rzhSf4ydcYjJw3WoVg",
+      "channel_url": "https://www.youtube.com/channel/UCAoy6rzhSf4ydcYjJw3WoVg",
+      "picture": "https://yt3.ggpht.com/ghhBoD-8O908tlUkF45A49D5jbEOkzYR7dgxweO-sOdtlOvE21BLtVSpn6w4sapj4YEtAVoc=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 3860,
+      "video_count": 16,
+      "top_video": {
+        "video_id": "c9yFK-ytqPg",
+        "title": "Goblok Tenan | OST Troublemaker 2 Beyond Dream by AREA15 hololive",
+        "thumbnail": "https://i.ytimg.com/vi/c9yFK-ytqPg/hqdefault.jpg",
+        "views_gained": 2783
       },
       "rank": 24,
       "last_week": null,
@@ -2517,6 +2541,7 @@
       "channel_url": "https://www.youtube.com/channel/UCFTLzh12_nrtzqBPsTCqenA",
       "picture": "https://yt3.ggpht.com/0Nx9jWdjiUrkizCVCDZg_MasdF6b85DAsQATmAkNC2A8b3Y89vXlnSDZ_v1fM_X4w3088sJnmA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 3471,
       "video_count": 4,
       "top_video": {
@@ -2532,19 +2557,20 @@
       "movement": "new"
     },
     {
-      "name": "Airani Iofifteen",
-      "display": "Airani Iofifteen",
-      "channel_id": "UCAoy6rzhSf4ydcYjJw3WoVg",
-      "channel_url": "https://www.youtube.com/channel/UCAoy6rzhSf4ydcYjJw3WoVg",
-      "picture": "https://yt3.ggpht.com/ghhBoD-8O908tlUkF45A49D5jbEOkzYR7dgxweO-sOdtlOvE21BLtVSpn6w4sapj4YEtAVoc=s800-c-k-c0x00ffffff-no-rj",
+      "name": "Ichijou Ririka",
+      "display": "Ichijou Ririka",
+      "channel_id": "UCtyWhCj3AqKh2dXctLkDtng",
+      "channel_url": "https://www.youtube.com/channel/UCtyWhCj3AqKh2dXctLkDtng",
+      "picture": "https://yt3.ggpht.com/guBD_mriQQ0zggwNTlJw9CwIXomW701w6q_8QsJ_Y3HvfI95AGiv-zcrQeyAdad6eKH9HoiN3Q=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 2309,
-      "video_count": 16,
+      "office_channel": false,
+      "views_gained": 2914,
+      "video_count": 3,
       "top_video": {
-        "video_id": "c9yFK-ytqPg",
-        "title": "Goblok Tenan | OST Troublemaker 2 Beyond Dream by AREA15 hololive",
-        "thumbnail": "https://i.ytimg.com/vi/c9yFK-ytqPg/hqdefault.jpg",
-        "views_gained": 1392
+        "video_id": "gogcP73JeM8",
+        "title": "【歌ってみた】酔いどれ知らず【りりらでん】#hololive",
+        "thumbnail": "https://i.ytimg.com/vi/gogcP73JeM8/hqdefault.jpg",
+        "views_gained": 1646
       },
       "rank": 26,
       "last_week": null,
@@ -2559,6 +2585,7 @@
       "channel_url": "https://www.youtube.com/channel/UC1CfXB_kRs3C-zaeTG3oGyg",
       "picture": "https://yt3.ggpht.com/jxI6FmNKDpYKXB0puyLhB5gq4JgWFvRT9Rr2C_d3hFT1q0SSOHh3QIUfvSxfTHupTXFnleqI=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 2269,
       "video_count": 4,
       "top_video": {
@@ -2580,6 +2607,7 @@
       "channel_url": "https://www.youtube.com/channel/UCL_qhgtOy0dy1Agp8vkySQg",
       "picture": "https://yt3.ggpht.com/LYO40yqUG6y_YiIND-FCD_MSPOeREAoLSVdVLL0UDmFSuwbbblBDNpRx5CAKlO75NrtLo6CnsnQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 2028,
       "video_count": 3,
       "top_video": {
@@ -2601,6 +2629,7 @@
       "channel_url": "https://www.youtube.com/channel/UC2dXx-3RXeeP8hA5AGt8vuw",
       "picture": "https://yt3.ggpht.com/HCnuNnUDi2lo3UZ-nqhmjVCp3Az4KsnvCTB7OQkwmMdQR0Da-x1oHdVLRizN6_McI4RiGivPNQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1883,
       "video_count": 25,
       "top_video": {
@@ -2622,6 +2651,7 @@
       "channel_url": "https://www.youtube.com/channel/UC1uv2Oq6kNxgATlCiez59hw",
       "picture": "https://yt3.ggpht.com/kF39-I4IfZJOWuGiciawwB-v4M_X9u6_-jxCvAiYSHSRuUS-LdpeWWRHO7c4Pk8sXROBaPl9iMQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1828,
       "video_count": 1,
       "top_video": {
@@ -2643,6 +2673,7 @@
       "channel_url": "https://www.youtube.com/channel/UCTNpwWyoLgeJ-tsxWq7ucvw",
       "picture": "https://yt3.ggpht.com/99d5oyC6lEfKv4dzlLWYWzezdjxvYqZbT-wbypfoqjFnq4TxofU2fkKN39CJdq3aL5cYp5rHPNI=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1704,
       "video_count": 20,
       "top_video": {
@@ -2664,6 +2695,7 @@
       "channel_url": "https://www.youtube.com/channel/UCHP4f7G2dWD4qib7BMatGAw",
       "picture": "https://yt3.ggpht.com/kv71-xuB9kzbU7Bi4qsmkRXHc3wAgEU4rhllRnmGH4H23T825BKdGqEAcagTSE9r8BdsnG4lqQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1424,
       "video_count": 10,
       "top_video": {
@@ -2685,6 +2717,7 @@
       "channel_url": "https://www.youtube.com/channel/UCdureux7B_V-xhM7tYImASQ",
       "picture": "https://yt3.ggpht.com/dak0AZWbw5Yjnu-728_03voFYkdtPu5iroBvDwpLdaNFPsm5roH1j_kKLQ62b8US8XuqaxahNw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1417,
       "video_count": 15,
       "top_video": {
@@ -2700,34 +2733,14 @@
       "movement": "new"
     },
     {
-      "name": "Ichijou Ririka",
-      "display": "Ichijou Ririka",
-      "channel_id": "UCtyWhCj3AqKh2dXctLkDtng",
-      "channel_url": "https://www.youtube.com/channel/UCtyWhCj3AqKh2dXctLkDtng",
-      "picture": "https://yt3.ggpht.com/guBD_mriQQ0zggwNTlJw9CwIXomW701w6q_8QsJ_Y3HvfI95AGiv-zcrQeyAdad6eKH9HoiN3Q=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 1246,
-      "video_count": 3,
-      "top_video": {
-        "video_id": "gogcP73JeM8",
-        "title": "【歌ってみた】酔いどれ知らず【りりらでん】#hololive",
-        "thumbnail": "https://i.ytimg.com/vi/gogcP73JeM8/hqdefault.jpg",
-        "views_gained": 823
-      },
-      "rank": 34,
-      "last_week": null,
-      "peak": 34,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
       "name": "Fujikura Uruka",
       "display": "Fujikura Uruka",
       "channel_id": "UCjXJYPsKxoJyc-1RPB6dSyw",
       "channel_url": "https://www.youtube.com/channel/UCjXJYPsKxoJyc-1RPB6dSyw",
       "picture": "https://yt3.ggpht.com/jD3hLzKVUpMAM5OChY1ydVfRrMOzr6-HzQZHEgPmYc1D8QuYh5DCypuM0d3heVrKmAYbE0U3ogg=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 1188,
+      "office_channel": false,
+      "views_gained": 1200,
       "video_count": 21,
       "top_video": {
         "video_id": "OCo4wF-pNao",
@@ -2735,9 +2748,9 @@
         "thumbnail": "https://i.ytimg.com/vi/OCo4wF-pNao/hqdefault.jpg",
         "views_gained": 244
       },
-      "rank": 35,
+      "rank": 34,
       "last_week": null,
-      "peak": 35,
+      "peak": 34,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2748,6 +2761,7 @@
       "channel_url": "https://www.youtube.com/channel/UC7gxU6NXjKF1LrgOddPzgTw",
       "picture": "https://yt3.ggpht.com/nC2GAWdVE3d-zpIcTLf0Tj4kve2VQ-12GqKB237p9aqT69TGKcRldFTnKT4MR8B4OjZFIYU_=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1130,
       "video_count": 13,
       "top_video": {
@@ -2756,9 +2770,9 @@
         "thumbnail": "https://i.ytimg.com/vi/jqFPgcMt_Jo/hqdefault.jpg",
         "views_gained": 998
       },
-      "rank": 36,
+      "rank": 35,
       "last_week": null,
-      "peak": 36,
+      "peak": 35,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2769,6 +2783,7 @@
       "channel_url": "https://www.youtube.com/channel/UCt30jJgChL8qeT9VPadidSw",
       "picture": "https://yt3.ggpht.com/ytc/AIdro_m6xQ9ez0I8lnwswHqAns9ZRPsaCCutfzu6eUbM7pwzqsA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1080,
       "video_count": 1,
       "top_video": {
@@ -2777,9 +2792,9 @@
         "thumbnail": "https://i.ytimg.com/vi/QJpTBz916MI/hqdefault.jpg",
         "views_gained": 1080
       },
-      "rank": 37,
+      "rank": 36,
       "last_week": null,
-      "peak": 37,
+      "peak": 36,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2790,6 +2805,7 @@
       "channel_url": "https://www.youtube.com/channel/UC_sFNM0z0MWm9A6WlKPuMMg",
       "picture": "https://yt3.ggpht.com/V1Ow-KEzUUTOpE6dp3oQzxRAH1t-zwkfnlG8lGG6TbJ5SLPyfNXCSH3xAGVmaDEZfNA4xe4kJQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1060,
       "video_count": 2,
       "top_video": {
@@ -2798,9 +2814,9 @@
         "thumbnail": "https://i.ytimg.com/vi/UKo8ixqRMZY/hqdefault.jpg",
         "views_gained": 860
       },
-      "rank": 38,
+      "rank": 37,
       "last_week": null,
-      "peak": 38,
+      "peak": 37,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2811,6 +2827,7 @@
       "channel_url": "https://www.youtube.com/channel/UCMtQ6sB4tGSKClhoo2i3Qzg",
       "picture": "https://yt3.ggpht.com/3ycxZizh1perrJH0nIrMdsePvcy6zqx_-WzVSoncmkYjxOpkFbUt_afHj3zppjsFkbMWIYWLnLo=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 1026,
       "video_count": 32,
       "top_video": {
@@ -2819,9 +2836,9 @@
         "thumbnail": "https://i.ytimg.com/vi/l8KvoQtJWb4/hqdefault.jpg",
         "views_gained": 179
       },
-      "rank": 39,
+      "rank": 38,
       "last_week": null,
-      "peak": 39,
+      "peak": 38,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2832,6 +2849,7 @@
       "channel_url": "https://www.youtube.com/channel/UCNVEsYbiZjH5QLmGeSgTSzg",
       "picture": "https://yt3.ggpht.com/dY6WTtYvc9ocqLWnyTXaGBiZSa_uIYEU7FEqGF8u3Ivbu3d3YBj2NJfls6dn_EvkvIAlr2ztfA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 703,
       "video_count": 17,
       "top_video": {
@@ -2840,9 +2858,9 @@
         "thumbnail": "https://i.ytimg.com/vi/kJAdKxMQefM/hqdefault.jpg",
         "views_gained": 125
       },
-      "rank": 40,
+      "rank": 39,
       "last_week": null,
-      "peak": 40,
+      "peak": 39,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2853,6 +2871,7 @@
       "channel_url": "https://www.youtube.com/channel/UCmbs8T6MWqUHP1tIQvSgKrg",
       "picture": "https://yt3.ggpht.com/XxF6c2VtpdbRdLcldz5jp05FQY_JTfOXeVd8osfAZsxODIanpt0ymcn_6nitwydHNGek46cfZ04=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 682,
       "video_count": 1,
       "top_video": {
@@ -2861,9 +2880,9 @@
         "thumbnail": "https://i.ytimg.com/vi/aGeC-2_lsRs/hqdefault.jpg",
         "views_gained": 682
       },
-      "rank": 41,
+      "rank": 40,
       "last_week": null,
-      "peak": 41,
+      "peak": 40,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2874,6 +2893,7 @@
       "channel_url": "https://www.youtube.com/channel/UCu2n3qHuOuQIygREMnWeQWg",
       "picture": "https://yt3.ggpht.com/f9oGulIUN9RbJyNpc-WT3d5aJGJ_9p1Mug3WV6ZkBBQtImvYSusfmMbW03KMY8jZf1kJsHu3jOs=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": true,
       "views_gained": 649,
       "video_count": 15,
       "top_video": {
@@ -2882,9 +2902,9 @@
         "thumbnail": "https://i.ytimg.com/vi/Mfcj1AdnzhQ/hqdefault.jpg",
         "views_gained": 190
       },
-      "rank": 42,
+      "rank": 41,
       "last_week": null,
-      "peak": 42,
+      "peak": 41,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2895,6 +2915,7 @@
       "channel_url": "https://www.youtube.com/channel/UC4O6SxnRVSJTsoCOzpkIpeQ",
       "picture": "https://yt3.ggpht.com/w94Jmmk9uu6ZXnPc009Pf9PWzIeca8PP45d0nTngtcEw9FR9af2itIBmEZY48gpTU4v-bZ4HGA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 641,
       "video_count": 10,
       "top_video": {
@@ -2903,9 +2924,9 @@
         "thumbnail": "https://i.ytimg.com/vi/AnfZ1-6-030/hqdefault.jpg",
         "views_gained": 412
       },
-      "rank": 43,
+      "rank": 42,
       "last_week": null,
-      "peak": 43,
+      "peak": 42,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2916,6 +2937,7 @@
       "channel_url": "https://www.youtube.com/channel/UCO6mA1hC3Gv9jEoCTITjAQw",
       "picture": "https://yt3.ggpht.com/2jsXgHrgK1jDfbitaG3H6DqnypssysgNFrM5QtUJ0gdxm2OHdc3CUHaKDBAs5eliccS9w28k0A=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 627,
       "video_count": 23,
       "top_video": {
@@ -2924,9 +2946,9 @@
         "thumbnail": "https://i.ytimg.com/vi/LY-TygKbuME/hqdefault.jpg",
         "views_gained": 224
       },
-      "rank": 44,
+      "rank": 43,
       "last_week": null,
-      "peak": 44,
+      "peak": 43,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2937,6 +2959,7 @@
       "channel_url": "https://www.youtube.com/channel/UCtQwleVyBMjBGNuUQ7a-KYg",
       "picture": "https://yt3.ggpht.com/JiAHM2MM9PDqd_rgC2pqNMvqoS7TPPPCwhpXL4wBzM0G8x-2pF7HsC8zELfKrNBU1-e9uCMX-A=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 586,
       "video_count": 13,
       "top_video": {
@@ -2945,9 +2968,9 @@
         "thumbnail": "https://i.ytimg.com/vi/dJoLignQRJI/hqdefault.jpg",
         "views_gained": 262
       },
-      "rank": 45,
+      "rank": 44,
       "last_week": null,
-      "peak": 45,
+      "peak": 44,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2958,6 +2981,7 @@
       "channel_url": "https://www.youtube.com/channel/UCKeAhJvy8zgXWbh9duVjIaQ",
       "picture": "https://yt3.ggpht.com/e5qGJGwKTYsSJ8l_jVWV1UUpTtJSxU5H-2qQO95dMSJqHAip7YmFs4pXxZo0rzUW8ZD_H40tQL8=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 574,
       "video_count": 8,
       "top_video": {
@@ -2966,9 +2990,9 @@
         "thumbnail": "https://i.ytimg.com/vi/vwutb7neH04/hqdefault.jpg",
         "views_gained": 409
       },
-      "rank": 46,
+      "rank": 45,
       "last_week": null,
-      "peak": 46,
+      "peak": 45,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -2979,6 +3003,7 @@
       "channel_url": "https://www.youtube.com/channel/UCBghUKA_L0na0SeQ6snzMMQ",
       "picture": "https://yt3.ggpht.com/EohPJUVYERLLOJNJWLJOjLIpWQ4pFqGmJXE-wp2vnlE0tP1XGhEH4RJTzjcevewY7Si_emhBig=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 488,
       "video_count": 12,
       "top_video": {
@@ -2987,9 +3012,9 @@
         "thumbnail": "https://i.ytimg.com/vi/pnl1LtxeAVM/hqdefault.jpg",
         "views_gained": 181
       },
-      "rank": 47,
+      "rank": 46,
       "last_week": null,
-      "peak": 47,
+      "peak": 46,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3000,6 +3025,7 @@
       "channel_url": "https://www.youtube.com/channel/UCHVXbQzkl3rDfsXWo8xi2qw",
       "picture": "https://yt3.ggpht.com/ytc/AIdro_liDbr1ofzknDCW8S3ChEFTci-PGATj8zCJ1pRWlomUCWo=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 433,
       "video_count": 9,
       "top_video": {
@@ -3008,9 +3034,9 @@
         "thumbnail": "https://i.ytimg.com/vi/ykWORj_t8Ns/hqdefault.jpg",
         "views_gained": 147
       },
-      "rank": 48,
+      "rank": 47,
       "last_week": null,
-      "peak": 48,
+      "peak": 47,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3021,6 +3047,7 @@
       "channel_url": "https://www.youtube.com/channel/UC7XCjKxBEct0uAukpQXNFPw",
       "picture": "https://yt3.ggpht.com/05rQUAr9zSFin0rbtoeazMFe5zzJsUfwOksay0tS6-ySgH-YKBlge4ZD8zQSkBv2wg8vSdgU2g=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 426,
       "video_count": 16,
       "top_video": {
@@ -3029,30 +3056,9 @@
         "thumbnail": "https://i.ytimg.com/vi/GxmegdBdf5U/hqdefault.jpg",
         "views_gained": 127
       },
-      "rank": 49,
+      "rank": 48,
       "last_week": null,
-      "peak": 49,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "ReGLOSS",
-      "display": "ReGLOSS",
-      "channel_id": "UC10wVt6hoQiwySRhz7RdOUA",
-      "channel_url": "https://www.youtube.com/channel/UC10wVt6hoQiwySRhz7RdOUA",
-      "picture": "https://yt3.ggpht.com/VSEPzRMRZy7FNnZmFujYmVgG24tdNxaLYxfbnQT998wkxBBKm-1VAOq-rbsNZJ-hghM4Ov3FyQ=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 423,
-      "video_count": 2,
-      "top_video": {
-        "video_id": "371pthxt-_g",
-        "title": "【オリジナル楽曲】ガチマジ☆デスゲーム【一条莉々華/hololive DEV_IS ReGLOSS】",
-        "thumbnail": "https://i.ytimg.com/vi/371pthxt-_g/hqdefault.jpg",
-        "views_gained": 234
-      },
-      "rank": 50,
-      "last_week": null,
-      "peak": 50,
+      "peak": 48,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3063,6 +3069,7 @@
       "channel_url": "https://www.youtube.com/channel/UCHsx4Hqa-1ORjQTh9TYDhww",
       "picture": "https://yt3.ggpht.com/vnzn_RiKneABPPnp1-0SO4IAZQRXqVsL5RNDQYGR9GhT-Flm47vM4UJeyGfn4U_gteKqJMBwNA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 420,
       "video_count": 2,
       "top_video": {
@@ -3071,9 +3078,9 @@
         "thumbnail": "https://i.ytimg.com/vi/0bcMdh0XHhs/hqdefault.jpg",
         "views_gained": 371
       },
-      "rank": 51,
+      "rank": 49,
       "last_week": null,
-      "peak": 51,
+      "peak": 49,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3084,6 +3091,7 @@
       "channel_url": "https://www.youtube.com/channel/UChKXd7oqD18qiIYBoRIHTlw",
       "picture": "https://yt3.ggpht.com/uG2BEQsDqq-aTIbff80d7THTDR2et9iQcyAu0FdLRM5rAK6p3QWmSu0zX9u17_q9W3xfgnZn=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 409,
       "video_count": 1,
       "top_video": {
@@ -3092,9 +3100,9 @@
         "thumbnail": "https://i.ytimg.com/vi/vwutb7neH04/hqdefault.jpg",
         "views_gained": 409
       },
-      "rank": 52,
+      "rank": 50,
       "last_week": null,
-      "peak": 52,
+      "peak": 50,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3105,6 +3113,7 @@
       "channel_url": "https://www.youtube.com/channel/UCTvHWSfBZgtxE4sILOaurIQ",
       "picture": "https://yt3.ggpht.com/0pxwGbJZbeMVkF9wGW4FNE2vJERPo0zUkzSEFWj6IHio-uiLWMSJKdjhkqwRkWwDHNu0dXiynw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 402,
       "video_count": 3,
       "top_video": {
@@ -3113,9 +3122,9 @@
         "thumbnail": "https://i.ytimg.com/vi/YwkmRvi1MEE/hqdefault.jpg",
         "views_gained": 384
       },
-      "rank": 53,
+      "rank": 51,
       "last_week": null,
-      "peak": 53,
+      "peak": 51,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3126,6 +3135,7 @@
       "channel_url": "https://www.youtube.com/channel/UCBLGjbYv6-xxju1i44RjnnA",
       "picture": "https://yt3.ggpht.com/9ZnqCjD_uxY7HoUblghpGtZfScGRBr7lSuND2Vb7gKpjU3C7P-DINZJ5CAOhsppOyOklN6fRRA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 393,
       "video_count": 16,
       "top_video": {
@@ -3134,9 +3144,9 @@
         "thumbnail": "https://i.ytimg.com/vi/bImKFMpA7to/hqdefault.jpg",
         "views_gained": 94
       },
-      "rank": 54,
+      "rank": 52,
       "last_week": null,
-      "peak": 54,
+      "peak": 52,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3147,6 +3157,7 @@
       "channel_url": "https://www.youtube.com/channel/UCRvkXFtB70ZADg4L6A8L3wQ",
       "picture": "https://yt3.ggpht.com/ogUetbMmo218OvDPM-N0t6vZyHp2G8WYUycEM73mqS2fvp3wClGfLrSEKCxrmKc0ZBQiQt47VQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 389,
       "video_count": 28,
       "top_video": {
@@ -3155,9 +3166,9 @@
         "thumbnail": "https://i.ytimg.com/vi/_4tmh3d8-TI/hqdefault.jpg",
         "views_gained": 111
       },
-      "rank": 55,
+      "rank": 53,
       "last_week": null,
-      "peak": 55,
+      "peak": 53,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3168,6 +3179,7 @@
       "channel_url": "https://www.youtube.com/channel/UCoinyAuvhTzmJKv12IIkMFA",
       "picture": "https://yt3.ggpht.com/_YDZdoQHStFQ7EtDM6NuD2pG1C9s_IqUP1D-nLd9cmAMTqiCyoSFrCzJVIHurlkNwhRgOiaI1GU=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 346,
       "video_count": 27,
       "top_video": {
@@ -3176,9 +3188,9 @@
         "thumbnail": "https://i.ytimg.com/vi/U0i2kMEDV80/hqdefault.jpg",
         "views_gained": 200
       },
-      "rank": 56,
+      "rank": 54,
       "last_week": null,
-      "peak": 56,
+      "peak": 54,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3189,6 +3201,7 @@
       "channel_url": "https://www.youtube.com/channel/UCRXWpdEe987CRaZt5HNf-WA",
       "picture": "https://yt3.ggpht.com/MPtmLdy_rl0kuh8f-mqokgxsk4yTd6Rs6rInoxLJp5arDdn8axmgyW7gFUsq_kwwAXlNpeF0NA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 325,
       "video_count": 20,
       "top_video": {
@@ -3197,9 +3210,9 @@
         "thumbnail": "https://i.ytimg.com/vi/j6yGx-r_sEU/hqdefault.jpg",
         "views_gained": 85
       },
-      "rank": 57,
+      "rank": 55,
       "last_week": null,
-      "peak": 57,
+      "peak": 55,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3210,6 +3223,7 @@
       "channel_url": "https://www.youtube.com/channel/UC0w_dvkIwnXzMak6gfeioRQ",
       "picture": "https://yt3.ggpht.com/g1VWPI5V_gcfwuxrXXQlvvNCzGC6CmRlj_fKKlR9jWwH8ZvgxFZ9WgzGPTGg0Lo1vcyRid40=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 302,
       "video_count": 8,
       "top_video": {
@@ -3218,9 +3232,9 @@
         "thumbnail": "https://i.ytimg.com/vi/Nj3t7KYNUO4/hqdefault.jpg",
         "views_gained": 123
       },
-      "rank": 58,
+      "rank": 56,
       "last_week": null,
-      "peak": 58,
+      "peak": 56,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3231,6 +3245,7 @@
       "channel_url": "https://www.youtube.com/channel/UCO4zMaYBEzdYISfeoO6ip_Q",
       "picture": "https://yt3.ggpht.com/1IEfG8iV2ocE7wH3zBBStk6pCo1L_kwDXdp0zJPKXctH_INFlLWJQBFpZyITCdEmjDX1JQkxu0Q=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 274,
       "video_count": 12,
       "top_video": {
@@ -3239,9 +3254,9 @@
         "thumbnail": "https://i.ytimg.com/vi/IB-f32VC-rM/hqdefault.jpg",
         "views_gained": 238
       },
-      "rank": 59,
+      "rank": 57,
       "last_week": null,
-      "peak": 59,
+      "peak": 57,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3252,6 +3267,7 @@
       "channel_url": "https://www.youtube.com/channel/UCHabbLxawT8CgC7xP5FkSgg",
       "picture": "https://yt3.ggpht.com/SClz1rtffnR5M3Buyl5O0hzFIOiykL0mpyAZkQ0k7UiLxI9ZNKWixYw-_cexdoHUESuQZ61AlA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 270,
       "video_count": 1,
       "top_video": {
@@ -3260,9 +3276,9 @@
         "thumbnail": "https://i.ytimg.com/vi/SSmlyYHvsYE/hqdefault.jpg",
         "views_gained": 270
       },
-      "rank": 60,
+      "rank": 58,
       "last_week": null,
-      "peak": 60,
+      "peak": 58,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3273,6 +3289,7 @@
       "channel_url": "https://www.youtube.com/channel/UCah4_WVjmr8XA7i5aigwV-Q",
       "picture": "https://yt3.ggpht.com/2j1Cr_bmqOzCXFJU8UE4CM5Jxg6PVG70PDAWEC74uQuZasdEDxKgsBgZf1Dk6v6VXcBAkF3QOg=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 240,
       "video_count": 12,
       "top_video": {
@@ -3281,9 +3298,9 @@
         "thumbnail": "https://i.ytimg.com/vi/SySRldWdFs0/hqdefault.jpg",
         "views_gained": 115
       },
-      "rank": 61,
+      "rank": 59,
       "last_week": null,
-      "peak": 61,
+      "peak": 59,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3294,6 +3311,7 @@
       "channel_url": "https://www.youtube.com/channel/UC--zuEfONeFXPvLqX0Kvbuw",
       "picture": "https://yt3.ggpht.com/_G-kZ_dgKoOW-iqSqXg_6s8qYcZ0XMsKPvDgKtHgWztRRy2zsxySoFAmmNwzwlYYWbzQtr3w2g=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 213,
       "video_count": 18,
       "top_video": {
@@ -3302,9 +3320,9 @@
         "thumbnail": "https://i.ytimg.com/vi/C85refjscN0/hqdefault.jpg",
         "views_gained": 43
       },
-      "rank": 62,
+      "rank": 60,
       "last_week": null,
-      "peak": 62,
+      "peak": 60,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3315,6 +3333,7 @@
       "channel_url": "https://www.youtube.com/channel/UClH9uJiwhdNXhvikYdNF-RA",
       "picture": "https://yt3.ggpht.com/b3YHJiFPY3opyYd2Dike3TBA61JbSdN1YIjHDMSTxnanAgKTqS1lBQCYgg_p_LvsNOyfe6PVGw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 180,
       "video_count": 7,
       "top_video": {
@@ -3323,9 +3342,9 @@
         "thumbnail": "https://i.ytimg.com/vi/ztU-ROG3d9E/hqdefault.jpg",
         "views_gained": 67
       },
-      "rank": 63,
+      "rank": 61,
       "last_week": null,
-      "peak": 63,
+      "peak": 61,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3336,6 +3355,7 @@
       "channel_url": "https://www.youtube.com/channel/UC8zgKaS8LiyL28mdhRC2nBg",
       "picture": "https://yt3.ggpht.com/0ooMaFQ9YOWja_mROX72cR94z9Ggx-rw2Q0rZnyz0F_GwgYzYqSo3sZv8bOI0uy8FkNRiH3bSpY=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 169,
       "video_count": 6,
       "top_video": {
@@ -3344,9 +3364,9 @@
         "thumbnail": "https://i.ytimg.com/vi/_ZBtWPTRba0/hqdefault.jpg",
         "views_gained": 150
       },
-      "rank": 64,
+      "rank": 62,
       "last_week": null,
-      "peak": 64,
+      "peak": 62,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3357,6 +3377,7 @@
       "channel_url": "https://www.youtube.com/channel/UCJ4O6PWA47f6XbCgrLQNqEQ",
       "picture": "https://yt3.ggpht.com/v7_NIy9L-IdjWO9HnCvZHlGr8BJopYobKE2MZ3MAYEMq5NA_SloAjhyHVOz9cD0qEMTk4en5=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 153,
       "video_count": 9,
       "top_video": {
@@ -3365,9 +3386,9 @@
         "thumbnail": "https://i.ytimg.com/vi/CJ1T9FjiUEo/hqdefault.jpg",
         "views_gained": 107
       },
-      "rank": 65,
+      "rank": 63,
       "last_week": null,
-      "peak": 65,
+      "peak": 63,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3378,6 +3399,7 @@
       "channel_url": "https://www.youtube.com/channel/UCnJNNk45O1QYS2oMRYFKSyw",
       "picture": "https://yt3.ggpht.com/vz0AqHuyyo0j8hurGjj9KRxZA9IX8Gd9PfhdSUR29a_R5bCx1J488lp5tpxXXkGFUVLGFuKjiww=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 153,
       "video_count": 8,
       "top_video": {
@@ -3386,9 +3408,9 @@
         "thumbnail": "https://i.ytimg.com/vi/UA4P9pZOuHQ/hqdefault.jpg",
         "views_gained": 67
       },
-      "rank": 66,
+      "rank": 64,
       "last_week": null,
-      "peak": 66,
+      "peak": 64,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3399,6 +3421,7 @@
       "channel_url": "https://www.youtube.com/channel/UC8THb_fnOptyVgpi3xuCd-A",
       "picture": "https://yt3.ggpht.com/GI9KhAIJ7aeGDiMSuR4se3sg2uUOJxFIInpfujt5zey1CXnwVYFle5slDWvnvV7XFx3KIQaZSw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 151,
       "video_count": 6,
       "top_video": {
@@ -3407,345 +3430,9 @@
         "thumbnail": "https://i.ytimg.com/vi/mD3Ni6CYJUQ/hqdefault.jpg",
         "views_gained": 52
       },
-      "rank": 67,
+      "rank": 65,
       "last_week": null,
-      "peak": 67,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Akugaki Koa",
-      "display": "Akugaki Koa",
-      "channel_id": "UC4R6ddhBJp2bjQHVNxgNQSA",
-      "channel_url": "https://www.youtube.com/channel/UC4R6ddhBJp2bjQHVNxgNQSA",
-      "picture": "https://yt3.ggpht.com/kmEnxt4NV3ZunVJCmoxmrB2Otg6L_VCwv187U8Jl0pQuccwegK1nWDMtEcWtQkRc4xXwBeeaaig=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 140,
-      "video_count": 8,
-      "top_video": {
-        "video_id": "YayJGjiaX8o",
-        "title": "Tententengokujigokugoku (天天天国地獄国) / Akugaki Koa x Nene Amano",
-        "thumbnail": "https://i.ytimg.com/vi/YayJGjiaX8o/hqdefault.jpg",
-        "views_gained": 56
-      },
-      "rank": 68,
-      "last_week": null,
-      "peak": 68,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "eili",
-      "display": "eili",
-      "channel_id": "UCUfUIQzLDEK5z91NeHRDM7Q",
-      "channel_url": "https://www.youtube.com/channel/UCUfUIQzLDEK5z91NeHRDM7Q",
-      "picture": "https://yt3.ggpht.com/hLrtaVHo4Z_9HSzEWX11NEwovw8MqU7exzfO9-m9BTGycAUsEZEZiZAm21_YCyzclyL_iFI5Hg=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 136,
-      "video_count": 18,
-      "top_video": {
-        "video_id": "uMpaBIS0Yaw",
-        "title": "\"Head in the Ceiling Fan\" by Title Fight | Acoustic Cover by Eva Ananova",
-        "thumbnail": "https://i.ytimg.com/vi/uMpaBIS0Yaw/hqdefault.jpg",
-        "views_gained": 38
-      },
-      "rank": 69,
-      "last_week": null,
-      "peak": 69,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Akuma Nihmune",
-      "display": "Akuma Nihmune",
-      "channel_id": "UC_rlc0K8Yj0KQ5ApK0Z7uew",
-      "channel_url": "https://www.youtube.com/channel/UC_rlc0K8Yj0KQ5ApK0Z7uew",
-      "picture": "https://yt3.ggpht.com/orOTKA746dBKL8v62LtzFJORFeFyVkFwQRsRSNGSalK1ptvbGwHnWsan50IkdotPbJoKdD0LLpk=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 128,
-      "video_count": 9,
-      "top_video": {
-        "video_id": "sbRHC7sMCTw",
-        "title": "「Cover」Super Psycho Love",
-        "thumbnail": "https://i.ytimg.com/vi/sbRHC7sMCTw/hqdefault.jpg",
-        "views_gained": 76
-      },
-      "rank": 70,
-      "last_week": null,
-      "peak": 70,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Pavolia Reine",
-      "display": "Pavolia Reine",
-      "channel_id": "UChgTyjG-pdNvxxhdsXfHQ5Q",
-      "channel_url": "https://www.youtube.com/channel/UChgTyjG-pdNvxxhdsXfHQ5Q",
-      "picture": "https://yt3.ggpht.com/gV1Zr_UQCBsmfyqaJhgj46qud_7HkvdqDNobqz-GSY7cQ4GNSltNxAyc1Y1-9HXXvSoORbzc=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 126,
-      "video_count": 3,
-      "top_video": {
-        "video_id": "s_HsEltY_O0",
-        "title": "【Holoro】 気分上々↑↑ covered by Kureiji Ollie • Anya Melfissa • Pavolia Reine",
-        "thumbnail": "https://i.ytimg.com/vi/s_HsEltY_O0/hqdefault.jpg",
-        "views_gained": 54
-      },
-      "rank": 71,
-      "last_week": null,
-      "peak": 71,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "hololive ID",
-      "display": "hololive ID",
-      "channel_id": "UCfrWoRGlawPQDQxxeIDRP0Q",
-      "channel_url": "https://www.youtube.com/channel/UCfrWoRGlawPQDQxxeIDRP0Q",
-      "picture": "https://yt3.ggpht.com/Z20y_dnNBDh2qiAY3m_8VYJ4HcokDFTnX0hjM9oJsTrmhTVapZA1EtGpE7nLKvzwo6FfehAn1w=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 125,
-      "video_count": 7,
-      "top_video": {
-        "video_id": "gT_KADLkNew",
-        "title": "7icons - PLAYBOY Cover by hololive Indonesia",
-        "thumbnail": "https://i.ytimg.com/vi/gT_KADLkNew/hqdefault.jpg",
-        "views_gained": 54
-      },
-      "rank": 72,
-      "last_week": null,
-      "peak": 72,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Runie Ruse",
-      "display": "Runie Ruse",
-      "channel_id": "UCoAQsc-DQ0MjfTp059otQAw",
-      "channel_url": "https://www.youtube.com/channel/UCoAQsc-DQ0MjfTp059otQAw",
-      "picture": "https://yt3.ggpht.com/aYmI2rySnQQuRnkK5W_YPTq3TiSpdvtzn-rWyuJ3HMy9OV4lnmbapVwfAVxWaKbc2SKwLgU0H_I=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 120,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "OsbyiE5OC7A",
-        "title": "【Cover】 APT. / ROSÉ & Bruno Mars | Runie Ruse & Uruka",
-        "thumbnail": "https://i.ytimg.com/vi/OsbyiE5OC7A/hqdefault.jpg",
-        "views_gained": 120
-      },
-      "rank": 73,
-      "last_week": null,
-      "peak": 73,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Hanamiya Rica",
-      "display": "Hanamiya Rica",
-      "channel_id": "UCz4jhqrCfthF8NnldZeK_rw",
-      "channel_url": "https://www.youtube.com/channel/UCz4jhqrCfthF8NnldZeK_rw",
-      "picture": "https://yt3.ggpht.com/W_mcRMt8pDnEw_ZBA2hABUEQNjtjOVL_NPvw8eI_cO3396_sAyEgKaiBiQJh01hFmBkfXgaL=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 116,
-      "video_count": 15,
-      "top_video": {
-        "video_id": "YaEEIwHzRv8",
-        "title": "【オリジナルMV】「勇者 / YOASOBI 」歌ってみた【花宮莉歌】",
-        "thumbnail": "https://i.ytimg.com/vi/YaEEIwHzRv8/hqdefault.jpg",
-        "views_gained": 67
-      },
-      "rank": 74,
-      "last_week": null,
-      "peak": 74,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Tenma Maemi",
-      "display": "Tenma Maemi",
-      "channel_id": "UC3K7pmiHsNSx1y0tdx2bbCw",
-      "channel_url": "https://www.youtube.com/channel/UC3K7pmiHsNSx1y0tdx2bbCw",
-      "picture": "https://yt3.ggpht.com/1pU_4Q3S5K6TqQ-3rp0_ZCNxJKjtA3B-GrYbhqM6f9drDNvgGGZ568AEWHF0T5UwEoTancnvevs=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 104,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "WNFioC4vCkc",
-        "title": "if... / DA PUMP 【Cover by Fujikura Uruka ft. Tenma Maemi】",
-        "thumbnail": "https://i.ytimg.com/vi/WNFioC4vCkc/hqdefault.jpg",
-        "views_gained": 104
-      },
-      "rank": 75,
-      "last_week": null,
-      "peak": 75,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Kureiji Ollie",
-      "display": "Kureiji Ollie",
-      "channel_id": "UCYz_5n-uDuChHtLo7My1HnQ",
-      "channel_url": "https://www.youtube.com/channel/UCYz_5n-uDuChHtLo7My1HnQ",
-      "picture": "https://yt3.ggpht.com/fCQ1LUhWHfIGkCLeZl2BG_uQhQ6IqxJ3AJJxFbG6uEpLJ1hlJ2JOoBG7FJiAREeDeEVtwJoZKA=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 103,
-      "video_count": 2,
-      "top_video": {
-        "video_id": "s_HsEltY_O0",
-        "title": "【Holoro】 気分上々↑↑ covered by Kureiji Ollie • Anya Melfissa • Pavolia Reine",
-        "thumbnail": "https://i.ytimg.com/vi/s_HsEltY_O0/hqdefault.jpg",
-        "views_gained": 54
-      },
-      "rank": 76,
-      "last_week": null,
-      "peak": 76,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Tsunomaki Watame",
-      "display": "Tsunomaki Watame",
-      "channel_id": "UCqm3BQLlJfvkTsX_hvm0UmA",
-      "channel_url": "https://www.youtube.com/channel/UCqm3BQLlJfvkTsX_hvm0UmA",
-      "picture": "https://yt3.ggpht.com/XJYar8ZAQ59ce0nFlf-Dl6V16Dwznu5xfh3XnMW_JE-nCVLHLiRTS-x1gB_eR4_CJY3KDfKxsVo=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 102,
-      "video_count": 1,
-      "top_video": {
-        "video_id": "u9alGJE9ZXA",
-        "title": "【ORIGINAL MV】COLOUR || Hakos Baelz x Tsunomaki Watame",
-        "thumbnail": "https://i.ytimg.com/vi/u9alGJE9ZXA/hqdefault.jpg",
-        "views_gained": 102
-      },
-      "rank": 77,
-      "last_week": null,
-      "peak": 77,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Alohaii",
-      "display": "Alohaii",
-      "channel_id": "UCv7cX2hDhEVtCEBvssHofFA",
-      "channel_url": "https://www.youtube.com/channel/UCv7cX2hDhEVtCEBvssHofFA",
-      "picture": "https://yt3.ggpht.com/C3-4kzheSTcznVJukyVPFHBQ6zLwWA1X5UtR_pAslHUzlUwOE5zFRQ3eWsBNnh1sNSn6z6S-iA=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 100,
-      "video_count": 11,
-      "top_video": {
-        "video_id": "f6FRYyOYNhA",
-        "title": "Alohaii - Heart Of Glass (feat. Rachie) [Music Video]",
-        "thumbnail": "https://i.ytimg.com/vi/f6FRYyOYNhA/hqdefault.jpg",
-        "views_gained": 18
-      },
-      "rank": 78,
-      "last_week": null,
-      "peak": 78,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "MEDA",
-      "display": "MEDA",
-      "channel_id": "UC0HX1e5jJnhN5Xn0epV2wzA",
-      "channel_url": "https://www.youtube.com/channel/UC0HX1e5jJnhN5Xn0epV2wzA",
-      "picture": "https://yt3.ggpht.com/qz9hf_DfpR08Qf4B-GHXMrJeTBMTY3DV-IrwEjp9or8W1ekJTu6U6gmjQ-mzzyJ90CW9kC7A8g=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 95,
-      "video_count": 3,
-      "top_video": {
-        "video_id": "YpUmtRdsW1A",
-        "title": "【歌ってみた】「命のユースティティア / Neru」covered by 春猿火 × MEDA",
-        "thumbnail": "https://i.ytimg.com/vi/YpUmtRdsW1A/hqdefault.jpg",
-        "views_gained": 93
-      },
-      "rank": 79,
-      "last_week": null,
-      "peak": 79,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Hani Hima",
-      "display": "Hani Hima",
-      "channel_id": "UCpJx12AW2vILTylBTQhNRKA",
-      "channel_url": "https://www.youtube.com/channel/UCpJx12AW2vILTylBTQhNRKA",
-      "picture": "https://yt3.ggpht.com/Q0JBAaShpU1ERzBKX6Wo2tog5-kXMZVXIYgHVn9bzOFDyXYCH0YhCBfpdLYKlkJ3jWz_7vlUbg=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 88,
-      "video_count": 7,
-      "top_video": {
-        "video_id": "17_Jk7kaVds",
-        "title": "Cheer up! I'm always by your side🌻　Butter cup/Hani Hima first original song",
-        "thumbnail": "https://i.ytimg.com/vi/17_Jk7kaVds/hqdefault.jpg",
-        "views_gained": 59
-      },
-      "rank": 80,
-      "last_week": null,
-      "peak": 80,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "Honk The Horn",
-      "display": "Honk The Horn",
-      "channel_id": "UCQXuGcIoseWY5HmW6-U7teg",
-      "channel_url": "https://www.youtube.com/channel/UCQXuGcIoseWY5HmW6-U7teg",
-      "picture": "https://yt3.ggpht.com/GHAKwDEziLljaVhvgl_Bkt3GtTPXpOpgApf9nBehVDeOh3J7zJIqF6rPdlqdG6PoCxkC_gUwEQ=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 88,
-      "video_count": 7,
-      "top_video": {
-        "video_id": "O0Xd6Z0F_zE",
-        "title": "宵々古今 Cover - BAMBI【HONK THE HORN】",
-        "thumbnail": "https://i.ytimg.com/vi/O0Xd6Z0F_zE/hqdefault.jpg",
-        "views_gained": 61
-      },
-      "rank": 81,
-      "last_week": null,
-      "peak": 81,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "AFTERLIGHT",
-      "display": "AFTERLIGHT",
-      "channel_id": "UC-IRclcm3Ha0-LnoNEuNoOA",
-      "channel_url": "https://www.youtube.com/channel/UC-IRclcm3Ha0-LnoNEuNoOA",
-      "picture": "https://yt3.ggpht.com/3VLF_LC21Naw0pA6vZOyWK2KGoydUf8dQC-DnJPhuWnod_SMLbxhTYOtSwMTHXd7YXeevBJ9Cg=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 82,
-      "video_count": 3,
-      "top_video": {
-        "video_id": "noXMzHTL9kg",
-        "title": "NEO | AFTERLIGHT Cover ft Vampirate Odessa, Inanna Bell and Kromatikaa",
-        "thumbnail": "https://i.ytimg.com/vi/noXMzHTL9kg/hqdefault.jpg",
-        "views_gained": 46
-      },
-      "rank": 82,
-      "last_week": null,
-      "peak": 82,
-      "weeks_on_chart": 1,
-      "movement": "new"
-    },
-    {
-      "name": "NIJISANJI EN",
-      "display": "NIJISANJI EN",
-      "channel_id": "UC-JSeFfovhNsEhftt1WHMvg",
-      "channel_url": "https://www.youtube.com/channel/UC-JSeFfovhNsEhftt1WHMvg",
-      "picture": "https://yt3.ggpht.com/V5evyc53-Fc2Vp_hjO2oHyaQ7mzPKG1_m1z7-Jgi0ghaZOnjko1tvGTsm2Qu-LLf_YsFJdQe=s800-c-k-c0x00ffffff-no-rj",
-      "office": "",
-      "views_gained": 78,
-      "video_count": 11,
-      "top_video": {
-        "video_id": "_sfBImlV06Y",
-        "title": "【NIJISANJI EN】Mela!／緑黄色社会　歌ってみた",
-        "thumbnail": "https://i.ytimg.com/vi/_sfBImlV06Y/hqdefault.jpg",
-        "views_gained": 59
-      },
-      "rank": 83,
-      "last_week": null,
-      "peak": 83,
+      "peak": 65,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3756,17 +3443,348 @@
       "channel_url": "https://www.youtube.com/channel/UCy91xBlY_Brh3bnHxKtjrrg",
       "picture": "https://yt3.ggpht.com/7Q-lvhi8QREBJTX7L1G_gFBXPfTWQz6mL5A6WVTBoNBsxyoY-SzufetowA7FM3z3GN6zURoAxQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
-      "views_gained": 78,
+      "office_channel": false,
+      "views_gained": 145,
       "video_count": 7,
       "top_video": {
         "video_id": "_sfBImlV06Y",
         "title": "【NIJISANJI EN】Mela!／緑黄色社会　歌ってみた",
         "thumbnail": "https://i.ytimg.com/vi/_sfBImlV06Y/hqdefault.jpg",
+        "views_gained": 118
+      },
+      "rank": 66,
+      "last_week": null,
+      "peak": 66,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Akugaki Koa",
+      "display": "Akugaki Koa",
+      "channel_id": "UC4R6ddhBJp2bjQHVNxgNQSA",
+      "channel_url": "https://www.youtube.com/channel/UC4R6ddhBJp2bjQHVNxgNQSA",
+      "picture": "https://yt3.ggpht.com/kmEnxt4NV3ZunVJCmoxmrB2Otg6L_VCwv187U8Jl0pQuccwegK1nWDMtEcWtQkRc4xXwBeeaaig=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 140,
+      "video_count": 8,
+      "top_video": {
+        "video_id": "YayJGjiaX8o",
+        "title": "Tententengokujigokugoku (天天天国地獄国) / Akugaki Koa x Nene Amano",
+        "thumbnail": "https://i.ytimg.com/vi/YayJGjiaX8o/hqdefault.jpg",
+        "views_gained": 56
+      },
+      "rank": 67,
+      "last_week": null,
+      "peak": 67,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "eili",
+      "display": "eili",
+      "channel_id": "UCUfUIQzLDEK5z91NeHRDM7Q",
+      "channel_url": "https://www.youtube.com/channel/UCUfUIQzLDEK5z91NeHRDM7Q",
+      "picture": "https://yt3.ggpht.com/hLrtaVHo4Z_9HSzEWX11NEwovw8MqU7exzfO9-m9BTGycAUsEZEZiZAm21_YCyzclyL_iFI5Hg=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 136,
+      "video_count": 18,
+      "top_video": {
+        "video_id": "uMpaBIS0Yaw",
+        "title": "\"Head in the Ceiling Fan\" by Title Fight | Acoustic Cover by Eva Ananova",
+        "thumbnail": "https://i.ytimg.com/vi/uMpaBIS0Yaw/hqdefault.jpg",
+        "views_gained": 38
+      },
+      "rank": 68,
+      "last_week": null,
+      "peak": 68,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Akuma Nihmune",
+      "display": "Akuma Nihmune",
+      "channel_id": "UC_rlc0K8Yj0KQ5ApK0Z7uew",
+      "channel_url": "https://www.youtube.com/channel/UC_rlc0K8Yj0KQ5ApK0Z7uew",
+      "picture": "https://yt3.ggpht.com/orOTKA746dBKL8v62LtzFJORFeFyVkFwQRsRSNGSalK1ptvbGwHnWsan50IkdotPbJoKdD0LLpk=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 128,
+      "video_count": 9,
+      "top_video": {
+        "video_id": "sbRHC7sMCTw",
+        "title": "「Cover」Super Psycho Love",
+        "thumbnail": "https://i.ytimg.com/vi/sbRHC7sMCTw/hqdefault.jpg",
+        "views_gained": 76
+      },
+      "rank": 69,
+      "last_week": null,
+      "peak": 69,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Pavolia Reine",
+      "display": "Pavolia Reine",
+      "channel_id": "UChgTyjG-pdNvxxhdsXfHQ5Q",
+      "channel_url": "https://www.youtube.com/channel/UChgTyjG-pdNvxxhdsXfHQ5Q",
+      "picture": "https://yt3.ggpht.com/gV1Zr_UQCBsmfyqaJhgj46qud_7HkvdqDNobqz-GSY7cQ4GNSltNxAyc1Y1-9HXXvSoORbzc=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 126,
+      "video_count": 3,
+      "top_video": {
+        "video_id": "s_HsEltY_O0",
+        "title": "【Holoro】 気分上々↑↑ covered by Kureiji Ollie • Anya Melfissa • Pavolia Reine",
+        "thumbnail": "https://i.ytimg.com/vi/s_HsEltY_O0/hqdefault.jpg",
+        "views_gained": 54
+      },
+      "rank": 70,
+      "last_week": null,
+      "peak": 70,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Runie Ruse",
+      "display": "Runie Ruse",
+      "channel_id": "UCoAQsc-DQ0MjfTp059otQAw",
+      "channel_url": "https://www.youtube.com/channel/UCoAQsc-DQ0MjfTp059otQAw",
+      "picture": "https://yt3.ggpht.com/aYmI2rySnQQuRnkK5W_YPTq3TiSpdvtzn-rWyuJ3HMy9OV4lnmbapVwfAVxWaKbc2SKwLgU0H_I=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 120,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "OsbyiE5OC7A",
+        "title": "【Cover】 APT. / ROSÉ & Bruno Mars | Runie Ruse & Uruka",
+        "thumbnail": "https://i.ytimg.com/vi/OsbyiE5OC7A/hqdefault.jpg",
+        "views_gained": 120
+      },
+      "rank": 71,
+      "last_week": null,
+      "peak": 71,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Hanamiya Rica",
+      "display": "Hanamiya Rica",
+      "channel_id": "UCz4jhqrCfthF8NnldZeK_rw",
+      "channel_url": "https://www.youtube.com/channel/UCz4jhqrCfthF8NnldZeK_rw",
+      "picture": "https://yt3.ggpht.com/W_mcRMt8pDnEw_ZBA2hABUEQNjtjOVL_NPvw8eI_cO3396_sAyEgKaiBiQJh01hFmBkfXgaL=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 116,
+      "video_count": 15,
+      "top_video": {
+        "video_id": "YaEEIwHzRv8",
+        "title": "【オリジナルMV】「勇者 / YOASOBI 」歌ってみた【花宮莉歌】",
+        "thumbnail": "https://i.ytimg.com/vi/YaEEIwHzRv8/hqdefault.jpg",
+        "views_gained": 67
+      },
+      "rank": 72,
+      "last_week": null,
+      "peak": 72,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Tenma Maemi",
+      "display": "Tenma Maemi",
+      "channel_id": "UC3K7pmiHsNSx1y0tdx2bbCw",
+      "channel_url": "https://www.youtube.com/channel/UC3K7pmiHsNSx1y0tdx2bbCw",
+      "picture": "https://yt3.ggpht.com/1pU_4Q3S5K6TqQ-3rp0_ZCNxJKjtA3B-GrYbhqM6f9drDNvgGGZ568AEWHF0T5UwEoTancnvevs=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 104,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "WNFioC4vCkc",
+        "title": "if... / DA PUMP 【Cover by Fujikura Uruka ft. Tenma Maemi】",
+        "thumbnail": "https://i.ytimg.com/vi/WNFioC4vCkc/hqdefault.jpg",
+        "views_gained": 104
+      },
+      "rank": 73,
+      "last_week": null,
+      "peak": 73,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Kureiji Ollie",
+      "display": "Kureiji Ollie",
+      "channel_id": "UCYz_5n-uDuChHtLo7My1HnQ",
+      "channel_url": "https://www.youtube.com/channel/UCYz_5n-uDuChHtLo7My1HnQ",
+      "picture": "https://yt3.ggpht.com/fCQ1LUhWHfIGkCLeZl2BG_uQhQ6IqxJ3AJJxFbG6uEpLJ1hlJ2JOoBG7FJiAREeDeEVtwJoZKA=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 103,
+      "video_count": 2,
+      "top_video": {
+        "video_id": "s_HsEltY_O0",
+        "title": "【Holoro】 気分上々↑↑ covered by Kureiji Ollie • Anya Melfissa • Pavolia Reine",
+        "thumbnail": "https://i.ytimg.com/vi/s_HsEltY_O0/hqdefault.jpg",
+        "views_gained": 54
+      },
+      "rank": 74,
+      "last_week": null,
+      "peak": 74,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Tsunomaki Watame",
+      "display": "Tsunomaki Watame",
+      "channel_id": "UCqm3BQLlJfvkTsX_hvm0UmA",
+      "channel_url": "https://www.youtube.com/channel/UCqm3BQLlJfvkTsX_hvm0UmA",
+      "picture": "https://yt3.ggpht.com/XJYar8ZAQ59ce0nFlf-Dl6V16Dwznu5xfh3XnMW_JE-nCVLHLiRTS-x1gB_eR4_CJY3KDfKxsVo=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 102,
+      "video_count": 1,
+      "top_video": {
+        "video_id": "u9alGJE9ZXA",
+        "title": "【ORIGINAL MV】COLOUR || Hakos Baelz x Tsunomaki Watame",
+        "thumbnail": "https://i.ytimg.com/vi/u9alGJE9ZXA/hqdefault.jpg",
+        "views_gained": 102
+      },
+      "rank": 75,
+      "last_week": null,
+      "peak": 75,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Alohaii",
+      "display": "Alohaii",
+      "channel_id": "UCv7cX2hDhEVtCEBvssHofFA",
+      "channel_url": "https://www.youtube.com/channel/UCv7cX2hDhEVtCEBvssHofFA",
+      "picture": "https://yt3.ggpht.com/C3-4kzheSTcznVJukyVPFHBQ6zLwWA1X5UtR_pAslHUzlUwOE5zFRQ3eWsBNnh1sNSn6z6S-iA=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 100,
+      "video_count": 11,
+      "top_video": {
+        "video_id": "f6FRYyOYNhA",
+        "title": "Alohaii - Heart Of Glass (feat. Rachie) [Music Video]",
+        "thumbnail": "https://i.ytimg.com/vi/f6FRYyOYNhA/hqdefault.jpg",
+        "views_gained": 18
+      },
+      "rank": 76,
+      "last_week": null,
+      "peak": 76,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "hololive ID",
+      "display": "hololive ID",
+      "channel_id": "UCfrWoRGlawPQDQxxeIDRP0Q",
+      "channel_url": "https://www.youtube.com/channel/UCfrWoRGlawPQDQxxeIDRP0Q",
+      "picture": "https://yt3.ggpht.com/Z20y_dnNBDh2qiAY3m_8VYJ4HcokDFTnX0hjM9oJsTrmhTVapZA1EtGpE7nLKvzwo6FfehAn1w=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": true,
+      "views_gained": 96,
+      "video_count": 5,
+      "top_video": {
+        "video_id": "rjhIMMSolmc",
+        "title": "Virtual Medley Lagu Daerah 2024 Ver. - hololive ID [Cover]",
+        "thumbnail": "https://i.ytimg.com/vi/rjhIMMSolmc/hqdefault.jpg",
+        "views_gained": 52
+      },
+      "rank": 77,
+      "last_week": null,
+      "peak": 77,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "MEDA",
+      "display": "MEDA",
+      "channel_id": "UC0HX1e5jJnhN5Xn0epV2wzA",
+      "channel_url": "https://www.youtube.com/channel/UC0HX1e5jJnhN5Xn0epV2wzA",
+      "picture": "https://yt3.ggpht.com/qz9hf_DfpR08Qf4B-GHXMrJeTBMTY3DV-IrwEjp9or8W1ekJTu6U6gmjQ-mzzyJ90CW9kC7A8g=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 95,
+      "video_count": 3,
+      "top_video": {
+        "video_id": "YpUmtRdsW1A",
+        "title": "【歌ってみた】「命のユースティティア / Neru」covered by 春猿火 × MEDA",
+        "thumbnail": "https://i.ytimg.com/vi/YpUmtRdsW1A/hqdefault.jpg",
+        "views_gained": 93
+      },
+      "rank": 78,
+      "last_week": null,
+      "peak": 78,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Hani Hima",
+      "display": "Hani Hima",
+      "channel_id": "UCpJx12AW2vILTylBTQhNRKA",
+      "channel_url": "https://www.youtube.com/channel/UCpJx12AW2vILTylBTQhNRKA",
+      "picture": "https://yt3.ggpht.com/Q0JBAaShpU1ERzBKX6Wo2tog5-kXMZVXIYgHVn9bzOFDyXYCH0YhCBfpdLYKlkJ3jWz_7vlUbg=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 88,
+      "video_count": 7,
+      "top_video": {
+        "video_id": "17_Jk7kaVds",
+        "title": "Cheer up! I'm always by your side🌻　Butter cup/Hani Hima first original song",
+        "thumbnail": "https://i.ytimg.com/vi/17_Jk7kaVds/hqdefault.jpg",
         "views_gained": 59
       },
-      "rank": 84,
+      "rank": 79,
       "last_week": null,
-      "peak": 84,
+      "peak": 79,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Honk The Horn",
+      "display": "Honk The Horn",
+      "channel_id": "UCQXuGcIoseWY5HmW6-U7teg",
+      "channel_url": "https://www.youtube.com/channel/UCQXuGcIoseWY5HmW6-U7teg",
+      "picture": "https://yt3.ggpht.com/GHAKwDEziLljaVhvgl_Bkt3GtTPXpOpgApf9nBehVDeOh3J7zJIqF6rPdlqdG6PoCxkC_gUwEQ=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 88,
+      "video_count": 7,
+      "top_video": {
+        "video_id": "O0Xd6Z0F_zE",
+        "title": "宵々古今 Cover - BAMBI【HONK THE HORN】",
+        "thumbnail": "https://i.ytimg.com/vi/O0Xd6Z0F_zE/hqdefault.jpg",
+        "views_gained": 61
+      },
+      "rank": 80,
+      "last_week": null,
+      "peak": 80,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "AFTERLIGHT",
+      "display": "AFTERLIGHT",
+      "channel_id": "UC-IRclcm3Ha0-LnoNEuNoOA",
+      "channel_url": "https://www.youtube.com/channel/UC-IRclcm3Ha0-LnoNEuNoOA",
+      "picture": "https://yt3.ggpht.com/3VLF_LC21Naw0pA6vZOyWK2KGoydUf8dQC-DnJPhuWnod_SMLbxhTYOtSwMTHXd7YXeevBJ9Cg=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 82,
+      "video_count": 3,
+      "top_video": {
+        "video_id": "noXMzHTL9kg",
+        "title": "NEO | AFTERLIGHT Cover ft Vampirate Odessa, Inanna Bell and Kromatikaa",
+        "thumbnail": "https://i.ytimg.com/vi/noXMzHTL9kg/hqdefault.jpg",
+        "views_gained": 46
+      },
+      "rank": 81,
+      "last_week": null,
+      "peak": 81,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3777,6 +3795,7 @@
       "channel_url": "https://www.youtube.com/channel/UCLk1hcmxg8rJ3Nm1_GvxTRA",
       "picture": "https://yt3.ggpht.com/ClHHOz-dZWdpgj2NuXdKjE8jdHnpkaKWENIUJboPQtIYClq47xlwD4Eh_GYH-dLSFz5QKEhe0zg=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 77,
       "video_count": 1,
       "top_video": {
@@ -3785,9 +3804,9 @@
         "thumbnail": "https://i.ytimg.com/vi/P3TR8tmpW6E/hqdefault.jpg",
         "views_gained": 77
       },
-      "rank": 85,
+      "rank": 82,
       "last_week": null,
-      "peak": 85,
+      "peak": 82,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3798,6 +3817,7 @@
       "channel_url": "https://www.youtube.com/channel/UC3AYtmMNdJczCvQNoPy-gjw",
       "picture": "https://yt3.ggpht.com/4tEnfgojHBxbk8hnMlY_M3rT7MZalNfLstqpW50ThtxjjGF214mP3SldwLMiERpgjjB7Cz86=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 76,
       "video_count": 4,
       "top_video": {
@@ -3806,9 +3826,9 @@
         "thumbnail": "https://i.ytimg.com/vi/vbl3zG2f2_Q/hqdefault.jpg",
         "views_gained": 54
       },
-      "rank": 86,
+      "rank": 83,
       "last_week": null,
-      "peak": 86,
+      "peak": 83,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3819,6 +3839,7 @@
       "channel_url": "https://www.youtube.com/channel/UCvzGlP9oQwU--Y0r9id_jnA",
       "picture": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 76,
       "video_count": 1,
       "top_video": {
@@ -3827,9 +3848,9 @@
         "thumbnail": "https://i.ytimg.com/vi/z7NC9iRoW-E/hqdefault.jpg",
         "views_gained": 76
       },
-      "rank": 87,
+      "rank": 84,
       "last_week": null,
-      "peak": 87,
+      "peak": 84,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3840,6 +3861,7 @@
       "channel_url": "https://www.youtube.com/channel/UCajbFh6e_R8QZdHAMbbi4rQ",
       "picture": "https://yt3.ggpht.com/oOudWIrMa-vuBgBZmxfD-ckb9F8indUDW_aoRF5Ikm2wOFitakpZITg4a7QsO5vwam_bH2xd=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 73,
       "video_count": 1,
       "top_video": {
@@ -3848,9 +3870,9 @@
         "thumbnail": "https://i.ytimg.com/vi/FUaXnhDZDY8/hqdefault.jpg",
         "views_gained": 73
       },
-      "rank": 88,
+      "rank": 85,
       "last_week": null,
-      "peak": 88,
+      "peak": 85,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3861,6 +3883,7 @@
       "channel_url": "https://www.youtube.com/channel/UCn-eOe84jydYlfqE2g08ysQ",
       "picture": "https://yt3.ggpht.com/puu88sUorqL7AUZqVQF_nrEZqEMFMhRFulcaqIqG45_Jj7mcXv18_fX7ik2_zCk9hprN9Po7pQ=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 72,
       "video_count": 6,
       "top_video": {
@@ -3869,9 +3892,9 @@
         "thumbnail": "https://i.ytimg.com/vi/tcRRZPZDVgo/hqdefault.jpg",
         "views_gained": 41
       },
-      "rank": 89,
+      "rank": 86,
       "last_week": null,
-      "peak": 89,
+      "peak": 86,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3882,6 +3905,7 @@
       "channel_url": "https://www.youtube.com/channel/UC1DCedRgGHBdm81E1llLhOQ",
       "picture": "https://yt3.ggpht.com/B-5Iau5CJVDiUOeCvCzHiwdkUijqoi2n0tNwfgIv_yDAvMbLHS4vq1IvK2RxL8y69BxTwmPhow=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 62,
       "video_count": 1,
       "top_video": {
@@ -3890,9 +3914,9 @@
         "thumbnail": "https://i.ytimg.com/vi/uyvzNXTaM4w/hqdefault.jpg",
         "views_gained": 62
       },
-      "rank": 90,
+      "rank": 87,
       "last_week": null,
-      "peak": 90,
+      "peak": 87,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3903,6 +3927,7 @@
       "channel_url": "https://www.youtube.com/channel/UCMCBdyUhjf372hVCKDxoh8w",
       "picture": "https://yt3.ggpht.com/yrOTyzF06TXY0R3gE4OlsalnYXH90jScphMrVcBE_K7EoYS3YEwav3QySmSrs-tEK6_i_fbURw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 58,
       "video_count": 16,
       "top_video": {
@@ -3911,9 +3936,9 @@
         "thumbnail": "https://i.ytimg.com/vi/W8tIHIYQgX0/hqdefault.jpg",
         "views_gained": 27
       },
-      "rank": 91,
+      "rank": 88,
       "last_week": null,
-      "peak": 91,
+      "peak": 88,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3924,6 +3949,7 @@
       "channel_url": "https://www.youtube.com/channel/UCXN-ZRdGnFtLiJ8EY1i_alg",
       "picture": "https://yt3.ggpht.com/sBW9wsNULThPks_-RjdBk1jYpFHuBcUqnNE8e40pJP36dXZv5nMliykqdNS88x4SLJGv26W8zU8=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 58,
       "video_count": 7,
       "top_video": {
@@ -3932,9 +3958,9 @@
         "thumbnail": "https://i.ytimg.com/vi/QLKgIEZVUkM/hqdefault.jpg",
         "views_gained": 22
       },
-      "rank": 92,
+      "rank": 89,
       "last_week": null,
-      "peak": 92,
+      "peak": 89,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3945,6 +3971,7 @@
       "channel_url": "https://www.youtube.com/channel/UC98iRMvRqUxRD6GP4NtRskw",
       "picture": "https://yt3.ggpht.com/uoTJw_Ocjv1KS6URNtZ5GRMsXApLGPv9Wb6Y6RsxJ723nvT0h52-S_RpVKtKaoxSOtlJ6RSc=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 58,
       "video_count": 3,
       "top_video": {
@@ -3953,9 +3980,9 @@
         "thumbnail": "https://i.ytimg.com/vi/oBYcGwDG-kw/hqdefault.jpg",
         "views_gained": 49
       },
-      "rank": 93,
+      "rank": 90,
       "last_week": null,
-      "peak": 93,
+      "peak": 90,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3966,6 +3993,7 @@
       "channel_url": "https://www.youtube.com/channel/UCrGTSXWMiAWoPlowSuMVZ4Q",
       "picture": "https://yt3.ggpht.com/njaKhBr7kyxtmndwq4nGF-Uh2k7WvNoVKuuQQfRQW1vyXuHlaY9w1Qw0RydSdzfEdIbxH7rWbBA=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 57,
       "video_count": 1,
       "top_video": {
@@ -3974,9 +4002,9 @@
         "thumbnail": "https://i.ytimg.com/vi/5XyPt4LJ3gM/hqdefault.jpg",
         "views_gained": 57
       },
-      "rank": 94,
+      "rank": 91,
       "last_week": null,
-      "peak": 94,
+      "peak": 91,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -3987,6 +4015,7 @@
       "channel_url": "https://www.youtube.com/channel/UCbrbFKFhyHD4bMJbEcXZz1g",
       "picture": "https://yt3.ggpht.com/08aV3RDnDr0VRr-Pd6JM9MV7JAYJ8MhzkC9htk4qk_UGYRQwBIwzznicPIPJxJgAR-dR9JdL8w=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 56,
       "video_count": 3,
       "top_video": {
@@ -3995,9 +4024,9 @@
         "thumbnail": "https://i.ytimg.com/vi/vbl3zG2f2_Q/hqdefault.jpg",
         "views_gained": 54
       },
-      "rank": 95,
+      "rank": 92,
       "last_week": null,
-      "peak": 95,
+      "peak": 92,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -4008,6 +4037,7 @@
       "channel_url": "https://www.youtube.com/channel/UCu1INzefw3R7M9-3QEHYmMQ",
       "picture": "https://yt3.ggpht.com/MKC1f-SifR-HMfH1nXCKJaTVuMTuL7fKPOgKXAHp5cU3DtLdRok9IJUFQVS-gGmpRwVTHP-Jug=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 56,
       "video_count": 1,
       "top_video": {
@@ -4016,9 +4046,9 @@
         "thumbnail": "https://i.ytimg.com/vi/YayJGjiaX8o/hqdefault.jpg",
         "views_gained": 56
       },
-      "rank": 96,
+      "rank": 93,
       "last_week": null,
-      "peak": 96,
+      "peak": 93,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -4029,6 +4059,7 @@
       "channel_url": "https://www.youtube.com/channel/UC-tBLCGTheczDn5mYNoNWTQ",
       "picture": "https://yt3.ggpht.com/Wenm3mDBaiWyFSucBDNdt_TnLINW-OBdHN8zZO6kkjTlSXLK8dBLO0oyFJqaJMlLF1-VxeP6zg=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 51,
       "video_count": 9,
       "top_video": {
@@ -4037,9 +4068,9 @@
         "thumbnail": "https://i.ytimg.com/vi/AVgQHxv4sPg/hqdefault.jpg",
         "views_gained": 24
       },
-      "rank": 97,
+      "rank": 94,
       "last_week": null,
-      "peak": 97,
+      "peak": 94,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -4050,6 +4081,7 @@
       "channel_url": "https://www.youtube.com/channel/UCh3QwnJImKhYHHYvMA858pw",
       "picture": "https://yt3.ggpht.com/KbPWRS3yQMTMFBuezxMjaBfKZpgJl78DKxAZidgvxaUtrYfnmfrvWgKz18gK6xCltUxkFTBj=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 50,
       "video_count": 15,
       "top_video": {
@@ -4058,9 +4090,9 @@
         "thumbnail": "https://i.ytimg.com/vi/AXm1zbQrPS8/hqdefault.jpg",
         "views_gained": 8
       },
-      "rank": 98,
+      "rank": 95,
       "last_week": null,
-      "peak": 98,
+      "peak": 95,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -4071,6 +4103,7 @@
       "channel_url": "https://www.youtube.com/channel/UCMmcz1ybSoAD-GUlDx_7H2A",
       "picture": "https://yt3.ggpht.com/KfFjZcrWvgoEaWW2VExZ_qxEs3eLlckFQMb05PglTx_yrocBD-zHqCMMTSf-fPjJWrt1bII9pAk=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 50,
       "video_count": 1,
       "top_video": {
@@ -4079,9 +4112,9 @@
         "thumbnail": "https://i.ytimg.com/vi/3f0PTj1xrvw/hqdefault.jpg",
         "views_gained": 50
       },
-      "rank": 99,
+      "rank": 96,
       "last_week": null,
-      "peak": 99,
+      "peak": 96,
       "weeks_on_chart": 1,
       "movement": "new"
     },
@@ -4092,6 +4125,7 @@
       "channel_url": "https://www.youtube.com/channel/UCKzV86CPObEArqs-X_GLtJg",
       "picture": "https://yt3.ggpht.com/or5-XgYg-X6CN3Kp-mKSArF7JE5E1qpvloF8FFqU2kjmjdRu4fJr9aLlICPXoUYDX08P2tfxEw=s800-c-k-c0x00ffffff-no-rj",
       "office": "",
+      "office_channel": false,
       "views_gained": 44,
       "video_count": 2,
       "top_video": {
@@ -4099,6 +4133,72 @@
         "title": "【COVER】Bunny Girl - AKASAKI 🐰 | Ember Amane",
         "thumbnail": "https://i.ytimg.com/vi/yxlMoEiBTm0/hqdefault.jpg",
         "views_gained": 26
+      },
+      "rank": 97,
+      "last_week": null,
+      "peak": 97,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Astrea Colornatura",
+      "display": "Astrea Colornatura",
+      "channel_id": "UC_DiAZSCv3xGticXTn5Gkow",
+      "channel_url": "https://www.youtube.com/channel/UC_DiAZSCv3xGticXTn5Gkow",
+      "picture": "https://yt3.ggpht.com/JfIH-HHn85XgLaPnXBYHBszlSNKxlJNoB4r7MxpJu3z7C6MTOcGwxjiIRxtES-FMHIwLY1-wuZk=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 36,
+      "video_count": 8,
+      "top_video": {
+        "video_id": "xULvWeohb8o",
+        "title": "\"Dracula\" Tame Impala | Female Cover by Astrea Colornatura",
+        "thumbnail": "https://i.ytimg.com/vi/xULvWeohb8o/hqdefault.jpg",
+        "views_gained": 24
+      },
+      "rank": 98,
+      "last_week": null,
+      "peak": 98,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Hao (羽緒)",
+      "display": "Hao (羽緒)",
+      "channel_id": "UCjoGLVLapRciX38bwgDtttw",
+      "channel_url": "https://www.youtube.com/channel/UCjoGLVLapRciX38bwgDtttw",
+      "picture": "https://yt3.ggpht.com/fBIDkxIoz8V66g57FJk1G5tOD6FsjOfu5iiuCY0HGsQh6uUUS4T7lTZiriPSgx1o7_2AC-fV=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 34,
+      "video_count": 8,
+      "top_video": {
+        "video_id": "8gtimx1Z79w",
+        "title": "送華 - Souka - / 羽緒【5th Official MV】",
+        "thumbnail": "https://i.ytimg.com/vi/8gtimx1Z79w/hqdefault.jpg",
+        "views_gained": 16
+      },
+      "rank": 99,
+      "last_week": null,
+      "peak": 99,
+      "weeks_on_chart": 1,
+      "movement": "new"
+    },
+    {
+      "name": "Aida Lyra",
+      "display": "Aida Lyra",
+      "channel_id": "UCAQOG_LvObtWnWLADWooJJg",
+      "channel_url": "https://www.youtube.com/channel/UCAQOG_LvObtWnWLADWooJJg",
+      "picture": "https://yt3.ggpht.com/bQ_Oyscit2TV6GCGd9WS8WftByv2vEB1C1divIiHbV7iziYSjMmogNr68L1s--9i3GPfLlyqjQ=s800-c-k-c0x00ffffff-no-rj",
+      "office": "",
+      "office_channel": false,
+      "views_gained": 33,
+      "video_count": 8,
+      "top_video": {
+        "video_id": "_hLm6eLGaps",
+        "title": "[ENGLISH COVER] Telepathy - DECO*27",
+        "thumbnail": "https://i.ytimg.com/vi/_hLm6eLGaps/hqdefault.jpg",
+        "views_gained": 9
       },
       "rank": 100,
       "last_week": null,
