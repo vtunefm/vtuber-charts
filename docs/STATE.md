@@ -1,6 +1,6 @@
 # VTune FM Charts — State of the Build
 
-Last updated: 2026-11-17
+Last updated: 2026-11-18
 
 Read this before touching anything. It exists so a fresh session does not
 re-litigate settled decisions or re-break fixed bugs. Read the repo tree too —
@@ -19,16 +19,16 @@ Three surfaces, per the original brief:
 - **Newest Releases** — one feed capped at 10, bucketed Today / Yesterday with a
   Recent fallback. The original brief called for separate Original and Cover
   feeds; the build has not split them.
-- **Artist Top 100** — one entry per artist, deduped, collab gains credited to
-  every credited artist, avatar and channel link, never a duplicate slot.
+- **Artist Top 100** — one entry per artist, deduped, collab gains divided
+  between credited artists, avatar and channel link, never a duplicate slot.
 
 The long game is an awards show. The chart is the credibility engine for it.
 
 ## Non-negotiables
 
 - Monday–Saturday only. Not a bug, not negotiable.
-- The panel is curated. Open discovery was tried and abandoned; only channels
-  that went through `resolve` → `autopick` → manual review are eligible.
+- The panel is curated and roster-driven. Nothing enters the chart that is not
+  in `roster.csv`.
 - Whole files over fragments. Fragments have landed in the wrong place more
   than once.
 - The YouTube API key lives in the `YOUTUBE_API_KEY` GitHub secret. Never ask
@@ -39,78 +39,88 @@ The long game is an awards show. The chart is the credibility engine for it.
 
 ## Architecture
 
-vsong is gone. It 404'd every EN track, and its retry backoff blew a 30-minute
-timeout. Everything now runs on the YouTube Data API plus our own snapshots.
+vsong is gone. It 404'd every EN track and its retry backoff blew a 30-minute
+timeout. Everything runs on the YouTube Data API plus our own snapshots.
 
 Data flow:
 
-roster.txt ──> resolve.py ──> candidates.csv ──> autopick.py ──> manual review
-                                                                    │
-                                                                    v
-                                                              ingest.py
-                                                                    │
-                                                                    v
-                                                              tracks.csv
-                                                                    │
-                                        snapshot.py ──> snapshots.csv │
-                                                                    v
-                                                                 chart.py
-                                                                    │
-                                                                    v
-                                                               chart.json
-                                                                    │
-                                                          Streamlit pages
+    roster.csv ──> sync.py ──> channels.csv ──> ingest.py ──> tracks.csv
+                                       (status ok)                    │
+                                                                      v
+    reset.py ──> clears tracks.csv, chart.json, newest.json, archive/
+                                                                      │
+                                          snapshot.py ──> snapshots.csv
+                                                                      v
+                                                                  chart.py
+                                                                      │
+                                                                      v
+                                                    chart.json + archive/<week>.json
+                                                                      │
+                                                              Streamlit pages
 
 `chart.py` derives gains **only** from deltas between our own snapshots. There
 is no external view source. A track needs two snapshots to produce a gain, so
 new ingestion is invisible on the chart until the next snapshot lands.
 
+`ingest.py` writes `artists` as `uploader/partner`, partner names detected by
+containment against channel names, titles and `aliases.csv`. `PER_CHANNEL` and
+`MAX_ADD` are **per-run** caps and re-runs stack, so a channel swept twice can
+carry far more than 40 rows. That is expected.
+
 ## Files
 
 | File | Role |
 |---|---|
-| `roster.txt` | Curated name list, one per line. Alias after a slash when the channel is named differently: `Momosuzu Nene / 桃鈴ねね`. |
-| `add_vtubers.txt` | The operator's loop for adding names. Follow it. |
-| `resolve.py` | Resolves roster names to channels, 30 names per run, 3 candidates each, pending sorted to the top. |
-| `autopick.py` | Auto-approves exact matches, rejects junk via `JUNK_RE`. Recomputes from scratch every run. Runs automatically inside `resolve.yml`. |
-| `ingest.py` | Pulls uploads for approved channels via `ytmeta.py`. Least-covered first, `MAX_ADD` / `PER_CHANNEL` capped. |
-| `ytmeta.py` | Batched `videos.list` metadata. Replaced all vsong metadata. |
+| `roster.csv` | Source of truth for the panel. `name` is the English display name, `handle` is the `@handle`. |
+| `sync.py` | Resolves each `@handle` through `channels.list?forHandle` into `data/channels.csv` with `status` `ok` / `missing` / `blank`. |
+| `ingest.py` | Pulls uploads for `status: ok` channels via `ytmeta.py`. Least-covered first, `MAX_ADD` / `PER_CHANNEL` capped, partners detected from titles. |
+| `ytmeta.py` | Batched `videos.list` metadata. |
 | `snapshot.py` | Records `view_count` per track into `snapshots.csv`. |
-| `chart.py` | Builds `chart.json`. Window selection, gains, history, artist dedupe, avatar and channel resolution. |
+| `chart.py` | Builds `chart.json`. Window selection, gains, history, artist dedupe, collab split, avatar and channel resolution. |
 | `newest.py` | Builds the newest feed. |
 | `avatars.py` | Backfills blank `channel_id`s, then fetches channel avatars into `avatars.csv`. |
 | `playlists.py` | Episode playlist cards. |
 | `ui.py` | All rendering and CSS. |
 | `app.py`, `pages/*` | Streamlit surfaces. |
+| `reset.py` | Deletes `tracks.csv`, `chart.json`, `newest.json` and `archive/`. Keeps channels, avatars, snapshots, playlists, aliases. |
 
-`prune.py` and `reset.py` **do not exist in the repo.** The loop in
-`add_vtubers.txt` assumes they do not, but if a cleanup is needed you will have
-to write them. `prune` was meant to be a one-pass removal of non-roster tracks;
-`reset` flips candidate statuses back to pending.
+### Retired, still in the tree, unreferenced
+
+| File | Why it is dead |
+|---|---|
+| `resolve.py`, `autopick.py`, `resolve.yml` | The candidate-review path. Superseded by `roster.csv` + `sync.py`. |
+| `discover.py`, `siblings.py` | Both target `old.vsing.info`. Both write a `tracks.csv` schema that predates `artist_name`, so running either corrupts the current file. |
+| `collect.py` | Writes `data/top10.json`, which nothing reads. Also the only `pandas` user. |
+| `roster.txt` | Old Japanese name list. `app.py` still counts its lines for the About panel size, so it cannot be deleted until that block reads `roster.csv`. |
+| `add_vtubers.txt` | Documents the retired resolve → approve → ingest loop. |
+| `data/candidates.csv`, `data/roster_state.json`, `data/songs.csv`, `confirmed_exists_no_id.csv`, `needs_sorted.csv` | Resolve-pipeline artifacts. |
 
 ## Workflows
 
 | Workflow | Trigger | Notes |
 |---|---|---|
-| `resolve.yml` | daily 13:00 UTC + manual | 30 names per run, then `autopick.py` in the same job — approval is automatic |
+| `sync.yml` | manual | Resolves roster handles. Run before any add. |
+| `add.yml` | manual | `sync` → `ingest` → `avatars` → `snapshot` → `chart` → `newest` → `playlists` → `snapshot`, one job. |
 | `ingest.yml` | manual | `hit MAX_ADD, stopping` means run it again |
 | `snapshot.yml` | daily 23:50 UTC + manual | |
 | `chart.yml` | Sundays 09:00 UTC + manual | |
 | `newest.yml` | daily 10:00 UTC + manual | |
 | `avatars.yml` | daily 06:00 UTC + manual | Also rebuilds the chart, so pictures cannot drift from `chart.json` |
 | `playlists.yml` | daily 11:00 UTC + manual | |
+| `reset.yml` | manual | Destructive. Leaves a chart with nothing in it until the next add + snapshot + chart. |
 
-`discover.yml`, `siblings.yml` and `collect.yml` were deleted; their scripts
-remain. `prune.yml` and `reset.yml` were never created.
+Every job shares `concurrency: group: data-commit` and a five-attempt
+`git pull --rebase --autostash` retry loop.
 
 ## Data files
 
 - `tracks.csv` — the source of truth. Filtering this is how you clean up;
   deleting `chart.json` or `archive/` alone changes nothing.
 - `snapshots.csv` — raw `view_count` readings. Never edit.
-- `candidates.csv` — `query` holds the canonical roster name, `status` is
-  `pending` / `approved` / `done` / `rejected`. Only `done` and `approved`
-  channels are used for artist identity, avatars and links.
+- `channels.csv` — `name, handle, channel_id, channel_title, subscribers, status`.
+  Only `status: ok` rows are ingested, credited, given avatars and linked.
+- `aliases.csv` — `japanese,english` pairs. **Currently missing from the repo.**
+  See open item 1.
 - `avatars.csv` — `channel_id,avatar`, `s800` profile pictures.
 - `chart.json`, `archive/` — build output. Regenerated every run.
 
@@ -122,28 +132,47 @@ remain. `prune.yml` and `reset.yml` were never created.
 - `choose_window()` falls back to week-to-date with `partial: true` when no
   snapshot lands inside the completed window. Cold start is handled by the
   fallback, not by fabricating data.
-- Artist identity resolves by containment against `done`/`approved` channels,
-  highest subscribers first, Topic channels last. The uploader's channel is
-  used **only** when the artist *is* the uploader. Name-variant matching alone
-  caused Marine to inherit Korone's face on a collab.
+- **Collab gain is divided evenly between credited artists.** Two credited
+  artists take 0.5 each, four take 0.25. Rules that make the division honest:
+  office tags are stripped before the divisor is counted, duplicate credits are
+  collapsed first, the divisor floors at 1, `video_count` stays a whole 1 per
+  video, and `top_video.views_gained` reports the artist's share rather than the
+  raw video figure. The music chart keeps raw gain — the two surfaces are
+  deliberately different numbers for the same video.
+- **Artist identity keys on `channel_id`, never on the name.** A name-keyed row
+  is a fallback and is folded into its id-keyed twin before ranking.
 - Artist rows link to the channel, not the video, and show no song title.
+- The artist chart aggregates over **all** qualifying songs, not the top 100, so
+  a video outside the music chart still feeds its artists' totals.
 
 ## Open items
 
-1. **`unknown` type rate** — roughly 25% of tracks land `unknown` and are
-   excluded from the chart. `classify()` needs widening.
-2. **Artist ceiling** — the artist chart has been capped near 58 by pool depth,
-   not by code. Watch whether it moves as ingestion spreads.
-3. **Avatar and link coverage** — an artist with no `done`/`approved` row has no
-   face and no channel link and falls back to the video thumbnail. The roster is
-   the ceiling. Check the `artist pictures N/M · channels N/M` line in the chart
-   log.
-4. **No `prune.py` / `reset.py`.**
-5. **Stale copy in `app.py`** — the About tab claims a 500-view floor
-   (`MIN_GAIN` is 1) and the Artist Top 10 caption still says
-   "highest-gaining video shown." `pages/2_Artist_Top_100.py` was corrected;
-   `app.py` was not.
-6. **Cosmetic list** — empty. Add to it as it comes up.
+1. **`data/aliases.csv` is missing.** `reset.py` lists it as a keep-target and
+   would print `absent`; `ingest.py` opens it behind an `os.path.exists` guard,
+   so partner detection silently loses its non-English half. Rebuild it from the
+   `unresolved credit(s)` log line.
+2. **Offices still chart.** `hololive` sits at #4, `hololive EN` at #21,
+   `ReGLOSS` at #50, `hololive ID` at #72, `NIJISANJI EN` at #83. `is_office()`
+   only fires when a name fails to resolve, and these all resolve to real
+   channel ids. Move the office check ahead of resolution, then decide whether
+   offices should be dropped entirely or kept in a separate block.
+3. **`unknown` type rate** — roughly 25% of tracks land `unknown` and are
+   excluded. `classify()` needs widening; it is the single biggest distortion
+   against small channels.
+4. **Catalogue size still decides the artist chart.** Rank is a raw sum, so a
+   65-video channel beats a 9-video one on volume alone. A per-artist cap on
+   credited videos (best ~12) is agreed in principle, not built.
+5. **`playlists.py`** takes the first `Ep N` match in a 40-item scan instead of
+   the highest, and can return duplicate thumbnails.
+6. **No `prune.py`.** Removal of non-roster tracks is still done by hand on
+   `tracks.csv`.
+7. **Stale copy in `app.py`** — the About tab claims a 500-view floor
+   (`MIN_GAIN` is 1), the Artist Top 10 caption still says "highest-gaining
+   video shown", and there is no line explaining that collab gain is divided.
+   `pages/2_Artist_Top_100.py` was corrected; `app.py` was not.
+8. **`docs/` and the tree disagree** in a few places by design — see the retired
+   block. Delete retired files when nothing needs them.
+9. **Cosmetic list** — empty. Add to it as it comes up.
 
 ## Gotchas
 
@@ -156,3 +185,11 @@ remain. `prune.yml` and `reset.yml` were never created.
 - The 21-day recency filter is gone. Do not re-add it.
 - YouTube `- Topic` channels classify as `original`. Topic channels are
   acceptable avatars but lose to main channels on subscriber count.
+- `chart.py` logs `merged N name-only duplicate(s) · M collab(s) split`. If
+  `merged` climbs, resolution is regressing. If `M` is 0 on a week with collabs,
+  the split is not firing.
+- `reset.yml` is destructive and does not re-ingest. After a reset, run Add
+  Roster Batch, then Snapshot Views, then Build Weekly Chart — in that order.
+  Charting first ranks on flat deltas.
+- A reset also drops `archive/`, so every entry comes back `NEW` with no
+  movement. It self-corrects once one archive exists.
