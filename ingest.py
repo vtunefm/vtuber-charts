@@ -7,14 +7,13 @@ import yt_dlp
 
 from ytmeta import fetch_meta
 
-CANDS = "data/candidates.csv"
+CHANNELS = "data/channels.csv"
 TRACKS = "data/tracks.csv"
-COLS = ["query", "channel_id", "channel_name", "handle", "subscribers", "status", "note"]
 TCOLS = [
-    "video_id", "video_name", "music_name", "channel_name", "channel_key",
-    "channel_id", "artists", "offices", "published_at", "duration_sec", "type",
-    "is_short", "is_long", "first_stat_date", "latest_views", "latest_likes",
-    "discovered_via", "first_seen", "status",
+    "video_id", "video_name", "music_name", "artist_name", "channel_name",
+    "channel_key", "channel_id", "artists", "offices", "published_at",
+    "duration_sec", "type", "is_short", "is_long", "first_stat_date",
+    "latest_views", "latest_likes", "discovered_via", "first_seen", "status",
 ]
 MAX_ADD = 1500
 PER_CHANNEL = 40
@@ -46,7 +45,7 @@ def uploads(channel_id):
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
     except Exception as e:
-        print(f"channel failed {channel_id}: {e}")
+        print(f"channel failed {channel_id}: {str(e)[:100]}")
         return []
     return [e["id"] for e in (info.get("entries") or []) if e and e.get("id")]
 
@@ -68,37 +67,37 @@ def write_tracks(rows):
 
 
 def main():
-    if not os.path.exists(CANDS):
-        print("no candidates.csv")
+    if not os.path.exists(CHANNELS):
+        print("no channels.csv — run sync.py first")
         return
 
-    with open(CANDS, newline="", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
+    with open(CHANNELS, newline="", encoding="utf-8") as f:
+        channels = [
+            r for r in csv.DictReader(f)
+            if r.get("status") == "ok" and r.get("channel_id")
+        ]
 
     tracks = read_tracks()
     known = {r["video_id"] for r in tracks}
-
     counts = Counter(r.get("channel_id") or "" for r in tracks)
-    approved = [r for r in rows if r.get("status") == "approved"]
-    approved.sort(key=lambda r: counts.get(r["channel_id"], 0))
-    print(f"{len(approved)} approved channel(s), least-covered first")
+    channels.sort(key=lambda r: counts.get(r["channel_id"], 0))
+    print(f"{len(channels)} resolved channel(s), least-covered first")
 
     added = 0
-    seen_channels = set()
+    seen = set()
 
-    for cand in approved:
+    for ch in channels:
         if added >= MAX_ADD:
             print("hit MAX_ADD, stopping")
             break
-        if cand["channel_id"] in seen_channels:
-            cand["status"] = "done"
+        cid = ch["channel_id"]
+        if cid in seen:
             continue
-        seen_channels.add(cand["channel_id"])
+        seen.add(cid)
 
-        vids = [v for v in uploads(cand["channel_id"]) if v not in known][:PER_CHANNEL]
-        print(f"{cand['channel_name']}: {len(vids)} unseen")
+        vids = [v for v in uploads(cid) if v not in known][:PER_CHANNEL]
+        print(f"{ch['name']}: {len(vids)} unseen")
         if not vids:
-            cand["status"] = "done"
             continue
 
         meta = fetch_meta(vids)
@@ -114,10 +113,11 @@ def main():
                 "video_id": vid,
                 "video_name": title,
                 "music_name": title,
-                "channel_name": info["channel"] or cand["channel_name"],
-                "channel_key": info["channel"] or cand["channel_name"],
-                "channel_id": cand["channel_id"],
-                "artists": cand["query"],
+                "artist_name": ch["name"],
+                "channel_name": info["channel"] or ch.get("channel_title", ""),
+                "channel_key": ch.get("channel_title", ""),
+                "channel_id": cid,
+                "artists": ch["name"],
                 "offices": "",
                 "published_at": info["published"],
                 "duration_sec": info["duration"],
@@ -127,7 +127,7 @@ def main():
                 "first_stat_date": "",
                 "latest_views": info["views"],
                 "latest_likes": info["likes"],
-                "discovered_via": f"roster:{cand['query']}",
+                "discovered_via": f"roster:{ch['name']}",
                 "first_seen": time.strftime("%Y-%m-%d"),
                 "status": "active",
             })
@@ -135,16 +135,8 @@ def main():
             added += 1
             got += 1
         print(f"  +{got}")
-        if got:
-            cand["status"] = "done"
 
     write_tracks(tracks)
-    with open(CANDS, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=COLS)
-        w.writeheader()
-        for r in rows:
-            w.writerow(r)
-
     print(f"done. {len(tracks)} tracks (+{added})")
 
 
