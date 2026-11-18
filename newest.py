@@ -7,9 +7,18 @@ from datetime import datetime, timedelta, timezone
 TRACKS = "data/tracks.csv"
 OUT = "data/newest.json"
 LIMIT = 10
+MIN_DURATION = 120
+MAX_DURATION = 420
 
 TITLE_TAIL_RE = re.compile(r"\s*(cover|カバー)\s*$", re.I)
 ARTIST_JUNK_RE = re.compile(r"\s*【[^】]*$")
+
+
+def as_int(value):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
 
 
 def build(r):
@@ -37,8 +46,11 @@ def main():
         r for r in rows
         if r.get("published_at")
         and r.get("status", "active") == "active"
+        and r.get("type") != "unknown"
         and r.get("is_short") != "True"
         and r.get("is_long") != "True"
+        and (not as_int(r.get("duration_sec"))
+             or MIN_DURATION <= as_int(r.get("duration_sec")) <= MAX_DURATION)
     ]
     fresh.sort(key=lambda r: r["published_at"], reverse=True)
 
