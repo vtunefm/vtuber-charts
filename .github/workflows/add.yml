@@ -27,10 +27,13 @@ jobs:
 
       - run: pip install requests google-api-python-client yt-dlp
 
+      - name: Resolve roster handles
+        run: python sync.py
+
       - name: Ingest approved channels
         run: python ingest.py
 
-      - name: Backfill channel ids and fetch avatars
+      - name: Fetch avatars
         run: python avatars.py
 
       - name: Snapshot views (first reading)
