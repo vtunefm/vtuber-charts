@@ -31,11 +31,11 @@ CSS = """
     display: grid; grid-template-columns: 48px 100px 1fr 92px 140px;
     gap: 14px; align-items: center; padding: .5rem 0;
     border-bottom: 1px solid #1c2029;
-    animation: slide .38s cubic-bezier(.2,.8,.3,1) both;
+    animation: slide .5s cubic-bezier(.2,.8,.3,1) both;
   }
   @keyframes slide {
-    from { opacity: 0; transform: translateY(-12px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateX(-48px); }
+    to   { opacity: 1; transform: translateX(0); }
   }
   .hero { display: grid; grid-template-columns: 220px 1fr; gap: 20px;
           align-items: center; border: 1px solid #2a2f3a; border-radius: 8px;
@@ -80,8 +80,7 @@ def stats_line(entry):
 
 
 def delay(rank, total):
-    """Top-down cascade, total stagger capped so the top never waits."""
-    step = min(0.28, 1.5 / max(1, total))
+    step = 0.28 if total <= 20 else 0.04
     return max(0, rank - 1) * step
 
 
