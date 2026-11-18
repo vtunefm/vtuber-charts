@@ -20,21 +20,30 @@ TCOLS = [
 MAX_ADD = 4000
 PER_CHANNEL = 40
 PROBE = 120
-LONG_SEC = 900
-MAX_DURATION = 1500
+MIN_DURATION = 120
+MAX_DURATION = 420
 MIN_NAME = 4
 
-COVER_PAT = ["cover", "歌ってみた", "カバー", "covered by", "歌枠", "歌配信"]
-ORIG_PAT = ["original", "オリジナル", "書き下ろし", "official mv",
-            "music video", "lyric video", "debut song",
-            "【mv】", "mv】", "official video", "ost", "【original】"]
+# Cover markers first — they win over everything. Then original markers.
+# Then neutral markers, which admit a video without deciding its type.
+COVER_RE = re.compile(
+    r"\bcover|カバー|歌ってみた|歌枠|歌配信|\bcovered by", re.I
+)
+ORIG_RE = re.compile(
+    r"\boriginal|オリジナル|書き下ろし|\bmv\b|【mv】|\bofficial video"
+    r"|\bmusic video|\blyric video|\bdebut song|\bost\b",
+    re.I,
+)
+NEUTRAL_RE = re.compile(r"\bft\.?\b|\bfeat\b|\bver\.?\b|\bversion\b", re.I)
 
 
 def classify(title, channel):
-    low = (title or "").lower()
-    if any(p in low for p in COVER_PAT):
+    low = title or ""
+    if COVER_RE.search(low):
         return "cover"
-    if any(p in low for p in ORIG_PAT):
+    if ORIG_RE.search(low):
+        return "original"
+    if NEUTRAL_RE.search(low):
         return "original"
     if channel and "- topic" in channel.lower():
         return "original"
@@ -114,10 +123,12 @@ def main():
     known = {r["video_id"] for r in tracks}
     counts = Counter(r.get("channel_id") or "" for r in tracks)
     channels.sort(key=lambda r: counts.get(r["channel_id"], 0))
-    print(f"{len(channels)} resolved channel(s), least-covered first, {len(index)} title alias(es)")
+    print(f"{len(channels)} resolved channel(s), least-covered first, "
+          f"{len(index)} title alias(es)")
 
     added = 0
     seen = set()
+    dropped_short = dropped_long = dropped_type = 0
 
     for ch in channels:
         if added >= MAX_ADD:
@@ -128,7 +139,7 @@ def main():
             continue
         seen.add(cid)
 
-        vids = [v for v in uploads(cid) if v not in known][:PER_CHANNEL]
+        vids = [v for v in uploads(cid) if v not in known]
         print(f"{ch['name']}: {len(vids)} unseen")
         if not vids:
             continue
@@ -136,12 +147,25 @@ def main():
         meta = fetch_meta(vids)
         got = 0
         for vid in vids:
-            if added >= MAX_ADD:
+            if added >= MAX_ADD or got >= PER_CHANNEL:
                 break
             info = meta.get(vid)
-            if not info or info["duration"] > MAX_DURATION:
+            if not info:
                 continue
+            dur = info["duration"]
+            if dur and dur < MIN_DURATION:
+                dropped_short += 1
+                continue
+            if dur > MAX_DURATION:
+                dropped_long += 1
+                continue
+
             title = info["title"]
+            kind = classify(title, info["channel"])
+            if kind == "unknown":
+                dropped_type += 1
+                continue
+
             extra = partners(title, ch["name"], index)
             credits = "/".join([ch["name"]] + extra)
             tracks.append({
@@ -155,10 +179,10 @@ def main():
                 "artists": credits,
                 "offices": "",
                 "published_at": info["published"],
-                "duration_sec": info["duration"],
-                "type": classify(title, info["channel"]),
-                "is_short": str("#shorts" in title.lower() or info["duration"] <= 62),
-                "is_long": str(info["duration"] > LONG_SEC),
+                "duration_sec": dur,
+                "type": kind,
+                "is_short": str("#shorts" in title.lower() or 0 < dur <= MIN_DURATION),
+                "is_long": str(dur > MAX_DURATION),
                 "first_stat_date": "",
                 "latest_views": info["views"],
                 "latest_likes": info["likes"],
@@ -173,6 +197,8 @@ def main():
 
     write_tracks(tracks)
     print(f"done. {len(tracks)} tracks (+{added})")
+    print(f"dropped: {dropped_short} under {MIN_DURATION}s, "
+          f"{dropped_long} over {MAX_DURATION}s, {dropped_type} unclassifiable")
 
 
 if __name__ == "__main__":
