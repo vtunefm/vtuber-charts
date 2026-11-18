@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-11-17T16:40:08+00:00",
-  "today": [
+  "generated_at": "2026-11-18T04:27:05+00:00",
+  "today": [],
+  "yesterday": [
     {
       "video_id": "xg0RcT8l9GU",
       "title": "拝啓ドッペルゲンガー || HAKOS BAELZ COVER 【#CHU2BAE】",
@@ -20,7 +21,7 @@
       "thumbnail": "https://i.ytimg.com/vi/zogVnXIWkOM/hqdefault.jpg"
     }
   ],
-  "yesterday": [
+  "earlier": [
     {
       "video_id": "TnntRX-Z8qM",
       "title": "SIX (cover)【SIX the Musical】",
@@ -47,9 +48,7 @@
       "type": "unknown",
       "published_at": "2026-11-16",
       "thumbnail": "https://i.ytimg.com/vi/IqN0XeMdGU4/hqdefault.jpg"
-    }
-  ],
-  "earlier": [
+    },
     {
       "video_id": "YPIabZFCPVE",
       "title": "I Don't Need Your Love (cover)【SIX the Musical】",
@@ -112,33 +111,6 @@
       "type": "cover",
       "published_at": "2026-11-15",
       "thumbnail": "https://i.ytimg.com/vi/x0lk38D0PjA/hqdefault.jpg"
-    },
-    {
-      "video_id": "5XdFoWtqNK4",
-      "title": "忍者(？都是很擅長收集情報的，至於情報的來源…【AZKi x 風真伊呂波 】【Hololive中文精華】",
-      "artists": "AZKi",
-      "office": "",
-      "type": "unknown",
-      "published_at": "2026-11-14",
-      "thumbnail": "https://i.ytimg.com/vi/5XdFoWtqNK4/hqdefault.jpg"
-    },
-    {
-      "video_id": "b0DiToJMCQc",
-      "title": "【Clip】Night owl with RAMEN!",
-      "artists": "Hani Hima",
-      "office": "",
-      "type": "unknown",
-      "published_at": "2026-11-14",
-      "thumbnail": "https://i.ytimg.com/vi/b0DiToJMCQc/hqdefault.jpg"
-    },
-    {
-      "video_id": "YezMCmPnUVg",
-      "title": "Ironmouse Cover - The Great Despair from Warframe @ Club Ironmouse San Diego 2026",
-      "artists": "Ironmouse",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-14",
-      "thumbnail": "https://i.ytimg.com/vi/YezMCmPnUVg/hqdefault.jpg"
     }
   ]
 }
