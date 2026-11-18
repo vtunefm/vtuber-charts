@@ -5,47 +5,55 @@ Settled entries get folded into `STATE.md` and deleted from here.
 
 ---
 
-## 2026-11-17 — vsong removed, charts rebuilt on own snapshots, artist identity fixed
+## 2026-11-18 — clean-slate reset, collab split, cleanup audit
 
-The big one. This session ended the dependency the whole pipeline was standing on.
+The duplicates from yesterday came back on the first sync, and the alias patching
+that was meant to fix them was losing ground. `OFFICE_RE` stripping and a
+`japanese→english` alias table still left twelve artists doubled, because the
+credit strings carried names that no channel title could match.
 
-**vsong dropped.** A log showed every Hololive EN track 404ing against the
-vsong API and the retry backoff burning a 30-minute workflow timeout. Replaced
-with the YouTube Data API for metadata (`ytmeta.py`, batched `videos.list`) and
-our own snapshots for gains. `ingest.py` rewritten onto `ytmeta.py`. `chart.py`
-rewritten to read `snapshots.csv` deltas only — no external view source remains.
-`discover.yml`, `siblings.yml` and `collect.yml` deleted; their scripts are still
-in the tree and now unreferenced.
+**Reset instead of patching.** `reset.py` deletes `tracks.csv`, `chart.json`,
+`newest.json` and `archive/` while keeping `channels.csv`, `avatars.csv`,
+`snapshots.csv`, `playlists.json` and `aliases.csv`. `reset.yml` wraps it. Ran
+it, then Add Roster Batch twice. The rebuilt `tracks.csv` came back with English
+names throughout, uniform `roster:` tagging and collab credits in the
+`uploader/partner` form — the partner-detection regression that motivated the
+reset was fixed by adding `load_name_index()` and `partners()` to `ingest.py`.
 
-**Cold-start window fixed.** The chart wanted 9–14 Nov while the first snapshot
-was 17 Nov, so nothing could ever qualify. `choose_window()` now falls back to
-week-to-date and sets `partial: true` instead of emitting an empty chart. Cold
-start is handled by the fallback, not by inventing data.
+**Snapshot, then chart.** Snapshots were an hour stale against a file that had
+just been rebuilt, so Snapshot Views ran before Build Weekly Chart. Chart
+published 100/100.
 
-**Artist identity.** Avatars were rendering as circular video stills, then — after
-a first fix — as the *wrong* still. The first attempt keyed avatars by name
-variants and let every `candidates.csv` row compete, including rejected clip
-channels, then fell back to the uploader's channel. On a Marine/Korone collab
-Marine got Korone's face. Replaced with containment matching against
-`done`/`approved` channels only, highest subscribers first, Topic channels last,
-and the uploader used only when the artist *is* the uploader. Artist rows now
-carry `channel_url`, link to the channel instead of the video, and show no song
-title. `avatars.yml` rebuilds the chart in the same run so pictures cannot drift
-from `chart.json` again.
+**Duplicate artists were still there.** Marine at #3 and #11, twenty names
+doubled, every one an id-keyed row next to a name-keyed row. Cause: `CH_PREFIX_RE`
+in `title_variants()` strips everything *before* `Ch.` and keeps the office, so
+`Mori Calliope Ch. hololive-EN` yielded `hololive-en` and never `mori calliope`.
+Collab credits could not resolve, fell back to a name key, and opened a second
+slot.
 
-**Housekeeping.** `docs/STATE.md` written, `docs/README.md` added. Two false
-claims in the first STATE draft corrected against the tree: `newest.py` has no
-original/cover split, and `autopick.py` runs inside `resolve.yml` rather than as
-a manual step.
+**Collab gain is now split.** Agreed with the operator: two credited artists take
+0.5 each, four take 0.25. Shipped alongside the dedupe — `CH_HEAD_RE`, a direct
+canonical-name→id index, office stripping before the divisor, credit dedupe,
+divisor floor of 1, whole-number `video_count`, share rather than raw figure in
+`top_video`, and a merge pass for anything that still keys on a name. Verified
+live: Marine's top video reads 20,078 against a raw 40,157, duplicates gone.
+
+**Cleanup audit.** Mapped every file. `resolve.py`, `autopick.py`, `resolve.yml`,
+`discover.py`, `siblings.py` and `collect.py` are dead — the first pair replaced
+by `roster.csv` + `sync.py`, the second pair still pointed at `old.vsing.info`,
+the last writing a `top10.json` nothing reads. `roster.txt` is dead to the
+pipeline but `app.py` still counts its lines. `docs/` rewritten against the tree.
 
 **Still broken / open:**
-- `prune.py` and `reset.py` are not in the repo, only described. Cleanup has to
-  be done by hand on `tracks.csv` until they exist.
-- `app.py` About tab still claims a 500-view floor when `MIN_GAIN` is 1, and the
-  Artist Top 10 caption still says "highest-gaining video shown."
-- `classify()` leaves ~25% of tracks `unknown`, which excludes them from the
-  chart.
-- Artist picture and link coverage is capped by roster depth, not by code. Watch
-  the `artist pictures N/M · channels N/M` line in the chart log.
+- `data/aliases.csv` is missing from the repo. `ingest.py` guards it with
+  `os.path.exists`, so it fails silently and partner detection loses its
+  Japanese half. Highest priority.
+- `is_office()` only fires on unresolved names, so offices that resolve to a
+  channel id still chart — `hololive` at #4, plus EN, ID, ReGLOSS, NIJISANJI EN.
+  The check has to move ahead of resolution.
+- No per-artist video cap, so catalogue size still decides the artist chart.
+- `app.py` copy still wrong in three places, now including the missing note that
+  collab gain is divided.
+- `classify()`, `playlists.py` `Ep N` bug, `prune.py` all untouched.
 
-**Next:** `app.py` copy edits, then widening `classify()`.
+**Next:** rebuild `aliases.csv`, then move the office check ahead of resolution.
