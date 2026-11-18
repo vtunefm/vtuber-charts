@@ -23,12 +23,14 @@ CH_SUFFIX_RE = re.compile(r"\s*ch\.?\s*$", re.I)
 CH_PREFIX_RE = re.compile(r"^.*?\bch\.?\s+", re.I)
 CH_HEAD_RE = re.compile(r"\bch\.?\b.*$", re.I)
 
-# Offices, units and agencies are not people — they never take a credit or a share.
+# Offices and agencies. They take a credit only when they are the uploader —
+# group songs are released on the company channel and nowhere else — and never
+# as a trailing source tag on somebody's own video.
 OFFICE_TAGS = {
     "hololive", "hololive en", "hololive id", "hololive dev_is", "holostars",
     "holostars en", "nijisanji", "nijisanji en", "nijisanji id", "nijisanji kr",
-    "regloss", "vspo", "vsinger", "aogiri", "neo-porte", "phase connect",
-    "idol corp", "prism project", "kizuna ai inc.",
+    "regloss", "flow glow", "vspo", "vsinger", "aogiri", "neo-porte",
+    "phase connect", "idol corp", "prism project", "kizuna ai inc.",
 }
 
 
@@ -273,9 +275,15 @@ def main():
                     if hit:
                         cid = id_by_name.get(hit.lower(), "")
                         name = hit
+
+                if is_office(name):
+                    # Office counts only as the uploader. As a trailing source tag
+                    # it would take a share off the actual artist.
+                    if (cid and cid == owner_id) or low == owner_name.lower():
+                        credits[cid or owner_name.lower()] = (name, cid or owner_id)
+                    continue
+
                 if not cid:
-                    if is_office(name):
-                        continue
                     unresolved.add(name)
                 credits[cid or name.lower()] = (name, cid)
 
@@ -322,7 +330,10 @@ def main():
             target["top_share"] = rec["top_share"]
         del artists[key]
         merged += 1
-    print(f"merged {merged} name-only duplicate(s) · {splits} collab(s) split")
+
+    office_rows = sum(1 for r in artists.values() if is_office(r["name"]))
+    print(f"merged {merged} name-only duplicate(s) · {splits} collab(s) split · "
+          f"{office_rows} office channel(s)")
 
     pictured = sum(1 for r in artists.values() if r["picture"])
     linked = sum(1 for r in artists.values() if r["channel_url"])
@@ -338,6 +349,7 @@ def main():
             "channel_url": rec["channel_url"],
             "picture": rec["picture"] or rec["top"]["thumbnail"],
             "office": rec["top"].get("office"),
+            "office_channel": is_office(rec["name"]),
             "views_gained": int(round(rec["gain"])),
             "video_count": rec["count"],
             "top_video": {
