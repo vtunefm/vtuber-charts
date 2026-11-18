@@ -198,6 +198,8 @@ def main():
         and t.get("is_long") != "True"
         and t.get("type") != "unknown"
         and t.get("status", "active") == "active"
+        and (not to_int(t.get("duration_sec"))
+             or 120 <= to_int(t.get("duration_sec")) <= 420)
     ]
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
