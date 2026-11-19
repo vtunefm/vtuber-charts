@@ -77,13 +77,12 @@ def snapshot_deltas():
 def choose_window():
     """Billboard-style tracking week: Friday 00:00 to Thursday 23:59 UTC.
 
-    The boundary sits on the industry release day, so a Friday drop gets the
-    whole window instead of the tail of it. On Friday the chart shows the week
-    that closed yesterday; from Saturday it shows the new week to date.
+    The window opens at the same moment the new chart is published, so the
+    counter resets with the refresh and a Friday drop gets the whole week.
     """
     today = datetime.now(timezone.utc).date()
     back = (today.weekday() - FRIDAY) % 7
-    friday = today - timedelta(days=7 if back == 0 else back)
+    friday = today - timedelta(days=back)
     thursday = friday + timedelta(days=6)
     end = min(today, thursday)
     return friday, end, end < thursday
@@ -247,8 +246,36 @@ def carry_over(songs, artists_prev, end):
 
     return added, len(prev_artists), prev_week
 
+def finalize_previous():
+    """Freeze the most recent closed week into history, once."""
+    if not os.path.isdir(ARCHIVE):
+        return
+    today = datetime.now(timezone.utc).date().isoformat()
+    weeks = sorted(n[:-5] for n in os.listdir(ARCHIVE)
+                   if n.endswith(".json") and n[:-5] < today)
+    if not weeks:
+        return
+    week = weeks[-1]
+    dest = os.path.join(HISTORY, f"{week}.json")
+    if os.path.exists(dest):
+        return
+    with open(os.path.join(ARCHIVE, f"{week}.json"), encoding="utf-8") as f:
+        data = json.load(f)
+    os.makedirs(HISTORY, exist_ok=True)
+    closed = date.fromisoformat(week)
+    with open(dest, "w", encoding="utf-8") as f:
+        json.dump({
+            "week_start": (closed - timedelta(days=6)).isoformat(),
+            "week_end": week,
+            "chart_date": (closed + timedelta(days=2)).isoformat(),
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "top10": (data.get("entries") or [])[:10],
+        }, f, ensure_ascii=False, indent=2)
+
 
 def main():
+    finalize_previous()
+    
     if not os.path.exists(TRACKS):
         print("no tracks.csv")
         return
