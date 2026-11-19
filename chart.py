@@ -7,6 +7,8 @@ from datetime import date, datetime, timedelta, timezone
 MIN_GAIN = 1
 MAX_ENTRIES = 100
 MAX_FETCH = 5000
+MIN_DURATION = 120
+MAX_DURATION = 420
 
 TRACKS = "data/tracks.csv"
 SNAPSHOTS = "data/snapshots.csv"
@@ -14,6 +16,7 @@ AVATARS = "data/avatars.csv"
 CHANNELS = "data/channels.csv"
 OUT = "data/chart.json"
 ARCHIVE = "data/archive"
+HISTORY = "data/history"
 
 CHANNEL = "https://www.youtube.com/channel/{}"
 
@@ -67,19 +70,13 @@ def snapshot_deltas():
     return gains
 
 
-def choose_window(deltas):
+def choose_window():
+    """Current week only: Monday through today, capped at Saturday."""
     today = datetime.now(timezone.utc).date()
-    days_back = (today.weekday() - 5) % 7
-    end = today - timedelta(days=days_back)
-    start = end - timedelta(days=5)
-
-    days = {d for per_day in deltas.values() for d in per_day}
-    if not days or any(start <= d <= end for d in days):
-        return start, end, False
-
-    latest = max(days)
-    monday = latest - timedelta(days=latest.weekday())
-    return monday, latest, True
+    monday = today - timedelta(days=today.weekday())
+    saturday = monday + timedelta(days=5)
+    end = min(today, saturday)
+    return monday, end, end < saturday
 
 
 def past_week_for(end):
@@ -88,6 +85,18 @@ def past_week_for(end):
     weeks = sorted(n[:-5] for n in os.listdir(ARCHIVE) if n.endswith(".json"))
     weeks = [w for w in weeks if w < end.isoformat()]
     return weeks[-1] if weeks else None
+
+
+def load_week(week):
+    path = os.path.join(ARCHIVE, f"{week}.json")
+    if not week or not os.path.exists(path):
+        return {}, {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}, {}
+    return data.get("entries") or [], data.get("artists") or []
 
 
 def history(key, exclude=None):
@@ -184,6 +193,29 @@ def load_channels():
     return by_id, alias
 
 
+def carry_over(songs, artists_prev, end):
+    """Hold last week's slots at zero so the grid survives the week rollover."""
+    prev_week = past_week_for(end)
+    if not prev_week:
+        return 0, 0, None
+    prev_entries, prev_artists = load_week(prev_week)
+
+    have = {s["video_id"] for s in songs}
+    added = 0
+    for entry in prev_entries:
+        vid = entry.get("video_id")
+        if not vid or vid in have:
+            continue
+        carry = dict(entry)
+        carry["views_gained"] = 0
+        carry["days_covered"] = 0
+        songs.append(carry)
+        have.add(vid)
+        added += 1
+
+    return added, len(prev_artists), prev_week
+
+
 def main():
     if not os.path.exists(TRACKS):
         print("no tracks.csv")
@@ -199,7 +231,7 @@ def main():
         and t.get("type") != "unknown"
         and t.get("status", "active") == "active"
         and (not to_int(t.get("duration_sec"))
-             or 120 <= to_int(t.get("duration_sec")) <= 420)
+             or MIN_DURATION <= to_int(t.get("duration_sec")) <= MAX_DURATION)
     ]
     print(f"{len(eligible)}/{len(tracks)} eligible after filters")
 
@@ -208,7 +240,7 @@ def main():
     names_by_id, title_alias = load_channels()
     id_by_name = {n.lower(): i for i, n in names_by_id.items()}
     print(f"{len(avatars)} avatar(s) · {len(names_by_id)} known channel(s)")
-    start, end, partial = choose_window(deltas)
+    start, end, partial = choose_window()
     print(f"window: {start} .. {end} (partial={partial}) · snapshot tracks={len(deltas)}")
 
     songs = []
@@ -247,14 +279,25 @@ def main():
             "published_at": track.get("published_at"),
             "views_gained": gain,
             "days_covered": len(hits),
+            "duration_sec": to_int(track.get("duration_sec")),
             "thumbnail": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
         })
 
     print(f"qualified={len(songs)}")
-    if not songs:
-        print("no gains yet — needs two snapshot runs on the same tracks")
+    carried, prev_artist_count, prev_week = carry_over(songs, [], end)
+    if carried:
+        print(f"carried {carried} slot(s) over from {prev_week} at 0")
 
-    songs.sort(key=lambda e: (-e["views_gained"], e["published_at"] or ""))
+    entry_hist = history("entries", end.isoformat())
+    artist_hist = history("artists", end.isoformat())
+    past_week = past_week_for(end)
+
+    def entry_last(entry):
+        rec = entry_hist.get(entry["video_id"], {}).get("by_week", {})
+        return rec.get(past_week) if past_week else None
+
+    songs.sort(key=lambda e: (-e["views_gained"], entry_last(e) or 999,
+                              e.get("published_at") or ""))
     ranked_songs = songs[:MAX_ENTRIES]
 
     artists = {}
@@ -314,6 +357,20 @@ def main():
                 rec["top"] = song
                 rec["top_share"] = share
 
+    # Carry last week's artists in at zero too, so the artist grid holds shape.
+    for entry in (load_week(past_week)[1] if past_week else []):
+        key = entry.get("channel_id") or (entry.get("name") or "").lower()
+        if not key or key in artists:
+            continue
+        artists[key] = {
+            "name": entry.get("name") or "", "display": entry.get("display") or "",
+            "gain": 0.0, "count": 0, "top": None, "top_share": 0.0,
+            "channel_id": entry.get("channel_id") or "",
+            "channel_url": entry.get("channel_url") or "",
+            "picture": entry.get("picture") or "",
+            "fallback": entry.get("top_video") or {},
+        }
+
     merged = 0
     for key in [k for k, r in artists.items() if not r["channel_id"]]:
         rec = artists[key]
@@ -327,7 +384,8 @@ def main():
         target = artists[twin]
         target["gain"] += rec["gain"]
         target["count"] += rec["count"]
-        if rec["top"]["views_gained"] > target["top"]["views_gained"]:
+        if rec["top"] and (not target["top"]
+                           or rec["top"]["views_gained"] > target["top"]["views_gained"]):
             target["top"] = rec["top"]
             target["top_share"] = rec["top_share"]
         del artists[key]
@@ -343,32 +401,41 @@ def main():
     if unresolved:
         print(f"{len(unresolved)} unresolved credit(s): " + ", ".join(sorted(unresolved)))
 
-    artist_rows = [
-        {
+    artist_rows = []
+    for rec in artists.values():
+        top = rec["top"]
+        fallback = rec.get("fallback") or {}
+        artist_rows.append({
             "name": rec["name"],
-            "display": rec["display"],
+            "display": rec["display"] or rec["name"],
             "channel_id": rec["channel_id"],
             "channel_url": rec["channel_url"],
-            "picture": rec["picture"] or rec["top"]["thumbnail"],
-            "office": rec["top"].get("office"),
+            "picture": rec["picture"] or (top["thumbnail"] if top
+                                          else fallback.get("thumbnail", "")),
+            "office": top.get("office") if top else "",
             "office_channel": is_office(rec["name"]),
             "views_gained": int(round(rec["gain"])),
             "video_count": rec["count"],
             "top_video": {
-                "video_id": rec["top"]["video_id"],
-                "title": rec["top"]["title"],
-                "thumbnail": rec["top"]["thumbnail"],
+                "video_id": top["video_id"] if top else fallback.get("video_id", ""),
+                "title": top["title"] if top else fallback.get("title", ""),
+                "thumbnail": top["thumbnail"] if top else fallback.get("thumbnail", ""),
                 "views_gained": int(round(rec["top_share"])),
             },
-        }
-        for rec in artists.values()
-    ]
-    artist_rows.sort(key=lambda a: (-a["views_gained"], -a["video_count"], a["name"]))
+        })
+
+    def artist_last(entry):
+        ident = entry["channel_id"] or entry["name"]
+        rec = artist_hist.get(ident, {}).get("by_week", {})
+        return rec.get(past_week) if past_week else None
+
+    artist_rows.sort(key=lambda a: (-a["views_gained"], -a["video_count"],
+                                    artist_last(a) or 999, a["name"]))
     ranked_artists = artist_rows[:MAX_ENTRIES]
 
-    past_week = past_week_for(end)
-    apply_history(ranked_songs, history("entries", end.isoformat()), past_week, lambda e: e["video_id"])
-    apply_history(ranked_artists, history("artists", end.isoformat()), past_week, lambda a: a["channel_id"] or a["name"])
+    apply_history(ranked_songs, entry_hist, past_week, lambda e: e["video_id"])
+    apply_history(ranked_artists, artist_hist, past_week,
+                  lambda a: a["channel_id"] or a["name"])
 
     payload = {
         "week_start": start.isoformat(),
@@ -381,7 +448,20 @@ def main():
 
     os.makedirs(ARCHIVE, exist_ok=True)
     with open(os.path.join(ARCHIVE, f"{end.isoformat()}.json"), "w", encoding="utf-8") as f:
-        json.dump({"entries": ranked_songs, "artists": ranked_artists}, f, ensure_ascii=False, indent=2)
+        json.dump({"entries": ranked_songs, "artists": ranked_artists}, f,
+                  ensure_ascii=False, indent=2)
+
+    if not partial:
+        os.makedirs(HISTORY, exist_ok=True)
+        with open(os.path.join(HISTORY, f"{end.isoformat()}.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump({
+                "week_start": start.isoformat(),
+                "week_end": end.isoformat(),
+                "generated_at": payload["generated_at"],
+                "top10": ranked_songs[:10],
+            }, f, ensure_ascii=False, indent=2)
+        print(f"wrote top-10 record for {end.isoformat()}")
 
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
