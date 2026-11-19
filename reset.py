@@ -18,7 +18,8 @@ if os.path.isdir(ARCHIVE):
     print(f"removed {ARCHIVE}/")
     removed += 1
 
-for keep in ("channels.csv", "avatars.csv", "snapshots.csv", "playlists.json", "aliases.csv"):
+for keep in ("channels.csv", "avatars.csv", "snapshots.csv", "playlists.json",
+             "aliases.csv", "subs.csv", "artist_channels.csv", "season.json"):
     path = os.path.join(DATA, keep)
     print(f"kept {path}" if os.path.exists(path) else f"absent {path}")
 
