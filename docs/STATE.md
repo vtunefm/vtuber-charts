@@ -26,7 +26,8 @@ The long game is an awards show. The chart is the credibility engine for it.
 
 ## Non-negotiables
 
-- Monday–Saturday only. Not a bug, not negotiable.
+- Friday–Thursday only, Billboard-style. Not a bug, not negotiable. The boundary
+  is the industry release day so late-week drops are not gutted by the reset.
 - The panel is curated and roster-driven. Nothing enters the chart that is not
   in `roster.csv`.
 - Whole files over fragments. Fragments have landed in the wrong place more
@@ -162,6 +163,9 @@ Every job shares `concurrency: group: data-commit` and a five-attempt
   taxonomy, no lexicon, no classifier. A finer split is a later fill-in.
 - **No subscriber tiers.** Award brackets were considered and dropped; raw
   subscriber counts are captured in `subs.csv` for normalisation instead.
+- **Recurrent rule, Billboard's.** Below #50 after 20 weeks, #25 after 26, #10
+  after 52, #5 after 78. Keeps the chart from calcifying. Songs only for now;
+  the artist chart has no age rule yet.
 
 ## Awards — agreed shape, not built
 
