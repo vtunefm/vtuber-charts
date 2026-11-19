@@ -42,6 +42,40 @@ def fetch(chunk):
             time.sleep(3 * (attempt + 1))
 
 
+def record_subs(now):
+    if not os.path.exists(CHANNELS):
+        return 0
+    with open(CHANNELS, newline="", encoding="utf-8") as f:
+        ids = [r["channel_id"] for r in csv.DictReader(f)
+               if r.get("status") == "ok" and r.get("channel_id")]
+    if not ids:
+        return 0
+    os.makedirs("data", exist_ok=True)
+    fresh = not os.path.exists(SUBS)
+    written = 0
+    with open(SUBS, "a", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=SCOLS)
+        if fresh:
+            w.writeheader()
+        for i in range(0, len(ids), BATCH):
+            try:
+                resp = youtube.channels().list(
+                    part="statistics", id=",".join(ids[i:i + BATCH])
+                ).execute()
+            except Exception as e:
+                print(f"  subs batch {i // BATCH} failed: {str(e)[:120]}")
+                continue
+            for item in resp.get("items", []):
+                w.writerow({
+                    "channel_id": item["id"],
+                    "read_at": now,
+                    "subscribers": as_int(item.get("statistics", {}).get("subscriberCount")),
+                })
+                written += 1
+            time.sleep(0.3)
+    return written
+
+
 def main():
     if not os.path.exists(TRACKS):
         print("no tracks.csv")
