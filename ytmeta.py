@@ -41,5 +41,6 @@ def fetch_meta(ids):
                 "duration": parse_duration(item.get("contentDetails", {}).get("duration")),
                 "views": int(st.get("viewCount", 0)),
                 "likes": int(st.get("likeCount", 0)),
+                "description": (sn.get("description") or "")[:1200],
             }
     return out
