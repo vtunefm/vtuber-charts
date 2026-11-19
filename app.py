@@ -29,15 +29,18 @@ newest = ui.load("data/newest.json") or {}
 playlists = ui.load("data/playlists.json") or {}
 
 panel_size = 0
-if os.path.exists("roster.txt"):
-    with open("roster.txt", encoding="utf-8") as f:
-        panel_size = sum(1 for line in f if line.strip() and not line.startswith("#"))
+if os.path.exists("roster.csv"):
+    with open("roster.csv", encoding="utf-8-sig") as f:
+        panel_size = sum(1 for line in f if line.strip() and not line.startswith("0name")) - 1
 
 chart_tab, newest_tab, show_tab, about_tab = st.tabs(
     ["Charts", "Newest Releases", "From the Show", "About"]
 )
 
 with chart_tab:
+    if chart and chart.get("partial"):
+        st.caption("Week in progress — this chart is still moving.")
+
     if entries:
         top = entries[0]
         st.markdown(
@@ -64,7 +67,7 @@ with chart_tab:
     st.subheader("Artist Top 10")
     if chart:
         st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
-        st.caption("One entry per artist · highest-gaining video shown · collab gains credited to all")
+        st.caption("One entry per artist · best-gaining song shown · collab gain divided between credits")
     if artists:
         st.markdown("".join(ui.artist_row(a, len(artists)) for a in artists[:10]), unsafe_allow_html=True)
         st.page_link("pages/2_Artist_Top_100.py", label="Full Artist Top 100 →")
@@ -111,7 +114,11 @@ with about_tab:
     st.markdown(
         f"""
 **Tracking window.** Views are counted from Monday 00:00 to Saturday 23:59 UTC.
-The chart freezes when it publishes. Sunday is the scheduling day.
+The count resets to zero at Monday 00:00. Sunday is the scheduling day.
+
+**Starting positions.** Every artist and song starts the week level at zero. Last
+week's positions hold their slots until new views displace them, so the chart
+reorders as the week fills rather than starting blank.
 
 **What gets ranked.** Position is decided by views *gained* in that window, not by
 lifetime totals. An older song competes on the same footing as one released
@@ -120,21 +127,22 @@ yesterday, because only the week's movement counts.
 **The panel.** The chart covers a curated panel of {panel_size or "several"} VTubers and
 VSingers. It is not an open index — artists are added deliberately.
 
-**Eligibility.** Shorts and vertical clips are excluded, as are streams over 15
-minutes and videos under 500 views in the window.
+**Eligibility.** Shorts and vertical clips are excluded, as are videos under 2
+minutes, over 7 minutes, and anything that can't be placed as a cover or an
+original.
 
-**Ties** break toward the older upload.
+**Ties** break toward last week's position, then the older upload.
 
 **Artist chart.** One entry per artist, no matter how many songs they chart. Their
-highest-gaining song is shown. On collabs the full gain is credited to every
-credited artist.
+best-gaining song is shown. Collab gain is divided evenly between the credited
+artists.
 
 **Peaks and weeks** are cumulative from the chart's first published week.
         """
     )
     st.caption(
-        "Data: YouTube view counts collected daily. Chart placement is automated; "
-        "the panel is curated by hand."
+        "Data: YouTube view counts collected four times daily. Chart placement is "
+        "automated; the panel is curated by hand."
     )
 
-st.caption("Views are counted Monday–Saturday and frozen when the chart publishes.")
+st.caption("Views are counted Monday–Saturday. The count resets to zero at midnight UTC on Monday.")
