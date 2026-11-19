@@ -17,6 +17,9 @@ OUT = "data/snapshots.csv"
 BATCH = 50
 TRIES = 4
 COLS = ["video_id", "snapshot_at", "view_count", "like_count"]
+CHANNELS = "data/channels.csv"
+SUBS = "data/subs.csv"
+SCOLS = ["channel_id", "read_at", "subscribers"]
 
 
 def as_int(value):
