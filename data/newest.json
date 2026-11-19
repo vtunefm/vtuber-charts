@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-11-18T17:51:47+00:00",
-  "today": [
+  "generated_at": "2026-11-19T02:09:03+00:00",
+  "today": [],
+  "yesterday": [
     {
       "video_id": "Z394vM303Yk",
       "title": "KPop Demon Hunters (HUNTR/X) - Golden | Covered by Josie-62",
@@ -92,7 +93,7 @@
       "thumbnail": "https://i.ytimg.com/vi/-SSeJCs9xok/hqdefault.jpg"
     }
   ],
-  "yesterday": [
+  "earlier": [
     {
       "video_id": "xg0RcT8l9GU",
       "title": "拝啓ドッペルゲンガー || HAKOS BAELZ COVER 【#CHU2BAE】",
@@ -137,9 +138,16 @@
       "type": "cover",
       "published_at": "2026-11-17",
       "thumbnail": "https://i.ytimg.com/vi/Nd_niLCGTo8/hqdefault.jpg"
-    }
-  ],
-  "earlier": [
+    },
+    {
+      "video_id": "5kr83iBpxd4",
+      "title": "Dracula - Tame Impala [Isaa Corva Cover]",
+      "artists": "Isaa Corva",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-17",
+      "thumbnail": "https://i.ytimg.com/vi/5kr83iBpxd4/hqdefault.jpg"
+    },
     {
       "video_id": "Y_I_NOHVwzI",
       "title": "初星学園 「メタモルフォーゼ」Official Music Video (HATSUBOSHI GAKUEN - Metamorphose)",
@@ -175,60 +183,6 @@
       "type": "cover",
       "published_at": "2026-11-16",
       "thumbnail": "https://i.ytimg.com/vi/acFI_712T6c/hqdefault.jpg"
-    },
-    {
-      "video_id": "wDmL8IQPi5U",
-      "title": "C.E.H.B. - Ashelia Rinkou feat. SO87 [Original Song]",
-      "artists": "Rinkou Ashelia",
-      "office": "",
-      "type": "original",
-      "published_at": "2026-11-16",
-      "thumbnail": "https://i.ytimg.com/vi/wDmL8IQPi5U/hqdefault.jpg"
-    },
-    {
-      "video_id": "ifJl7HArfro",
-      "title": "祭囃子/ 不知火フレア(Cover)",
-      "artists": "Shiranui Flare",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-16",
-      "thumbnail": "https://i.ytimg.com/vi/ifJl7HArfro/hqdefault.jpg"
-    },
-    {
-      "video_id": "TnntRX-Z8qM",
-      "title": "SIX (cover)【SIX the Musical】",
-      "artists": "Tokaku〜ん",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-16",
-      "thumbnail": "https://i.ytimg.com/vi/TnntRX-Z8qM/hqdefault.jpg"
-    },
-    {
-      "video_id": "dJoLignQRJI",
-      "title": "セレナーデ - なとり covered by 雨夜リズ",
-      "artists": "Amayo Liz",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-15",
-      "thumbnail": "https://i.ytimg.com/vi/dJoLignQRJI/hqdefault.jpg"
-    },
-    {
-      "video_id": "j6yGx-r_sEU",
-      "title": "Fall in Love - Suiet (Cover) / ファム・ファタル #FFFF",
-      "artists": "Femme Fatale",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-15",
-      "thumbnail": "https://i.ytimg.com/vi/j6yGx-r_sEU/hqdefault.jpg"
-    },
-    {
-      "video_id": "LE3nSBwNgAo",
-      "title": "【歌ってみた】「君の神様になりたい。 RAP VERSION 2026」covered by 春猿火",
-      "artists": "Harusaruhi",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-15",
-      "thumbnail": "https://i.ytimg.com/vi/LE3nSBwNgAo/hqdefault.jpg"
     }
   ]
 }
