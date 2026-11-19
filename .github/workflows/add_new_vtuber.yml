@@ -1,4 +1,4 @@
-name: Add Roster Batch
+name: >> Add VTuber to Chart <<
 
 on:
   workflow_dispatch:
