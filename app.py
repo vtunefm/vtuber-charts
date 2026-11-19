@@ -14,7 +14,7 @@ if os.path.exists("assets/logo.png"):
 with head_col:
     st.title("VTune FM")
     st.markdown(
-        "<div class='tagline'>Weekly VTuber music charts · Top 10 by views gained, Monday to Saturday</div>",
+        "<div class='tagline'>Weekly VTuber music charts · Top 10 by views gained, Friday to Thursday</div>",
         unsafe_allow_html=True,
     )
 
@@ -58,7 +58,10 @@ with chart_tab:
 
     st.subheader("Music Top 10")
     if chart and entries:
-        st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
+        st.caption(
+            f"Chart week {chart['week_start']} → {chart['week_end']}"
+            f" · dated {chart.get('chart_date', '')}"
+        )
         st.markdown("".join(ui.chart_row(e, len(entries)) for e in entries[:10]), unsafe_allow_html=True)
         st.page_link("pages/1_Music_Top_100.py", label="Full Music Top 100 →")
     else:
@@ -66,7 +69,10 @@ with chart_tab:
 
     st.subheader("Artist Top 10")
     if chart:
-        st.caption(f"Chart week {chart['week_start']} → {chart['week_end']}")
+        st.caption(
+            f"Chart week {chart['week_start']} → {chart['week_end']}"
+            f" · dated {chart.get('chart_date', '')}"
+        )
         st.caption("One entry per artist · best-gaining song shown · collab gain divided between credits")
     if artists:
         st.markdown("".join(ui.artist_row(a, len(artists)) for a in artists[:10]), unsafe_allow_html=True)
@@ -113,8 +119,9 @@ with about_tab:
     st.subheader("How the chart works")
     st.markdown(
         f"""
-**Tracking window.** Views are counted from Monday 00:00 to Saturday 23:59 UTC.
-The count resets to zero at Monday 00:00. Sunday is the scheduling day.
+**Tracking window.** Views are counted from Friday 00:00 to Thursday 23:59 UTC.
+The count resets to zero at Friday 00:00. The boundary sits on the industry
+release day, so a Friday drop gets the full week instead of the tail of it.
 
 **Starting positions.** Every artist and song starts the week level at zero. Last
 week's positions hold their slots until new views displace them, so the chart
@@ -131,6 +138,9 @@ VSingers. It is not an open index — artists are added deliberately.
 minutes, over 7 minutes, and anything that can't be placed as a cover or an
 original.
 
+**Recurrent rule.** A song drops off once it ages out and sags: below #50 after
+20 weeks, #25 after 26, #10 after 52, #5 after 78.
+
 **Ties** break toward last week's position, then the older upload.
 
 **Artist chart.** One entry per artist, no matter how many songs they chart. Their
@@ -145,4 +155,4 @@ artists.
         "automated; the panel is curated by hand."
     )
 
-st.caption("Views are counted Monday–Saturday. The count resets to zero at midnight UTC on Monday.")
+st.caption("Views are counted Friday–Thursday. The count resets to zero at midnight UTC on Friday.")
