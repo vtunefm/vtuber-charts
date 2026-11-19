@@ -68,6 +68,7 @@ def resolve(handle):
         return {
             "channel_id": item["id"],
             "channel_title": sn.get("title", ""),
+            "created_at": (sn.get("publishedAt") or "")[:10],
             "subscribers": to_int(item.get("statistics", {}).get("subscriberCount")),
         }
 
