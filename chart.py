@@ -9,6 +9,10 @@ MAX_ENTRIES = 100
 MAX_FETCH = 5000
 MIN_DURATION = 120
 MAX_DURATION = 420
+FRIDAY = 4
+
+# Billboard's recurrent rule: (weeks on chart, position it must beat to survive).
+RECURRENT = ((78, 5), (52, 10), (26, 25), (20, 50))
 
 TRACKS = "data/tracks.csv"
 SNAPSHOTS = "data/snapshots.csv"
@@ -71,12 +75,18 @@ def snapshot_deltas():
 
 
 def choose_window():
-    """Current week only: Monday through today, capped at Saturday."""
+    """Billboard-style tracking week: Friday 00:00 to Thursday 23:59 UTC.
+
+    The boundary sits on the industry release day, so a Friday drop gets the
+    whole window instead of the tail of it. On Friday the chart shows the week
+    that closed yesterday; from Saturday it shows the new week to date.
+    """
     today = datetime.now(timezone.utc).date()
-    monday = today - timedelta(days=today.weekday())
-    saturday = monday + timedelta(days=5)
-    end = min(today, saturday)
-    return monday, end, end < saturday
+    back = (today.weekday() - FRIDAY) % 7
+    friday = today - timedelta(days=7 if back == 0 else back)
+    thursday = friday + timedelta(days=6)
+    end = min(today, thursday)
+    return friday, end, end < thursday
 
 
 def past_week_for(end):
@@ -133,6 +143,28 @@ def apply_history(items, records, past_week, ident):
         item["last_week"] = last
         item["peak"] = min(rec["peak"], i)
         item["weeks_on_chart"] = len(rec["by_week"]) + 1
+        if last is None:
+            item["movement"] = "new"
+        elif i < last:
+            item["movement"] = "up"
+        elif i > last:
+            item["movement"] = "down"
+        else:
+            item["movement"] = "same"
+
+
+def is_recurrent(entry):
+    return any(
+        entry["weeks_on_chart"] >= weeks and entry["rank"] > position
+        for weeks, position in RECURRENT
+    )
+
+
+def rerank(items):
+    for i, item in enumerate(items, start=1):
+        item["rank"] = i
+        item["peak"] = min(item["peak"], i)
+        last = item.get("last_week")
         if last is None:
             item["movement"] = "new"
         elif i < last:
@@ -437,9 +469,16 @@ def main():
     apply_history(ranked_artists, artist_hist, past_week,
                   lambda a: a["channel_id"] or a["name"])
 
+    pruned = [e for e in ranked_songs if not is_recurrent(e)]
+    if len(pruned) != len(ranked_songs):
+        print(f"recurrent rule removed {len(ranked_songs) - len(pruned)} song(s)")
+        ranked_songs = pruned
+        rerank(ranked_songs)
+
     payload = {
         "week_start": start.isoformat(),
         "week_end": end.isoformat(),
+        "chart_date": (end + timedelta(days=2)).isoformat(),
         "partial": partial,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "entries": ranked_songs,
@@ -458,6 +497,7 @@ def main():
             json.dump({
                 "week_start": start.isoformat(),
                 "week_end": end.isoformat(),
+                "chart_date": payload["chart_date"],
                 "generated_at": payload["generated_at"],
                 "top10": ranked_songs[:10],
             }, f, ensure_ascii=False, indent=2)
