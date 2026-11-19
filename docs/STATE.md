@@ -1,6 +1,6 @@
 # VTune FM Charts — State of the Build
 
-Last updated: 2026-11-18
+Last updated: 2026-11-19
 
 Read this before touching anything. It exists so a fresh session does not
 re-litigate settled decisions or re-break fixed bugs. Read the repo tree too —
@@ -36,6 +36,8 @@ The long game is an awards show. The chart is the credibility engine for it.
 - English-facing. Japanese names are secondary, shown as the sub-line.
 - No `days_live` field. The gap against YouTube's counter is source lag and is
   already labelled.
+- `created_at`, `subs.csv` and `artist_channels.csv` are capture-only. Nothing
+  ranks or filters on them yet. Do not gate eligibility on any of them.
 
 ## Architecture
 
@@ -73,16 +75,17 @@ carry far more than 40 rows. That is expected.
 |---|---|
 | `roster.csv` | Source of truth for the panel. `name` is the English display name, `handle` is the `@handle`. |
 | `sync.py` | Resolves each `@handle` through `channels.list?forHandle` into `data/channels.csv` with `status` `ok` / `missing` / `blank`. |
+| `artist_channels.py` | Derives one canonical channel per artist from the highest-subscriber `status: ok` row. Never overwrites an existing value, so hand fixes survive. |
 | `ingest.py` | Pulls uploads for `status: ok` channels via `ytmeta.py`. Least-covered first, `MAX_ADD` / `PER_CHANNEL` capped, partners detected from titles. |
 | `ytmeta.py` | Batched `videos.list` metadata. |
-| `snapshot.py` | Records `view_count` per track into `snapshots.csv`. |
-| `chart.py` | Builds `chart.json`. Window selection, gains, history, artist dedupe, collab split, avatar and channel resolution. |
+| `snapshot.py` | Records `view_count` per track into `snapshots.csv`, and `subscribers` per channel into `subs.csv`. |
+| `chart.py` | Builds `chart.json`. Window selection, gains, history, artist dedupe, collab split, avatar and channel resolution. Also writes `archive/<week>.json` every run and `history/<week>.json` when a week closes. |
 | `newest.py` | Builds the newest feed. |
 | `avatars.py` | Backfills blank `channel_id`s, then fetches channel avatars into `avatars.csv`. |
 | `playlists.py` | Episode playlist cards. |
 | `ui.py` | All rendering and CSS. |
-| `app.py`, `pages/*` | Streamlit surfaces. |
-| `reset.py` | Deletes `tracks.csv`, `chart.json`, `newest.json` and `archive/`. Keeps channels, avatars, snapshots, playlists, aliases. |
+| `app.py`, `pages/*` | Streamlit surfaces. `pages/3_Past_Weeks.py` renders `data/history` and is sidebar-only. |
+| `reset.py` | Deletes `tracks.csv`, `chart.json`, `newest.json` and `archive/`. Keeps channels, avatars, snapshots, playlists, aliases, subs, artist_channels and season. |
 
 ### Retired, still in the tree, unreferenced
 
@@ -99,10 +102,10 @@ carry far more than 40 rows. That is expected.
 
 | Workflow | Trigger | Notes |
 |---|---|---|
-| `sync.yml` | manual | Resolves roster handles. Run before any add. |
-| `add.yml` | manual | `sync` → `ingest` → `avatars` → `snapshot` → `chart` → `newest` → `playlists` → `snapshot`, one job. |
+| `sync.yml` | manual | Resolves roster handles, then derives `artist_channels.csv`. Run before any add. |
+| `add.yml` | manual | `sync` → `artist_channels` → `ingest` → `avatars` → `snapshot` → `chart` → `newest` → `playlists` → `snapshot`, one job. |
 | `ingest.yml` | manual | `hit MAX_ADD, stopping` means run it again |
-| `snapshot.yml` | daily 23:50 UTC + manual | |
+| `snapshot.yml` | daily 05:00, 11:00, 17:00, 23:00 UTC + manual | Also rebuilds the chart, so the page tracks each reading |
 | `chart.yml` | Sundays 09:00 UTC + manual | |
 | `newest.yml` | daily 10:00 UTC + manual | |
 | `avatars.yml` | daily 06:00 UTC + manual | Also rebuilds the chart, so pictures cannot drift from `chart.json` |
@@ -117,12 +120,23 @@ Every job shares `concurrency: group: data-commit` and a five-attempt
 - `tracks.csv` — the source of truth. Filtering this is how you clean up;
   deleting `chart.json` or `archive/` alone changes nothing.
 - `snapshots.csv` — raw `view_count` readings. Never edit.
-- `channels.csv` — `name, handle, channel_id, channel_title, subscribers, status`.
-  Only `status: ok` rows are ingested, credited, given avatars and linked.
+- `channels.csv` — `name, handle, channel_id, channel_title, created_at,
+  subscribers, status`. Only `status: ok` rows are ingested, credited, given
+  avatars and linked. Rewritten from `roster.csv` on every `sync.py` run, so
+  `created_at` repopulates itself — no backfill script is needed.
 - `aliases.csv` — `japanese,english` pairs. **Currently missing from the repo.**
   See open item 1.
 - `avatars.csv` — `channel_id,avatar`, `s800` profile pictures.
+- `subs.csv` — `channel_id, read_at, subscribers`, appended by `snapshot.py`
+  four times daily. Append-only, never edit. Starts empty and has no backfill,
+  so the history exists only from the first snapshot after this landed.
+- `artist_channels.csv` — `name, canonical_channel_id`, one row per artist.
+  Derived by `artist_channels.py`; hand-editable, and a hand value is never
+  overwritten.
+- `season.json` — `{"start", "end"}` award-season bounds. Season start is a
+  Monday so it lands on a chart-window boundary.
 - `chart.json`, `archive/` — build output. Regenerated every run.
+- `history/` — frozen Top 10 per closed week. Written once, never rewritten.
 
 ## Settled decisions
 
@@ -144,6 +158,26 @@ Every job shares `concurrency: group: data-commit` and a five-attempt
 - Artist rows link to the channel, not the video, and show no song title.
 - The artist chart aggregates over **all** qualifying songs, not the top 100, so
   a video outside the music chart still feeds its artists' totals.
+- **Genre is a constant.** The column carries `vtuber` and nothing else. No
+  taxonomy, no lexicon, no classifier. A finer split is a later fill-in.
+- **No subscriber tiers.** Award brackets were considered and dropped; raw
+  subscriber counts are captured in `subs.csv` for normalisation instead.
+
+## Awards — agreed shape, not built
+
+Category set settled 2026-11-19. Nothing here is implemented.
+
+Music: Top Song — Original, Top Song — Cover, Biggest Debut, Longest Run, Most
+Weeks at #1, Biggest Climb, Sleeper/Breakout, Most Consistent, Engagement,
+Collaboration of the Year, Most Covered Song, Steepest Fall.
+
+Artist: Top Artist of the Year, Rookie of the Year, Comeback of the Year,
+Office/Label of the Year.
+
+Rules: nominations derive from data, wins come from a panel or public vote.
+One slot per artist per category, non-negotiable. Every award publishes its
+metric and window so a disputed result can be audited. Most Improved waits for a
+second season. Genre awards wait for a genre column.
 
 ## Open items
 
@@ -151,14 +185,15 @@ Every job shares `concurrency: group: data-commit` and a five-attempt
    would print `absent`; `ingest.py` opens it behind an `os.path.exists` guard,
    so partner detection silently loses its non-English half. Rebuild it from the
    `unresolved credit(s)` log line.
-2. **Offices still chart.** `hololive` sits at #4, `hololive EN` at #21,
-   `ReGLOSS` at #50, `hololive ID` at #72, `NIJISANJI EN` at #83. `is_office()`
-   only fires when a name fails to resolve, and these all resolve to real
-   channel ids. Move the office check ahead of resolution, then decide whether
-   offices should be dropped entirely or kept in a separate block.
+2. **Offices still chart.** `is_office()` now drops office names as trailing
+   tags, but an office is still credited when it is the uploader — FLOW GLOW
+   charts, and `Hatsuboshi Gakuen` sits at #1 without being in `OFFICE_TAGS` at
+   all. Decide whether offices are excluded outright or moved to their own
+   block, and whether group channels count as artists.
 3. **`unknown` type rate** — roughly 25% of tracks land `unknown` and are
    excluded. `classify()` needs widening; it is the single biggest distortion
-   against small channels.
+   against small channels. It also makes a quarter of the catalogue ineligible
+   for the two song awards.
 4. **Catalogue size still decides the artist chart.** Rank is a raw sum, so a
    65-video channel beats a 9-video one on volume alone. A per-artist cap on
    credited videos (best ~12) is agreed in principle, not built.
@@ -166,13 +201,19 @@ Every job shares `concurrency: group: data-commit` and a five-attempt
    the highest, and can return duplicate thumbnails.
 6. **No `prune.py`.** Removal of non-roster tracks is still done by hand on
    `tracks.csv`.
-7. **Stale copy in `app.py`** — the About tab claims a 500-view floor
-   (`MIN_GAIN` is 1), the Artist Top 10 caption still says "highest-gaining
-   video shown", and there is no line explaining that collab gain is divided.
-   `pages/2_Artist_Top_100.py` was corrected; `app.py` was not.
+7. **Stale copy in `app.py`** — the About tab claims a 500-view floor (`MIN_GAIN`
+   is 1) and the Artist Top 10 caption still says "highest-gaining video shown".
+   The collab-division line has landed. `pages/2_Artist_Top_100.py` was
+   corrected; `app.py` was not.
 8. **`docs/` and the tree disagree** in a few places by design — see the retired
    block. Delete retired files when nothing needs them.
-9. **Cosmetic list** — empty. Add to it as it comes up.
+9. **`pages/3_Past_Weeks.py` has no entry point.** It is sidebar-only and
+   unlinked from `app.py`.
+10. **Season bounds are provisional.** `season.json` reads 2027-01-04 →
+    2027-12-31. Confirm the year before award work starts.
+11. **`subs.csv` growth.** ~500 rows four times daily, roughly 730k rows a year.
+    Second-largest file in `data/` within weeks. Watch the commit size.
+12. **Cosmetic list** — empty. Add to it as it comes up.
 
 ## Gotchas
 
@@ -193,3 +234,6 @@ Every job shares `concurrency: group: data-commit` and a five-attempt
   Charting first ranks on flat deltas.
 - A reset also drops `archive/`, so every entry comes back `NEW` with no
   movement. It self-corrects once one archive exists.
+- `channels.csv` is rewritten from scratch every `sync.py` run. Anything that
+  depends on it — `created_at`, `subs.csv`, `artist_channels.csv` — needs `sync`
+  to have run first.
