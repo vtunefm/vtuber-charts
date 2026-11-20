@@ -10,6 +10,7 @@ MAX_FETCH = 5000
 MIN_DURATION = 120
 MAX_DURATION = 420
 FRIDAY = 4
+THURSDAY = 3
 
 # Billboard's recurrent rule: (weeks on chart, position it must beat to survive).
 RECURRENT = ((78, 5), (52, 10), (26, 25), (20, 50))
@@ -89,10 +90,15 @@ def choose_window():
 
 
 def past_week_for(end):
+    """Latest closed week before this window. Only Thursdays are weeks."""
     if not os.path.isdir(ARCHIVE):
         return None
-    weeks = sorted(n[:-5] for n in os.listdir(ARCHIVE) if n.endswith(".json"))
-    weeks = [w for w in weeks if w < end.isoformat()]
+    weeks = sorted(
+        n[:-5] for n in os.listdir(ARCHIVE)
+        if n.endswith(".json")
+        and n[:-5] < end.isoformat()
+        and date.fromisoformat(n[:-5]).weekday() == THURSDAY
+    )
     return weeks[-1] if weeks else None
 
 
@@ -117,6 +123,8 @@ def history(key, exclude=None):
             continue
         week = name[:-5]
         if week == exclude:
+            continue
+        if date.fromisoformat(week).weekday() != THURSDAY:
             continue
         try:
             with open(os.path.join(ARCHIVE, name), encoding="utf-8") as f:
@@ -246,13 +254,16 @@ def carry_over(songs, artists_prev, end):
 
     return added, len(prev_artists), prev_week
 
+
 def finalize_previous():
     """Freeze the most recent closed week into history, once."""
     if not os.path.isdir(ARCHIVE):
         return
     today = datetime.now(timezone.utc).date().isoformat()
     weeks = sorted(n[:-5] for n in os.listdir(ARCHIVE)
-                   if n.endswith(".json") and n[:-5] < today)
+                   if n.endswith(".json")
+                   and n[:-5] < today
+                   and date.fromisoformat(n[:-5]).weekday() == THURSDAY)
     if not weeks:
         return
     week = weeks[-1]
@@ -275,7 +286,7 @@ def finalize_previous():
 
 def main():
     finalize_previous()
-    
+
     if not os.path.exists(TRACKS):
         print("no tracks.csv")
         return
@@ -516,19 +527,6 @@ def main():
     with open(os.path.join(ARCHIVE, f"{end.isoformat()}.json"), "w", encoding="utf-8") as f:
         json.dump({"entries": ranked_songs, "artists": ranked_artists}, f,
                   ensure_ascii=False, indent=2)
-
-    if not partial:
-        os.makedirs(HISTORY, exist_ok=True)
-        with open(os.path.join(HISTORY, f"{end.isoformat()}.json"), "w",
-                  encoding="utf-8") as f:
-            json.dump({
-                "week_start": start.isoformat(),
-                "week_end": end.isoformat(),
-                "chart_date": payload["chart_date"],
-                "generated_at": payload["generated_at"],
-                "top10": ranked_songs[:10],
-            }, f, ensure_ascii=False, indent=2)
-        print(f"wrote top-10 record for {end.isoformat()}")
 
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
