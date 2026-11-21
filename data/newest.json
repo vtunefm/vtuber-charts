@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-11-20T10:53:31+00:00",
-  "today": [
+  "generated_at": "2026-11-21T10:41:11+00:00",
+  "today": [],
+  "yesterday": [
     {
       "video_id": "tbP2XWONwag",
       "title": "染色体に魔法 (ひらぎ) / vally.exe【COVER】",
@@ -11,7 +12,7 @@
       "thumbnail": "https://i.ytimg.com/vi/tbP2XWONwag/hqdefault.jpg"
     }
   ],
-  "yesterday": [
+  "earlier": [
     {
       "video_id": "P0uSK06R024",
       "title": "【COVER】こちら、幸福安心委員会です。 This is the Happiness and Peace of Mind Committee. / UtataP【Komiyama Ambros】",
@@ -74,9 +75,7 @@
       "type": "cover",
       "published_at": "2026-11-19",
       "thumbnail": "https://i.ytimg.com/vi/kvReS91QJeE/hqdefault.jpg"
-    }
-  ],
-  "earlier": [
+    },
     {
       "video_id": "Z394vM303Yk",
       "title": "KPop Demon Hunters (HUNTR/X) - Golden | Covered by Josie-62",
@@ -103,69 +102,6 @@
       "type": "cover",
       "published_at": "2026-11-18",
       "thumbnail": "https://i.ytimg.com/vi/dNI9zh3zq_Q/hqdefault.jpg"
-    },
-    {
-      "video_id": "PimlbHi8EAE",
-      "title": "爆裂愛してる / 緑仙×如月れん×鷹嶺ルイ×樋口楓×輪堂千速 (cover)",
-      "artists": "Takane Lui",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/PimlbHi8EAE/hqdefault.jpg"
-    },
-    {
-      "video_id": "u1tCS6XoYvk",
-      "title": "My Lovely Nook (好きな隙間) ENGLISH COVER | ABM【Tokaku~ん】",
-      "artists": "Tokaku〜ん",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/u1tCS6XoYvk/hqdefault.jpg"
-    },
-    {
-      "video_id": "JLORa3D0Q_A",
-      "title": "「CC」 'VOID' Highlight Medley | Original EP",
-      "artists": "universebunny",
-      "office": "",
-      "type": "original",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/JLORa3D0Q_A/hqdefault.jpg"
-    },
-    {
-      "video_id": "OP-xnXIFOGQ",
-      "title": "シュガーソングとビターステップ - UNISON SQUARE GARDEN  (Cover)  / VESPERBELL カスカ",
-      "artists": "Vesperbell",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/OP-xnXIFOGQ/hqdefault.jpg"
-    },
-    {
-      "video_id": "W4TNe9vpY7Y",
-      "title": "【Ari Anjou】Red:birthmark - AiNA THE END アイナ・ジ・エンド【piano & voice cover】",
-      "artists": "Ari Anjou",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/W4TNe9vpY7Y/hqdefault.jpg"
-    },
-    {
-      "video_id": "GDJyYKVzrR8",
-      "title": "【歌ってみた】ジャンキーナイトタウンオーケストラ - すりぃ covered by 明透【神椿】",
-      "artists": "ASU",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/GDJyYKVzrR8/hqdefault.jpg"
-    },
-    {
-      "video_id": "-SSeJCs9xok",
-      "title": "【歌ってみた】 本能 - 椎名林檎  covered by 琶舞【神椿】",
-      "artists": "Bema",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-18",
-      "thumbnail": "https://i.ytimg.com/vi/-SSeJCs9xok/hqdefault.jpg"
     }
   ]
 }
