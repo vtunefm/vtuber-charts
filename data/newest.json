@@ -1,6 +1,43 @@
 {
-  "generated_at": "2026-11-23T10:58:03+00:00",
-  "today": [],
+  "generated_at": "2026-11-23T12:16:15+00:00",
+  "today": [
+    {
+      "video_id": "YnvABKEizsE",
+      "title": "【Original】Reverberate / 響咲リオナ【Official MV】",
+      "artists": "Isaki Riona",
+      "office": "",
+      "type": "original",
+      "published_at": "2026-11-23",
+      "thumbnail": "https://i.ytimg.com/vi/YnvABKEizsE/hqdefault.jpg"
+    },
+    {
+      "video_id": "mCGEfj_XqAg",
+      "title": "オリエンス / 陽月るるふ 【 Official MV 】",
+      "artists": "Rurufu Hizuki",
+      "office": "",
+      "type": "original",
+      "published_at": "2026-11-23",
+      "thumbnail": "https://i.ytimg.com/vi/mCGEfj_XqAg/hqdefault.jpg"
+    },
+    {
+      "video_id": "RzBFVQiD-ic",
+      "title": "Ironmouse Cover - Party of Your Lifetime from Warframe @ Club Ironmouse San Diego 2026",
+      "artists": "Ironmouse",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-23",
+      "thumbnail": "https://i.ytimg.com/vi/RzBFVQiD-ic/hqdefault.jpg"
+    },
+    {
+      "video_id": "_3inuWwamuY",
+      "title": "愛の残滓 / 棗いつき(cover)",
+      "artists": "Itsuki Natsume",
+      "office": "",
+      "type": "cover",
+      "published_at": "2026-11-23",
+      "thumbnail": "https://i.ytimg.com/vi/_3inuWwamuY/hqdefault.jpg"
+    }
+  ],
   "yesterday": [
     {
       "video_id": "k-Fk3h9nsjo",
