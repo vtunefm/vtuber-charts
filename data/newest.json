@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-11-23T12:16:15+00:00",
-  "today": [
+  "generated_at": "2026-11-24T10:50:57+00:00",
+  "today": [],
+  "yesterday": [
     {
       "video_id": "YnvABKEizsE",
       "title": "【Original】Reverberate / 響咲リオナ【Official MV】",
@@ -38,7 +39,7 @@
       "thumbnail": "https://i.ytimg.com/vi/_3inuWwamuY/hqdefault.jpg"
     }
   ],
-  "yesterday": [
+  "earlier": [
     {
       "video_id": "k-Fk3h9nsjo",
       "title": "SOULSYNC - ダイダイダイダイダイキライ 【歌ってみた】",
@@ -74,9 +75,7 @@
       "type": "original",
       "published_at": "2026-11-22",
       "thumbnail": "https://i.ytimg.com/vi/M-yrSmiWk5M/hqdefault.jpg"
-    }
-  ],
-  "earlier": [
+    },
     {
       "video_id": "I099hkNj6uQ",
       "title": "You Can't Run From Me - Rico Nasty [ Neko Mikki + Ani Meida Cover ]",
@@ -130,42 +129,6 @@
       "type": "cover",
       "published_at": "2026-11-21",
       "thumbnail": "https://i.ytimg.com/vi/Kl9m3RHwnVY/hqdefault.jpg"
-    },
-    {
-      "video_id": "8mY9i4p70Hw",
-      "title": "プレイバック／Cover - KOMAINU.",
-      "artists": "KOMAINU.",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-21",
-      "thumbnail": "https://i.ytimg.com/vi/8mY9i4p70Hw/hqdefault.jpg"
-    },
-    {
-      "video_id": "tbP2XWONwag",
-      "title": "染色体に魔法 (ひらぎ) / vally.exe【COVER】",
-      "artists": "vally.exe",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-20",
-      "thumbnail": "https://i.ytimg.com/vi/tbP2XWONwag/hqdefault.jpg"
-    },
-    {
-      "video_id": "jysbgyoESJs",
-      "title": "La vaguelette - Vocal & Instrumental",
-      "artists": "Starlight Daryl",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-20",
-      "thumbnail": "https://i.ytimg.com/vi/jysbgyoESJs/hqdefault.jpg"
-    },
-    {
-      "video_id": "yCMrMjSYIsw",
-      "title": "【COVER】Fly Me To The Moon // TRiGGERPHiSH",
-      "artists": "TRiGGERPHiSH",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-20",
-      "thumbnail": "https://i.ytimg.com/vi/yCMrMjSYIsw/hqdefault.jpg"
     }
   ]
 }
