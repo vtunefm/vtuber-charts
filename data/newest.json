@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-11-24T10:50:57+00:00",
+  "generated_at": "2026-11-25T10:52:22+00:00",
   "today": [],
-  "yesterday": [
+  "yesterday": [],
+  "earlier": [
     {
       "video_id": "YnvABKEizsE",
       "title": "【Original】Reverberate / 響咲リオナ【Official MV】",
@@ -37,9 +38,7 @@
       "type": "cover",
       "published_at": "2026-11-23",
       "thumbnail": "https://i.ytimg.com/vi/_3inuWwamuY/hqdefault.jpg"
-    }
-  ],
-  "earlier": [
+    },
     {
       "video_id": "k-Fk3h9nsjo",
       "title": "SOULSYNC - ダイダイダイダイダイキライ 【歌ってみた】",
@@ -93,42 +92,6 @@
       "type": "cover",
       "published_at": "2026-11-21",
       "thumbnail": "https://i.ytimg.com/vi/_di2jwLfnRU/hqdefault.jpg"
-    },
-    {
-      "video_id": "TZmaUP8ktzM",
-      "title": "ビギナーズハイ / 大神ミオ【Official MV】",
-      "artists": "Ookami Mio",
-      "office": "",
-      "type": "original",
-      "published_at": "2026-11-21",
-      "thumbnail": "https://i.ytimg.com/vi/TZmaUP8ktzM/hqdefault.jpg"
-    },
-    {
-      "video_id": "JDOkh6M_J38",
-      "title": "You're Walking Down A Hallway | Cupidyle Ver.",
-      "artists": "Cupidyle",
-      "office": "",
-      "type": "original",
-      "published_at": "2026-11-21",
-      "thumbnail": "https://i.ytimg.com/vi/JDOkh6M_J38/hqdefault.jpg"
-    },
-    {
-      "video_id": "W2Kps-_sYLg",
-      "title": "【歌ってみた】コノウタトマレイヒ / 緑風ふわり＆紫京院ひびき【倉夢ぴこ ＆ 絢世ユウ / Phase Connect】",
-      "artists": "Gram Pico",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-21",
-      "thumbnail": "https://i.ytimg.com/vi/W2Kps-_sYLg/hqdefault.jpg"
-    },
-    {
-      "video_id": "Kl9m3RHwnVY",
-      "title": "【プロセカ】 CRASH THE PARTY Cover 【5人合唱】",
-      "artists": "Lunarveil",
-      "office": "",
-      "type": "cover",
-      "published_at": "2026-11-21",
-      "thumbnail": "https://i.ytimg.com/vi/Kl9m3RHwnVY/hqdefault.jpg"
     }
   ]
 }
